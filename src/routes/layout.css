@@ -1,0 +1,35 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+/* Configure daisyUI and its allowed themes directly in the CSS */
+@plugin 'daisyui' {
+	themes:
+		night --default,
+		cyberpunk,
+		dracula,
+		dim;
+}
+
+/* Custom styles / Custom scrollbars (V4 theme syntax) */
+@layer utilities {
+	::-webkit-scrollbar {
+		width: 6px;
+		height: 6px;
+	}
+	::-webkit-scrollbar-track {
+		background: var(--color-base-300);
+	}
+	::-webkit-scrollbar-thumb {
+		background: var(--color-primary);
+		border-radius: 3px;
+	}
+}
+
+@theme {
+	/* This automatically registers text-terminal-green / bg-terminal-green classes */
+	--color-terminal-green: #39ff14;
+
+	/* Or customize standard breakpoints */
+	--breakpoint-xs: 480px;
+}

@@ -44,7 +44,7 @@ $$\text{Loss Limit (dB)} = (\text{Length} \times \text{Attenuation}) + (\text{Ma
 ## 🛠️ Tech Stack
 
 - **Framework:** [SvelteKit 2](https://kit.svelte.dev/) with [Svelte 5](https://svelte.dev/) (Runes `$state`, `$derived`, `$effect`)
-- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) & [daisyUI v5](https://daisyui.com/) (`night`, `cyberpunk`, `dracula`, `dim` themes)
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) & [daisyUI v5](https://daisyui.com/) (`night`, `dracula`, `dim` themes)
 - **Terminal Engine:** [xterm.js](https://xtermjs.org/) & `@xterm/addon-fit`
 - **Iconography:** [Lucide Svelte](https://lucide.dev/guide/packages/lucide-svelte)
 - **Build Architecture:** Static Site Generation (SSG) via `@sveltejs/adapter-static`

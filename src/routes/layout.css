@@ -6,7 +6,6 @@
 @plugin 'daisyui' {
 	themes:
 		night --default,
-		cyberpunk,
 		dracula,
 		dim;
 }

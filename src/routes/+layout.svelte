@@ -78,7 +78,6 @@
 					onchange={() => toggleTheme(currentTheme)}
 				>
 					<option value="night">NIGHT</option>
-					<option value="cyberpunk">CYBERPUNK</option>
 					<option value="dracula">DRACULA</option>
 					<option value="dim">DIM</option>
 				</select>

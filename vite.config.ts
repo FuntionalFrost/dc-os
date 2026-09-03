@@ -13,7 +13,15 @@ export default defineConfig({
 					filename.split(/[/\\]/).includes('node_modules') ? undefined : true
 			},
 
-			adapter: adapter()
+			adapter: adapter({
+				// Output directory for the static build
+				pages: 'build',
+				assets: 'build',
+				// Serve this file for 404s — required for GitHub Pages & Netlify SPA routing
+				fallback: '404.html',
+				precompress: false,
+				strict: true
+			})
 		})
 	]
 });

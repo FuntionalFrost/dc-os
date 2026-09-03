@@ -2,6 +2,14 @@
 	import TerminalSimulator from '$lib/components/TerminalSimulator.svelte';
 </script>
 
+<svelte:head>
+	<title>KVM Terminal — RACK_COMMAND // DC-OS</title>
+	<meta
+		name="description"
+		content="Full-screen xterm.js KVM terminal simulator with ANSI colors, command history, and hardware diagnostic mock outputs."
+	/>
+</svelte:head>
+
 <div class="flex h-[calc(100vh-6.5rem)] flex-col space-y-3 font-mono">
 	<!-- KVM Fullscreen Header -->
 	<div class="flex shrink-0 items-center justify-between border-b border-base-200 pb-2">

@@ -147,6 +147,14 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Exam Simulator — RACK_COMMAND // DC-OS</title>
+	<meta
+		name="description"
+		content="CompTIA A+, Network+, Server+, and Linux+ practice exam simulator with study mode and 15-minute timed exam mode."
+	/>
+</svelte:head>
+
 <div class="space-y-6 font-mono">
 	<div
 		class="flex flex-col items-start justify-between gap-3 border-b border-base-200 pb-3 sm:flex-row sm:items-center"

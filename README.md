@@ -1,6 +1,13 @@
 # ⚡ RACK_COMMAND // DC-OS
 
+[![CI — Build & Lint](https://github.com/FuntionalFrost/dc-os/actions/workflows/ci.yml/badge.svg)](https://github.com/FuntionalFrost/dc-os/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Built with SvelteKit](https://img.shields.io/badge/SvelteKit-5-orange?logo=svelte)](https://kit.svelte.dev/)
+[![Tailwind CSS v4](https://img.shields.io/badge/Tailwind-v4-38bdf8?logo=tailwindcss)](https://tailwindcss.com/)
+
 An all-in-one, zero-latency diagnostic suite and reference portal engineered for Data Center Technicians, Systems Administrators, and NOC Engineers operating on the server room floor. Built for maximum usability on crash cart monitors, handheld diagnostics tablets, and low-connectivity environments.
+
+> **[🚀 Live Demo →](https://funtionalfrost.github.io/dc-os/)**
 
 ---
 
@@ -9,7 +16,8 @@ An all-in-one, zero-latency diagnostic suite and reference portal engineered for
 ### 🖥️ 1. Full-Screen KVM Terminal (`/terminal`)
 
 - **Interactive TTY Sandbox:** Full-screen `xterm.js` CLI emulator with ANSI color rendering, command history buffer, and macro quick-actions.
-- **Hardware Diagnostic Mocking:** Emulates real sysadmin diagnostics including `dmidecode`, `lsblk`, `lspci`, `smartctl`, `nvme list`, `ethtool -m`, `ipmitool sensor list`, and `dmesg`.
+- **Hardware Diagnostic Mocking:** Emulates real sysadmin diagnostics including `dmidecode`, `lsblk`, `lspci`, `lshw`, `smartctl`, `nvme list`, `ethtool -m`, `ipmitool sensor list`, and `dmesg`.
+- **Intelligent Command Matching:** Resolves commands by exact match → longest prefix → base command, so typing `smartctl` without full flags still returns a helpful response.
 - **Zero Scroll-Wheel Hijacking:** Configured with `calc(100vh - 6.5rem)` viewport bounding so log scrolling never shifts the browser page.
 
 ### 💻 2. Host OS & Systems Suite (`/cheat-sheet`)
@@ -50,3 +58,68 @@ $$\text{Loss Limit (dB)} = (\text{Length} \times \text{Attenuation}) + (\text{Ma
 - **Build Architecture:** Static Site Generation (SSG) via `@sveltejs/adapter-static`
 
 ---
+
+## ⚡ Quick Start
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) >= 20.0.0
+- [pnpm](https://pnpm.io/) >= 9.0.0
+
+```bash
+# Install pnpm if you don't have it
+npm install -g pnpm
+```
+
+### Development
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/FuntionalFrost/dc-os.git
+cd dc-os
+
+# 2. Install dependencies
+pnpm install
+
+# 3. Start the development server
+pnpm dev
+# → http://localhost:5173
+```
+
+### Build & Preview
+
+```bash
+# Build the static site
+pnpm build
+
+# Preview the production build locally
+pnpm preview
+# → http://localhost:4173
+```
+
+### Other Commands
+
+| Command       | Description                                  |
+| ------------- | -------------------------------------------- |
+| `pnpm check`  | Run Svelte type-checking (0 errors expected) |
+| `pnpm lint`   | Run ESLint + Prettier checks                 |
+| `pnpm format` | Auto-format all files with Prettier          |
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on local setup, code style, and the PR workflow.
+
+Areas where help is especially appreciated:
+
+- 📝 More CompTIA quiz questions (A+, Network+, Server+, Linux+)
+- 🖥️ More terminal mock commands and responses
+- ♿ Accessibility improvements (ARIA labels, keyboard navigation)
+- 🌐 Translations
+
+---
+
+## 📄 License
+
+Released under the [MIT License](LICENSE). Copyright © 2026 FuntionalFrost.

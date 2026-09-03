@@ -21,6 +21,30 @@
 		term.write('\r\n\x1b[1;32mroot@dc-node-01\x1b[0m:\x1b[1;34m~\x1b[0m# ');
 	}
 
+	/**
+	 * Resolve the best matching response for a command string.
+	 * Priority:
+	 *  1. Exact match
+	 *  2. Longest key that the input starts with (allows "smartctl -H /dev/sda" to match "smartctl -H /dev/sda" key)
+	 *  3. Base command (first token) match — gives a helpful usage hint when full args not found
+	 */
+	function resolveResponse(trimmed: string): string | null {
+		// 1. Exact match
+		if (mockResponses[trimmed] !== undefined) return mockResponses[trimmed];
+
+		// 2. Longest prefix key match
+		const prefixMatch = Object.keys(mockResponses)
+			.filter((k) => trimmed.startsWith(k) && k !== trimmed)
+			.sort((a, b) => b.length - a.length)[0];
+		if (prefixMatch) return mockResponses[prefixMatch];
+
+		// 3. Base command hint (first token)
+		const baseCmd = trimmed.split(/\s+/)[0];
+		if (mockResponses[baseCmd] !== undefined) return mockResponses[baseCmd];
+
+		return null;
+	}
+
 	function handleCommandExecution(commandStr: string) {
 		if (!term) return;
 		const trimmed = commandStr.trim();
@@ -41,17 +65,13 @@
 			return;
 		}
 
-		if (mockResponses[trimmed]) {
-			term.write(mockResponses[trimmed]);
+		const response = resolveResponse(trimmed);
+		if (response !== null) {
+			term.write(response);
 		} else {
-			const matchingKey = Object.keys(mockResponses).find((k) => trimmed.startsWith(k));
-			if (matchingKey) {
-				term.write(mockResponses[matchingKey]);
-			} else {
-				term.write(
-					`\r\n\x1b[31mbash: ${trimmed}: command not found. Type 'help' for available commands.\x1b[0m\r\n`
-				);
-			}
+			term.write(
+				`\r\n\x1b[31mbash: ${trimmed}: command not found. Type 'help' for available commands.\x1b[0m\r\n`
+			);
 		}
 
 		printPrompt();
@@ -99,15 +119,18 @@
 			const code = data.charCodeAt(0);
 
 			if (code === 13) {
+				// Enter
 				const cmdToRun = inputBuffer;
 				inputBuffer = '';
 				handleCommandExecution(cmdToRun);
 			} else if (code === 127) {
+				// Backspace
 				if (inputBuffer.length > 0) {
 					inputBuffer = inputBuffer.slice(0, -1);
 					term.write('\b \b');
 				}
 			} else if (data === '\x1b[A') {
+				// Arrow Up — history prev
 				if (historyIndex > 0) {
 					historyIndex--;
 					term.write('\r\x1b[K\x1b[1;32mroot@dc-node-01\x1b[0m:\x1b[1;34m~\x1b[0m# ');
@@ -115,6 +138,7 @@
 					term.write(inputBuffer);
 				}
 			} else if (data === '\x1b[B') {
+				// Arrow Down — history next
 				if (historyIndex < commandHistory.length - 1) {
 					historyIndex++;
 					term.write('\r\x1b[K\x1b[1;32mroot@dc-node-01\x1b[0m:\x1b[1;34m~\x1b[0m# ');
@@ -125,7 +149,18 @@
 					term.write('\r\x1b[K\x1b[1;32mroot@dc-node-01\x1b[0m:\x1b[1;34m~\x1b[0m# ');
 					inputBuffer = '';
 				}
+			} else if (data === '\x1b[C') {
+				// Arrow Right — no-op (cursor not tracked in buffer mode)
+			} else if (data === '\x1b[D') {
+				// Arrow Left — no-op (cursor not tracked in buffer mode)
+			} else if (data === '\x1b[3~') {
+				// Delete key — no-op in buffer mode
+			} else if (data === '\x1b[H' || data === '\x1b[F') {
+				// Home / End — no-op in buffer mode
+			} else if (data.startsWith('\x1b')) {
+				// Swallow any other unhandled escape sequences silently
 			} else if (code >= 32) {
+				// Printable characters
 				inputBuffer += data;
 				term.write(data);
 			}

@@ -11,6 +11,14 @@
 	let selectedLayerData = $derived(osiLayers.find((l) => l.num === activeOsiLayer) || osiLayers[0]);
 </script>
 
+<svelte:head>
+	<title>Network Standards — RACK_COMMAND // DC-OS</title>
+	<meta
+		name="description"
+		content="Bitwise CIDR subnet calculator, ping protocol flow visualizer, SFP/QSFP DOM diagnostics, OSI model explorer, and DHCP DORA handshake simulator."
+	/>
+</svelte:head>
+
 <div class="space-y-6 font-mono">
 	<!-- Networking Route Header -->
 	<div class="flex items-center justify-between border-b border-base-200 pb-3">

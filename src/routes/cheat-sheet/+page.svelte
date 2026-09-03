@@ -5,6 +5,14 @@
 	import LinuxSysAdminExplorer from '$lib/components/LinuxSysAdminExplorer.svelte';
 </script>
 
+<svelte:head>
+	<title>Host OS &amp; Commands — RACK_COMMAND // DC-OS</title>
+	<meta
+		name="description"
+		content="Linux boot stages, FHS directory maps, bare-metal diagnostic commands, hands-on troubleshooting scenarios, and interactive CLI generators for sysadmins."
+	/>
+</svelte:head>
+
 <div class="space-y-6 font-mono">
 	<!-- Clean Single Route Header -->
 	<div class="flex items-center justify-between border-b border-base-200 pb-3">

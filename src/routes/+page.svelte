@@ -3,6 +3,14 @@
 	import { ArrowRight, Cable, Cpu, Network, Shield, Terminal } from '@lucide/svelte';
 </script>
 
+<svelte:head>
+	<title>Dashboard — RACK_COMMAND // DC-OS</title>
+	<meta
+		name="description"
+		content="All-in-one diagnostic suite and reference portal for Data Center Technicians, Systems Administrators, and NOC Engineers."
+	/>
+</svelte:head>
+
 <div class="space-y-8 font-mono">
 	<!-- Hero Banner -->
 	<div class="hero rounded-3xl border border-base-200 bg-base-100 p-6 shadow-xl md:p-10">

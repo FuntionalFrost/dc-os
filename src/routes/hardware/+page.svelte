@@ -13,6 +13,29 @@
 	let tubeColor = $derived(fiberColours[calculatedTubeIndex % 12] || 'N/A');
 	let strandColor = $derived(fiberColours[calculatedFiberIndex] || 'N/A');
 
+	/**
+	 * Map TIA-598-C fiber color names to CSS-safe text colors that remain legible
+	 * on dark daisyUI themes (night, dracula, dim). Black and very dark colors
+	 * get a light-on-dark swatch; very light colors like White use a contrasting dark.
+	 */
+	function fiberTextColor(color: string): string {
+		const map: Record<string, string> = {
+			blue: '#60a5fa',
+			orange: '#fb923c',
+			green: '#4ade80',
+			brown: '#d97706',
+			slate: '#94a3b8',
+			white: '#e2e8f0',
+			red: '#f87171',
+			black: '#94a3b8', // legible neutral-slate instead of true black
+			yellow: '#facc15',
+			violet: '#a78bfa',
+			rose: '#fb7185',
+			aqua: '#22d3ee'
+		};
+		return map[color.toLowerCase()] ?? '#e2e8f0';
+	}
+
 	// Link Budget State
 	let fiberType: 'SMF' | 'MMF' = $state('SMF');
 	let lengthKm = $state<number | null>(0.5);
@@ -33,6 +56,14 @@
 		)
 	);
 </script>
+
+<svelte:head>
+	<title>Optical Fiber — RACK_COMMAND // DC-OS</title>
+	<meta
+		name="description"
+		content="TIA-598-C fiber color-code lookup and optical link loss budget calculator for data center technicians."
+	/>
+</svelte:head>
 
 <div class="space-y-6 font-mono">
 	<div class="flex items-center justify-between border-b border-base-200 pb-2">
@@ -74,15 +105,11 @@
 				<div class="mt-4 grid grid-cols-2 gap-3">
 					<div class="rounded border border-base-300 bg-base-200 p-2.5 text-center">
 						<p class="mb-1.5 text-[9px] text-neutral-content uppercase">Tube (Buffer)</p>
-						<div class="badge w-full border-base-100 bg-base-300 py-3 badge-sm font-bold shadow-xs">
-							<span
-								class="text-xs"
-								style="color: {tubeColor.toLowerCase() === 'white'
-									? '#fff'
-									: tubeColor.toLowerCase() === 'slate'
-										? '#808080'
-										: tubeColor.toLowerCase()}"
-							>
+						<div
+							class="badge w-full border-base-100 bg-base-300 py-3 badge-sm font-bold shadow-xs"
+							style="border-left: 3px solid {fiberTextColor(tubeColor)};"
+						>
+							<span class="text-xs font-bold" style="color: {fiberTextColor(tubeColor)};">
 								📁 {tubeColor} ({calculatedTubeIndex + 1})
 							</span>
 						</div>
@@ -90,15 +117,11 @@
 
 					<div class="rounded border border-base-300 bg-base-200 p-2.5 text-center">
 						<p class="mb-1.5 text-[9px] text-neutral-content uppercase">Strand (Core)</p>
-						<div class="badge w-full border-base-100 bg-base-300 py-3 badge-sm font-bold shadow-xs">
-							<span
-								class="text-xs"
-								style="color: {strandColor.toLowerCase() === 'white'
-									? '#fff'
-									: strandColor.toLowerCase() === 'slate'
-										? '#808080'
-										: strandColor.toLowerCase()}"
-							>
+						<div
+							class="badge w-full border-base-100 bg-base-300 py-3 badge-sm font-bold shadow-xs"
+							style="border-left: 3px solid {fiberTextColor(strandColor)};"
+						>
+							<span class="text-xs font-bold" style="color: {fiberTextColor(strandColor)};">
 								🧵 {strandColor}
 							</span>
 						</div>

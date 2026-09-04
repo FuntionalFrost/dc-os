@@ -1,6 +1,5 @@
 # ⚡ RACK_COMMAND // DC-OS
 
-[![CI — Build & Lint](https://github.com/FuntionalFrost/dc-os/actions/workflows/ci.yml/badge.svg)](https://github.com/FuntionalFrost/dc-os/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Built with SvelteKit](https://img.shields.io/badge/SvelteKit-5-orange?logo=svelte)](https://kit.svelte.dev/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind-v4-38bdf8?logo=tailwindcss)](https://tailwindcss.com/)

@@ -6,7 +6,7 @@
 
 An all-in-one, zero-latency diagnostic suite and reference portal engineered for Data Center Technicians, Systems Administrators, and NOC Engineers operating on the server room floor. Built for maximum usability on crash cart monitors, handheld diagnostics tablets, and low-connectivity environments.
 
-> **[🚀 Live Demo →](https://funtionalfrost.github.io/dc-os/)**
+> **[🚀 Live Demo →]([https://funtionalfrost.github.io/dc-os/](https://dc-os.pages.dev/))**
 
 ---
 

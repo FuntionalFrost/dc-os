@@ -1,4 +1,5 @@
 <script lang="ts">
+	import SEO from '$lib/components/SEO.svelte';
 	import { fiberColours } from '$lib/data/fiberColours';
 	import { Cable, Calculator } from '@lucide/svelte';
 
@@ -57,13 +58,11 @@
 	);
 </script>
 
-<svelte:head>
-	<title>Optical Fiber — RACK_COMMAND // DC-OS</title>
-	<meta
-		name="description"
-		content="TIA-598-C fiber color-code lookup and optical link loss budget calculator for data center technicians."
-	/>
-</svelte:head>
+<SEO
+	title="Optical Fiber"
+	description="TIA-598-C fiber color-code lookup and optical link loss budget calculator for data center technicians."
+	path="/hardware"
+/>
 
 <div class="space-y-6 font-mono">
 	<div class="flex items-center justify-between border-b border-base-200 pb-2">

@@ -2,8 +2,8 @@
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import { onMount } from 'svelte';
+	import { MetaTags } from 'svelte-meta-tags';
 	import './layout.css';
-	// Or './app.css' depending on your file name
 
 	// Svelte 5 dynamic props destructuring
 	let { children } = $props();
@@ -38,7 +38,84 @@
 		{ path: '/hardware', label: '🧵 Optical Fiber' },
 		{ path: '/quiz', label: '🧠 Exam Training' }
 	] as const;
+
+	const structuredData = {
+		'@context': 'https://schema.org',
+		'@type': 'WebApplication',
+		name: 'RACK_COMMAND // DC-OS',
+		url: 'https://dc-os.pages.dev/',
+		description:
+			'All-in-one diagnostic suite and reference portal for Data Center Technicians, Systems Administrators, and NOC Engineers.',
+		applicationCategory: 'UtilitiesApplication, DeveloperApplication, EducationalApplication',
+		operatingSystem: 'Any',
+		browserRequirements: 'Requires JavaScript. Requires HTML5.',
+		offers: {
+			'@type': 'Offer',
+			price: '0',
+			priceCurrency: 'USD'
+		},
+		author: {
+			'@type': 'Person',
+			name: 'FuntionalFrost',
+			url: 'https://github.com/FuntionalFrost'
+		}
+	};
+
+	const jsonLdScript =
+		'<script type="application/ld+json">' + JSON.stringify(structuredData) + '<' + '/script>';
 </script>
+
+<MetaTags
+	title="Dashboard"
+	titleTemplate="%s — RACK_COMMAND // DC-OS"
+	description="All-in-one diagnostic suite and reference portal for Data Center Technicians, Systems Administrators, and NOC Engineers. Subnet calculator, terminal emulator, fiber optics, CompTIA exam simulator, and more."
+	canonical="https://dc-os.pages.dev/"
+	keywords={[
+		'data center',
+		'sysadmin',
+		'networking',
+		'linux',
+		'fiber optics',
+		'comptia',
+		'terminal',
+		'subnet calculator',
+		'diagnostics'
+	]}
+	openGraph={{
+		type: 'website',
+		url: 'https://dc-os.pages.dev/',
+		title: 'RACK_COMMAND // DC-OS',
+		description:
+			'All-in-one diagnostic suite and reference portal for Data Center Technicians, Systems Administrators, and NOC Engineers.',
+		siteName: 'DC-OS',
+		images: [
+			{
+				url: 'https://dc-os.pages.dev/og-image.png',
+				width: 1200,
+				height: 630,
+				alt: 'RACK_COMMAND // DC-OS Preview Card',
+				type: 'image/png'
+			}
+		]
+	}}
+	twitter={{
+		cardType: 'summary_large_image',
+		title: 'RACK_COMMAND // DC-OS',
+		description:
+			'All-in-one diagnostic suite and reference portal for Data Center Technicians, Systems Administrators, and NOC Engineers.',
+		image: 'https://dc-os.pages.dev/og-image.png',
+		imageAlt: 'RACK_COMMAND // DC-OS Preview Card'
+	}}
+	additionalMetaTags={[
+		{ name: 'author', content: 'FuntionalFrost' },
+		{ name: 'robots', content: 'index, follow' }
+	]}
+/>
+
+<svelte:head>
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+	{@html jsonLdScript}
+</svelte:head>
 
 <div class="drawer lg:drawer-open">
 	<!-- Drawer Toggle Input -->

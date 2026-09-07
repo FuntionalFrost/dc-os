@@ -1,14 +1,13 @@
 <script lang="ts">
+	import SEO from '$lib/components/SEO.svelte';
 	import TerminalSimulator from '$lib/components/TerminalSimulator.svelte';
 </script>
 
-<svelte:head>
-	<title>KVM Terminal — RACK_COMMAND // DC-OS</title>
-	<meta
-		name="description"
-		content="Full-screen xterm.js KVM terminal simulator with ANSI colors, command history, and hardware diagnostic mock outputs."
-	/>
-</svelte:head>
+<SEO
+	title="KVM Terminal Console"
+	description="Full-screen xterm.js KVM terminal simulator with ANSI colors, command history, and hardware diagnostic mock outputs."
+	path="/terminal"
+/>
 
 <div class="flex h-[calc(100vh-6.5rem)] flex-col space-y-3 font-mono">
 	<!-- KVM Fullscreen Header -->

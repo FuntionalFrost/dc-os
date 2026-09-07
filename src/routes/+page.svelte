@@ -1,15 +1,14 @@
 <script lang="ts">
+	import SEO from '$lib/components/SEO.svelte';
 	import { resolve } from '$app/paths';
 	import { ArrowRight, Cable, Cpu, Network, Shield, Terminal } from '@lucide/svelte';
 </script>
 
-<svelte:head>
-	<title>Dashboard — RACK_COMMAND // DC-OS</title>
-	<meta
-		name="description"
-		content="All-in-one diagnostic suite and reference portal for Data Center Technicians, Systems Administrators, and NOC Engineers."
-	/>
-</svelte:head>
+<SEO
+	title="Dashboard"
+	description="All-in-one diagnostic suite and reference portal for Data Center Technicians, Systems Administrators, and NOC Engineers."
+	path="/"
+/>
 
 <div class="space-y-8 font-mono">
 	<!-- Hero Banner -->

@@ -1,17 +1,16 @@
 <script lang="ts">
+	import SEO from '$lib/components/SEO.svelte';
 	import CommandBuilder from '$lib/components/CommandBuilder.svelte';
 	import HandsOnTroubleshooter from '$lib/components/HandsOnTroubleshooter.svelte';
 	import HardwareDiagnosticSuite from '$lib/components/HardwareDiagnosticSuite.svelte';
 	import LinuxSysAdminExplorer from '$lib/components/LinuxSysAdminExplorer.svelte';
 </script>
 
-<svelte:head>
-	<title>Host OS &amp; Commands — RACK_COMMAND // DC-OS</title>
-	<meta
-		name="description"
-		content="Linux boot stages, FHS directory maps, bare-metal diagnostic commands, hands-on troubleshooting scenarios, and interactive CLI generators for sysadmins."
-	/>
-</svelte:head>
+<SEO
+	title="Host OS & Commands"
+	description="Linux boot stages, FHS directory maps, bare-metal diagnostic commands, hands-on troubleshooting scenarios, and interactive CLI generators for sysadmins."
+	path="/cheat-sheet"
+/>
 
 <div class="space-y-6 font-mono">
 	<!-- Clean Single Route Header -->

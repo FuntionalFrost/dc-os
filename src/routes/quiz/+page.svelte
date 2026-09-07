@@ -14,6 +14,7 @@
 		Timer
 	} from '@lucide/svelte';
 	import { onDestroy } from 'svelte';
+	import SEO from '$lib/components/SEO.svelte';
 
 	// System States (Svelte 5 Runes)
 	let quizMode = $state<'STUDY' | 'EXAM'>('STUDY');
@@ -145,15 +146,32 @@
 		const secs = timeRemaining % 60;
 		return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 	});
+
+	const quizStructuredData = {
+		'@context': 'https://schema.org',
+		'@type': 'Quiz',
+		name: 'CompTIA Exam Simulator // DC-OS',
+		description:
+			'CompTIA A+, Network+, Server+, and Linux+ practice exam simulator with study mode and 15-minute timed exam mode.',
+		about: {
+			'@type': 'Thing',
+			name: 'Data Center & Systems Administration Certification Training'
+		},
+		educationalLevel: 'Beginner to Advanced',
+		provider: {
+			'@type': 'Organization',
+			name: 'RACK_COMMAND // DC-OS',
+			url: 'https://dc-os.pages.dev/'
+		}
+	};
 </script>
 
-<svelte:head>
-	<title>Exam Simulator — RACK_COMMAND // DC-OS</title>
-	<meta
-		name="description"
-		content="CompTIA A+, Network+, Server+, and Linux+ practice exam simulator with study mode and 15-minute timed exam mode."
-	/>
-</svelte:head>
+<SEO
+	title="CompTIA Exam Simulator"
+	description="CompTIA A+, Network+, Server+, and Linux+ practice exam simulator with study mode and 15-minute timed exam mode."
+	path="/quiz"
+	structuredData={quizStructuredData}
+/>
 
 <div class="space-y-6 font-mono">
 	<div

@@ -128,6 +128,28 @@
 					isPaletteOpen = false;
 					toggleTheme('dim');
 				}
+			},
+			{
+				id: 'yaxa-docs',
+				label: 'Yaxa UI Documentation',
+				description: 'Explore Svelte 5 component suite & docs (yaxa.vercel.app)',
+				group: 'External Links',
+				onSelect: () => {
+					isPaletteOpen = false;
+					window.open('https://yaxa.vercel.app', '_blank', 'noopener,noreferrer');
+				}
+			},
+			{
+				id: 'github-repo',
+				label: 'GitHub Repository',
+				description: 'Source code and open-source contributions',
+				group: 'External Links',
+				onSelect: () => {
+					isPaletteOpen = false;
+					if (siteConfig.project?.repositoryUrl) {
+						window.open(siteConfig.project.repositoryUrl, '_blank', 'noopener,noreferrer');
+					}
+				}
 			}
 		];
 
@@ -233,6 +255,19 @@
 						</li>
 					{/each}
 				{/if}
+
+				<!-- Sidebar Footer / Credits -->
+				<li class="mt-auto border-t border-base-200 pt-3">
+					<a
+						href="https://yaxa.vercel.app"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="flex items-center justify-between text-[11px] text-neutral-content/60 transition-colors hover:text-primary"
+					>
+						<span>Powered by Yaxa UI</span>
+						<span class="badge badge-xs badge-accent font-bold">v1.5.2</span>
+					</a>
+				</li>
 			</ul>
 		</div>
 	</div>

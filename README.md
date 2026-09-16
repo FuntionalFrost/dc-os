@@ -3,6 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Built with SvelteKit](https://img.shields.io/badge/SvelteKit-5-orange?logo=svelte)](https://kit.svelte.dev/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind-v4-38bdf8?logo=tailwindcss)](https://tailwindcss.com/)
+[![Powered by Yaxa UI](https://img.shields.io/badge/Powered%20by-Yaxa%20UI-6366f1?logo=svelte)](https://yaxa.vercel.app/)
 
 An all-in-one, zero-latency diagnostic suite and reference portal engineered for Data Center Technicians, Systems Administrators, and NOC Engineers operating on the server room floor. Built for maximum usability on crash cart monitors, handheld diagnostics tablets, and low-connectivity environments.
 
@@ -48,10 +49,18 @@ $$\text{Loss Limit (dB)} = (\text{Length} \times \text{Attenuation}) + (\text{Ma
 
 ---
 
+### 🔍 6. Global Command Palette & Shortcuts (`⌘K` / `Ctrl+K`)
+
+- **Instant Diagnostics Navigator:** Global spotlight modal (`<CommandPalette>`) to rapidly launch any calculator, inspector, exam mode, or color theme.
+- **Hardware-Friendly Keybindings:** Hands-free study modes, terminal macros, and quick copy triggers via `useShortcuts` and `<Kbd>` badge indicators.
+
+---
+
 ## 🛠️ Tech Stack
 
 - **Framework:** [SvelteKit 2](https://kit.svelte.dev/) with [Svelte 5](https://svelte.dev/) (Runes `$state`, `$derived`, `$effect`)
-- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) & [daisyUI v5](https://daisyui.com/) (`night`, `dracula`, `dim` themes)
+- **UI & Component System:** [Yaxa UI](https://yaxa.vercel.app/) ([`yaxa-svelte`](https://www.npmjs.com/package/yaxa-svelte)) — `<CommandPalette>`, `<Kbd>`, `<Progress>`, `<Meter>`, `useShortcuts`, `useClipboard`, `useDebounce`
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) with native design tokens (`night`, `dracula`, `dim` themes)
 - **Terminal Engine:** [xterm.js](https://xtermjs.org/) & `@xterm/addon-fit`
 - **Iconography:** [Lucide Svelte](https://lucide.dev/guide/packages/lucide-svelte)
 - **Build Architecture:** Static Site Generation (SSG) via `@sveltejs/adapter-static`
@@ -116,6 +125,12 @@ Areas where help is especially appreciated:
 - 🖥️ More terminal mock commands and responses
 - ♿ Accessibility improvements (ARIA labels, keyboard navigation)
 - 🌐 Translations
+
+---
+
+## 💖 Acknowledgments
+
+- Built with [Yaxa UI](https://yaxa.vercel.app/) for Svelte 5 and SvelteKit 2.
 
 ---
 

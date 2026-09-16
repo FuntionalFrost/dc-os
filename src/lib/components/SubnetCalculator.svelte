@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { Calculator, Check, Copy, Hash } from '@lucide/svelte';
+	import { useClipboard, useDebounce, toast } from 'yaxa-svelte';
 
 	let cidrInput = $state('10.240.84.195/27');
-	let copied = $state(false);
+	const debouncedCidr = useDebounce(() => cidrInput, 80);
+	const clipboard = useClipboard();
 
 	// Preset scenarios commonly used in Data Centers
 	const quickPresets = [
@@ -15,7 +17,7 @@
 	// Bitwise Subnet Math Engine using Svelte 5 $derived.by
 	let parsedSubnet = $derived.by(() => {
 		try {
-			const trimmed = cidrInput.trim();
+			const trimmed = (debouncedCidr.value || '').trim();
 			if (!trimmed.includes('/')) return null;
 
 			const [ipStr, prefixStr] = trimmed.split('/');
@@ -91,9 +93,10 @@ Netmask: ${parsedSubnet.netmask}
 Broadcast: ${parsedSubnet.broadcastIp}
 Usable Range: ${parsedSubnet.firstUsable} - ${parsedSubnet.lastUsable} (${parsedSubnet.usableHosts} usable hosts)`;
 
-		await navigator.clipboard.writeText(summary);
-		copied = true;
-		setTimeout(() => (copied = false), 1500);
+		const ok = await clipboard.copy(summary);
+		if (ok) {
+			toast.success('Subnet summary copied to clipboard');
+		}
 	}
 </script>
 
@@ -195,7 +198,7 @@ Usable Range: ${parsedSubnet.firstUsable} - ${parsedSubnet.lastUsable} (${parsed
 							onclick={copySubnetDetails}
 							class="btn btn-primary btn-xs font-mono tracking-wider"
 						>
-							{#if copied}
+							{#if clipboard.copied}
 								<Check class="mr-1 h-3 w-3" /> COPIED
 							{:else}
 								<Copy class="mr-1 h-3 w-3" /> COPY SUMMARY

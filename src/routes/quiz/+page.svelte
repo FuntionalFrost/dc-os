@@ -14,7 +14,7 @@
 		Timer
 	} from '@lucide/svelte';
 	import SEO from '$lib/components/SEO.svelte';
-	import { useShortcuts } from 'yaxa-svelte';
+	import { Kbd, Progress, useShortcuts } from 'yaxa-svelte';
 	import { siteConfig } from '../../site.config';
 
 	// System States (Svelte 5 Runes)
@@ -30,7 +30,6 @@
 
 	// Timer States (Type-safe for browser runtime)
 	let timeRemaining = $state(900); // 15 minutes for Exam Mode
-	let timerInterval: ReturnType<typeof setInterval> | null = null;
 
 	// Svelte 5 pure derived filters
 	let filteredQuestions = $derived(
@@ -63,36 +62,19 @@
 		return Math.round((finalScore / filteredQuestions.length) * 100);
 	});
 
-	// Timer Lifecycle management
-	function startTimer() {
-		stopTimer();
-		timeRemaining = 900;
-		timerInterval = setInterval(() => {
-			if (timeRemaining > 0) {
-				timeRemaining--;
-			} else {
-				stopTimer();
-				submitFinalExam();
-			}
-		}, 1000);
-	}
-
-	function stopTimer() {
-		if (timerInterval) {
-			clearInterval(timerInterval);
-			timerInterval = null;
-		}
-	}
-
 	// Handle mode transitions and timer cleanup with Svelte 5 runes
 	$effect(() => {
 		if (quizMode === 'EXAM' && !quizCompleted) {
-			startTimer();
+			const interval = setInterval(() => {
+				if (timeRemaining > 0) {
+					timeRemaining--;
+				} else {
+					quizCompleted = true;
+				}
+			}, 1000);
 			return () => {
-				stopTimer();
+				clearInterval(interval);
 			};
-		} else {
-			stopTimer();
 		}
 	});
 
@@ -125,7 +107,6 @@
 	}
 
 	function submitFinalExam() {
-		stopTimer();
 		quizCompleted = true;
 	}
 
@@ -135,9 +116,7 @@
 		checkedAnswers = {};
 		currentQuestionIndex = 0;
 		quizCompleted = false;
-		if (quizMode === 'EXAM') {
-			startTimer();
-		}
+		timeRemaining = 900;
 	}
 
 	useShortcuts({
@@ -330,6 +309,26 @@
 			{:else}
 				<div class="card border border-base-200 bg-base-100 shadow-md">
 					<div class="card-body p-4">
+						<!-- Question Progress Bar -->
+						<div class="mb-2 space-y-1">
+							<div
+								class="flex items-center justify-between text-[10px] font-bold text-neutral-content/70"
+							>
+								<span>PROGRESS: {currentQuestionIndex + 1} / {filteredQuestions.length}</span>
+								<span
+									>{Math.round(
+										((currentQuestionIndex + 1) / filteredQuestions.length) * 100
+									)}%</span
+								>
+							</div>
+							<Progress
+								value={currentQuestionIndex + 1}
+								max={filteredQuestions.length}
+								size="xs"
+								color="primary"
+							/>
+						</div>
+
 						<div class="mb-4 flex items-center justify-between border-b border-base-200 pb-2">
 							<div class="flex items-center gap-2">
 								<span class="badge badge-sm badge-accent text-[10px] font-black uppercase"
@@ -347,7 +346,7 @@
 
 							<button
 								onclick={toggleFlag}
-								class="btn btn-ghost btn-xs gap-1 font-mono text-[10px]"
+								class="btn btn-ghost btn-xs gap-1.5 font-mono text-[10px]"
 								aria-label="Flag Question"
 							>
 								{#if isCurrentQuestionFlagged}
@@ -357,6 +356,7 @@
 									<Bookmark class="h-4 w-4 opacity-55" />
 									<span>FLAG</span>
 								{/if}
+								<Kbd size="xs">F</Kbd>
 							</button>
 						</div>
 
@@ -382,7 +382,10 @@
 									onclick={() => selectOption(idx)}
 									disabled={quizMode === 'STUDY' && isCurrentQuestionChecked}
 								>
-									<span>{option}</span>
+									<span class="flex items-center gap-2">
+										<Kbd size="xs">{idx + 1}</Kbd>
+										<span>{option}</span>
+									</span>
 									{#if showCheckedCorrect}
 										<CircleCheck class="ml-2 h-4 w-4 shrink-0 text-success" />
 									{:else if showCheckedIncorrect}
@@ -414,25 +417,23 @@
 								{#if quizMode === 'STUDY'}
 									{#if !isCurrentQuestionChecked}
 										<button
-											class="btn btn-accent btn-xs tracking-wider"
+											class="btn btn-accent btn-xs gap-1.5 tracking-wider"
 											onclick={checkAnswerInStudyMode}
 											disabled={activeUserSelection === null}
 										>
-											CHECK ANSWER
+											<span>CHECK ANSWER</span>
+											<Kbd size="xs">↵</Kbd>
 										</button>
 									{:else}
 										<button
-											class="btn btn-neutral btn-xs tracking-wider"
+											class="btn btn-neutral btn-xs gap-1.5 tracking-wider"
 											onclick={nextQuestion}
 											disabled={currentQuestionIndex + 1 === filteredQuestions.length}
 										>
-											CONTINUE
+											<span>CONTINUE</span>
+											<Kbd size="xs">→</Kbd>
 										</button>
 									{/if}
-								{:else if quizMode === 'EXAM' && currentQuestionIndex + 1 === filteredQuestions.length}
-									<button class="btn btn-success btn-xs tracking-wider" onclick={submitFinalExam}>
-										FINISH EXAM
-									</button>
 								{/if}
 							</div>
 						</div>

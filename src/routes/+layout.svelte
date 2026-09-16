@@ -1,8 +1,9 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import { onMount } from 'svelte';
-	import { YaxaApp } from 'yaxa-svelte';
+	import { CommandPalette, Kbd, useShortcuts, YaxaApp, type CommandItem } from 'yaxa-svelte';
 	import { siteConfig } from '../site.config';
 	import './layout.css';
 
@@ -11,6 +12,7 @@
 
 	let currentTheme = $state('night');
 	let isDrawerOpen = $state(false);
+	let isPaletteOpen = $state(false);
 
 	function toggleTheme(theme: string) {
 		currentTheme = theme;
@@ -22,6 +24,116 @@
 		isDrawerOpen = false;
 	}
 
+	useShortcuts({
+		meta_k: () => (isPaletteOpen = !isPaletteOpen),
+		ctrl_k: () => (isPaletteOpen = !isPaletteOpen)
+	});
+
+	const commandPaletteItems = $derived.by<CommandItem[]>(() => {
+		const navItems: CommandItem[] = (siteConfig.nav || []).map((n) => ({
+			id: n.href,
+			label: n.label,
+			group: 'Modules',
+			href: n.href,
+			onSelect: () => {
+				isPaletteOpen = false;
+				goto(resolve(n.href as '/'));
+			}
+		}));
+
+		const toolItems: CommandItem[] = [
+			{
+				id: 'subnet',
+				label: 'Subnet Calculator & CIDR Math',
+				description: 'Bitwise IP calculator, wildcard masks, host ranges',
+				group: 'Diagnostics',
+				onSelect: () => {
+					isPaletteOpen = false;
+					goto(resolve('/networking'));
+				}
+			},
+			{
+				id: 'ping-flow',
+				label: 'ICMP Ping Flow Visualizer',
+				description: 'Step-by-step ARP, routing, and ICMP handshake',
+				group: 'Diagnostics',
+				onSelect: () => {
+					isPaletteOpen = false;
+					goto(resolve('/networking'));
+				}
+			},
+			{
+				id: 'fiber-indexer',
+				label: 'TIA-598-C Optical Fiber Finder',
+				description: 'Strand and tube color indexer up to 144 cores',
+				group: 'Diagnostics',
+				onSelect: () => {
+					isPaletteOpen = false;
+					goto(resolve('/hardware'));
+				}
+			},
+			{
+				id: 'loss-budget',
+				label: 'Optical Link Loss Budget Calculator',
+				description: 'Attenuation threshold engineering (SMF/MMF)',
+				group: 'Diagnostics',
+				onSelect: () => {
+					isPaletteOpen = false;
+					goto(resolve('/hardware'));
+				}
+			},
+			{
+				id: 'kvm-terminal',
+				label: 'KVM Serial CLI Terminal',
+				description: 'Interactive xterm.js diagnostic simulator',
+				group: 'Diagnostics',
+				onSelect: () => {
+					isPaletteOpen = false;
+					goto(resolve('/terminal'));
+				}
+			},
+			{
+				id: 'exam-study',
+				label: 'CompTIA Study Mode',
+				description: 'Review questions with instant explanations',
+				group: 'Certification',
+				onSelect: () => {
+					isPaletteOpen = false;
+					goto(resolve('/quiz'));
+				}
+			},
+			{
+				id: 'theme-night',
+				label: 'Switch Theme: Night',
+				group: 'Theme',
+				onSelect: () => {
+					isPaletteOpen = false;
+					toggleTheme('night');
+				}
+			},
+			{
+				id: 'theme-dracula',
+				label: 'Switch Theme: Dracula',
+				group: 'Theme',
+				onSelect: () => {
+					isPaletteOpen = false;
+					toggleTheme('dracula');
+				}
+			},
+			{
+				id: 'theme-dim',
+				label: 'Switch Theme: Dim',
+				group: 'Theme',
+				onSelect: () => {
+					isPaletteOpen = false;
+					toggleTheme('dim');
+				}
+			}
+		];
+
+		return [...navItems, ...toolItems];
+	});
+
 	onMount(() => {
 		const savedTheme = localStorage.getItem('dc-theme') || 'night';
 		toggleTheme(savedTheme);
@@ -29,6 +141,12 @@
 </script>
 
 <YaxaApp config={siteConfig} enableDefaultSeo={false}>
+	<CommandPalette
+		bind:open={isPaletteOpen}
+		items={commandPaletteItems}
+		placeholder="Search modules, tools, diagnostics..."
+	/>
+
 	<div class="drawer lg:drawer-open">
 		<!-- Drawer Toggle Input -->
 		<input id="main-drawer" type="checkbox" bind:checked={isDrawerOpen} class="drawer-toggle" />
@@ -37,7 +155,7 @@
 		<div class="drawer-content flex min-h-screen flex-col bg-base-300 font-mono text-base-content">
 			<!-- Top Navbar -->
 			<header class="navbar border-b border-base-200 bg-base-100 px-4">
-				<div class="flex-1">
+				<div class="flex-1 items-center gap-3">
 					<label for="main-drawer" class="btn btn-ghost lg:hidden" aria-label="Open Navigation">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -57,6 +175,16 @@
 					<a href={resolve('/')} class="text-xl font-bold tracking-wider text-primary">
 						⚡ {siteConfig.name}
 					</a>
+
+					<!-- Quick Search Spotlight Button -->
+					<button
+						class="btn btn-ghost hidden h-7 gap-2 rounded-lg border border-base-300 bg-base-200/40 px-2.5 text-xs text-neutral-content/70 hover:text-base-content sm:inline-flex"
+						onclick={() => (isPaletteOpen = true)}
+						aria-label="Search modules"
+					>
+						<span>Quick Search</span>
+						<Kbd size="xs">⌘K</Kbd>
+					</button>
 				</div>
 
 				<!-- Theme Switcher -->

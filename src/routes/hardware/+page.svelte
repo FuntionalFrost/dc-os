@@ -1,12 +1,16 @@
 <script lang="ts">
 	import SEO from '$lib/components/SEO.svelte';
 	import { fiberColours, getFiberTextColor } from '$lib/data/fiberColours';
+	import { Meter, useDebounce } from 'yaxa-svelte';
 	import { Cable, Calculator } from '@lucide/svelte';
 
 	let fiberNumberInput = $state<number | null>(1);
+	const debouncedFiberInput = useDebounce(() => fiberNumberInput, 100);
 
 	// Fallback protection for fiber strand inputs
-	let validFiberNumber = $derived(fiberNumberInput && fiberNumberInput > 0 ? fiberNumberInput : 1);
+	let validFiberNumber = $derived(
+		debouncedFiberInput.value && debouncedFiberInput.value > 0 ? debouncedFiberInput.value : 1
+	);
 
 	let calculatedTubeIndex = $derived(Math.floor((validFiberNumber - 1) / 12));
 	let calculatedFiberIndex = $derived((validFiberNumber - 1) % 12);
@@ -168,18 +172,28 @@
 				</div>
 
 				<div
-					class="mt-4 flex items-center justify-between rounded-lg border border-neutral-content/10 bg-neutral p-3 text-xs text-neutral-content"
+					class="mt-4 flex flex-col gap-2.5 rounded-lg border border-neutral-content/10 bg-neutral p-3 text-xs text-neutral-content"
 				>
-					<div>
-						<p class="text-[10px] font-bold text-neutral-content/60 uppercase">Loss Limit:</p>
-						<p class="font-mono text-xl font-black text-primary">
-							{calculatedLoss} <span class="text-xs font-bold">dB</span>
-						</p>
+					<div class="flex items-center justify-between">
+						<div>
+							<p class="text-[10px] font-bold text-neutral-content/60 uppercase">Loss Limit:</p>
+							<p class="font-mono text-xl font-black text-primary">
+								{calculatedLoss} <span class="text-xs font-bold">dB</span>
+							</p>
+						</div>
+						<div class="text-right text-[10px] text-neutral-content/50">
+							<p>Loss Rate: {attenuationRate} dB/km</p>
+							<p>Form: (L * A) + (C * 0.75) + (S * 0.3)</p>
+						</div>
 					</div>
-					<div class="text-right text-[10px] text-neutral-content/50">
-						<p>Loss Rate: {attenuationRate} dB/km</p>
-						<p>Form: (L * A) + (C * 0.75) + (S * 0.3)</p>
-					</div>
+
+					<Meter
+						value={calculatedLoss}
+						min={0}
+						max={15}
+						color={calculatedLoss < 3 ? 'success' : calculatedLoss < 7 ? 'warning' : 'error'}
+						size="sm"
+					/>
 				</div>
 			</div>
 		</div>

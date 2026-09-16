@@ -1,6 +1,7 @@
 <script lang="ts">
 	import SEO from '$lib/components/SEO.svelte';
 	import TerminalSimulator from '$lib/components/TerminalSimulator.svelte';
+	import { Kbd } from 'yaxa-svelte';
 </script>
 
 <SEO
@@ -21,6 +22,13 @@
 			</p>
 		</div>
 		<div class="flex items-center gap-2">
+			<div class="hidden items-center gap-1.5 text-xs text-neutral-content/70 md:flex">
+				<span class="text-[10px]">COMMANDS:</span>
+				<Kbd size="xs">help</Kbd>
+				<Kbd size="xs">lspci</Kbd>
+				<Kbd size="xs">ip a</Kbd>
+				<Kbd size="xs">clear</Kbd>
+			</div>
 			<span class="badge badge-outline badge-sm badge-success font-bold">TTY1 ACTIVE</span>
 			<span class="badge badge-ghost badge-sm font-bold text-neutral-content/60">BAUD 115200</span>
 		</div>

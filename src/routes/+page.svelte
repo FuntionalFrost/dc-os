@@ -185,9 +185,16 @@
 			</span>
 			<span>INFRASTRUCTURE DIAGNOSTIC SYSTEMS FUNCTIONAL</span>
 		</div>
-		<div class="flex items-center gap-4 text-neutral-content/60">
+		<div class="flex flex-wrap items-center gap-4 text-neutral-content/60">
 			<span>ENVIRONMENT: LOCALHOST / PWA</span>
-			<span>FRAMEWORK: SVELTEKIT & SVELTE 5</span>
+			<a
+				href="https://yaxa.vercel.app"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="transition-colors hover:text-primary"
+			>
+				FUELED BY YAXA UI
+			</a>
 		</div>
 	</div>
 </div>

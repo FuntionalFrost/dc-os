@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Wrench } from '@lucide/svelte';
+	import { Kbd, Badge } from 'yaxa-svelte';
 
 	let activeScenarioIndex = $state(0);
 	let userChoice = $state<number | null>(null);
@@ -56,7 +57,7 @@
 			<h2 class="card-title flex items-center gap-1.5 text-sm font-bold text-accent uppercase">
 				<Wrench class="h-4 w-4" /> Hands-On Field Troubleshooting Simulator
 			</h2>
-			<span class="badge badge-xs badge-warning font-bold">PRACTICAL SCENARIO</span>
+			<Badge variant="subtle" color="warning" size="xs">PRACTICAL SCENARIO</Badge>
 		</div>
 
 		<div class="my-2 space-y-3 rounded-xl border border-base-300 bg-base-200/60 p-3">
@@ -69,7 +70,7 @@
 						onclick={() => {
 							if (!evaluated) userChoice = idx;
 						}}
-						class="flex w-full items-center justify-between rounded-lg border p-2.5 text-left font-mono text-xs transition-all
+						class="flex w-full items-center gap-3 rounded-lg border p-2.5 text-left font-mono text-xs transition-all
             {userChoice === idx
 							? 'border-primary bg-primary/10 font-bold text-primary'
 							: 'border-base-300 bg-base-200'}
@@ -81,7 +82,8 @@
 							: ''}"
 						disabled={evaluated}
 					>
-						<span>{option}</span>
+						<Kbd size="xs">{idx + 1}</Kbd>
+						<span class="flex-1">{option}</span>
 					</button>
 				{/each}
 			</div>

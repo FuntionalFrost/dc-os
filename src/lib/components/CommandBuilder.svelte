@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { Check, Copy, Terminal } from '@lucide/svelte';
-	import { useClipboard, toast } from 'yaxa-svelte';
+	import { Terminal } from '@lucide/svelte';
+	import { CodeBlock } from 'yaxa-svelte';
 
-	const clipboard = useClipboard();
 	let selectedCmdIndex = $state(0);
 
 	// Clean, deeply reactive array structure
@@ -87,13 +86,6 @@
 			.trim()
 			.replace(/\s+/g, ' ');
 	});
-
-	async function copyToClipboard() {
-		const ok = await clipboard.copy(assembledCommand);
-		if (ok) {
-			toast.success('Command copied to clipboard');
-		}
-	}
 </script>
 
 <div class="card border border-base-200 bg-base-100 font-mono shadow-xl">
@@ -148,27 +140,13 @@
 			</div>
 		</div>
 
-		<div
-			class="group relative mt-6 rounded-lg border border-neutral-content/10 bg-neutral p-4 text-neutral-content shadow-inner"
-		>
-			<div class="absolute top-2 right-2 flex items-center gap-2">
-				<span class="badge badge-ghost badge-xs font-bold text-neutral-content/40">BASH</span>
-				<button
-					class="hover:bg-neutral-focus btn btn-square btn-ghost btn-xs"
-					onclick={copyToClipboard}
-					aria-label="Copy Command"
-				>
-					{#if clipboard.copied}
-						<Check class="h-4 w-4 text-success" />
-					{:else}
-						<Copy class="h-4 w-4 text-neutral-content/60" />
-					{/if}
-				</button>
-			</div>
-			<p class="mb-2 text-xs text-neutral-content/50">OUTPUT COMMAND:</p>
-			<code class="block pr-12 text-sm font-bold text-accent select-all md:text-base">
-				$ {assembledCommand}
-			</code>
+		<div class="mt-4">
+			<CodeBlock
+				code={assembledCommand}
+				language="bash"
+				filename={`${activeCommand.name} command`}
+				wrap={true}
+			/>
 		</div>
 	</div>
 </div>

@@ -2,4 +2,4 @@ allowBuilds:
   '@tailwindcss/oxide': true
   esbuild: true
 minimumReleaseAgeExclude:
-  - yaxa-svelte@1.5.2
+  - yaxa-svelte@1.5.2 || 1.8.0

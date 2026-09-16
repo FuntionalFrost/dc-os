@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Calculator, Check, Copy, Hash } from '@lucide/svelte';
-	import { useClipboard, useDebounce, toast } from 'yaxa-svelte';
+	import { MetricCard, useClipboard, useDebounce, toast } from 'yaxa-svelte';
 
 	let cidrInput = $state('10.240.84.195/27');
 	const debouncedCidr = useDebounce(() => cidrInput, 80);
@@ -142,29 +142,30 @@ Usable Range: ${parsedSubnet.firstUsable} - ${parsedSubnet.lastUsable} (${parsed
 			<div class="mt-1 space-y-3">
 				<!-- Main Stats Grid -->
 				<div class="grid grid-cols-2 gap-2 text-xs md:grid-cols-4">
-					<div class="rounded-lg border border-base-300 bg-base-200 p-2.5">
-						<span class="block text-[9px] font-bold text-accent uppercase">Network Address</span>
-						<span class="text-xs font-bold text-base-content"
-							>{parsedSubnet.networkIp} / {parsedSubnet.prefix}</span
-						>
-					</div>
-
-					<div class="rounded-lg border border-base-300 bg-base-200 p-2.5">
-						<span class="block text-[9px] font-bold text-accent uppercase">Subnet Mask</span>
-						<span class="text-xs font-bold text-base-content">{parsedSubnet.netmask}</span>
-					</div>
-
-					<div class="rounded-lg border border-base-300 bg-base-200 p-2.5">
-						<span class="block text-[9px] font-bold text-accent uppercase">Broadcast Address</span>
-						<span class="text-xs font-bold text-base-content">{parsedSubnet.broadcastIp}</span>
-					</div>
-
-					<div class="rounded-lg border border-base-300 bg-base-200 p-2.5">
-						<span class="block text-[9px] font-bold text-accent uppercase">Usable Host Pool</span>
-						<span class="text-xs font-bold text-base-content"
-							>{parsedSubnet.usableHosts.toLocaleString()} Hosts</span
-						>
-					</div>
+					<MetricCard
+						title="Network Address"
+						value={`${parsedSubnet.networkIp} / ${parsedSubnet.prefix}`}
+						variant="flat"
+						class="border-base-300 bg-base-200 font-mono text-xs"
+					/>
+					<MetricCard
+						title="Subnet Mask"
+						value={parsedSubnet.netmask}
+						variant="flat"
+						class="border-base-300 bg-base-200 font-mono text-xs"
+					/>
+					<MetricCard
+						title="Broadcast Address"
+						value={parsedSubnet.broadcastIp}
+						variant="flat"
+						class="border-base-300 bg-base-200 font-mono text-xs"
+					/>
+					<MetricCard
+						title="Usable Host Pool"
+						value={`${parsedSubnet.usableHosts.toLocaleString()} Hosts`}
+						variant="flat"
+						class="border-base-300 bg-base-200 font-mono text-xs"
+					/>
 				</div>
 
 				<!-- Range Details & Binary Mask -->

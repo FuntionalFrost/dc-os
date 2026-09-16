@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { Check, Copy, Terminal } from '@lucide/svelte';
+	import { useClipboard, toast } from 'yaxa-svelte';
 
-	let copied = $state(false);
+	const clipboard = useClipboard();
 	let selectedCmdIndex = $state(0);
 
 	// Clean, deeply reactive array structure
@@ -88,9 +89,10 @@
 	});
 
 	async function copyToClipboard() {
-		await navigator.clipboard.writeText(assembledCommand);
-		copied = true;
-		setTimeout(() => (copied = false), 1500);
+		const ok = await clipboard.copy(assembledCommand);
+		if (ok) {
+			toast.success('Command copied to clipboard');
+		}
 	}
 </script>
 
@@ -141,7 +143,7 @@
 					type="text"
 					placeholder={activeCommand.argPlaceholder}
 					bind:value={activeCommand.customArg}
-					class="input-bordered input font-mono text-sm input-primary"
+					class="input-bordered input input-primary font-mono text-sm"
 				/>
 			</div>
 		</div>
@@ -156,7 +158,7 @@
 					onclick={copyToClipboard}
 					aria-label="Copy Command"
 				>
-					{#if copied}
+					{#if clipboard.copied}
 						<Check class="h-4 w-4 text-success" />
 					{:else}
 						<Copy class="h-4 w-4 text-neutral-content/60" />

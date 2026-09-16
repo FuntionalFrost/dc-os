@@ -310,7 +310,7 @@
 						onclick={() => handleCategoryChange(Category as CategoryType)}
 						class="btn-[10px] btn h-7 rounded-md px-2.5 font-mono transition-all {selectedCategory ===
 						Category
-							? 'text-primary-content btn-primary'
+							? 'btn-primary text-primary-content'
 							: 'btn-ghost text-base-content'}"
 					>
 						{Category}
@@ -326,9 +326,9 @@
 						onclick={() => {
 							activeCommandIndex = idx;
 						}}
-						class="btn h-9 justify-start font-mono transition-all btn-xs {activeCommandIndex === idx
-							? 'text-primary-content shadow btn-primary'
-							: 'bg-base-200/50 btn-ghost'}"
+						class="btn btn-xs h-9 justify-start font-mono transition-all {activeCommandIndex === idx
+							? 'btn-primary text-primary-content shadow'
+							: 'btn-ghost bg-base-200/50'}"
 					>
 						<span class="text-xs font-bold">{cmd.name}</span>
 					</button>
@@ -338,7 +338,7 @@
 			<div class="space-y-4 lg:col-span-8">
 				<div class="rounded-xl border border-base-200 bg-base-200/55 p-3 text-xs">
 					<div class="mb-1 flex items-center justify-between">
-						<span class="badge text-[9px] font-black uppercase badge-accent"
+						<span class="badge badge-accent text-[9px] font-black uppercase"
 							>{activeCommand.category} TOOL</span
 						>
 						<span class="font-black text-primary">{activeCommand.name}</span>
@@ -377,7 +377,7 @@
 								<input
 									type="text"
 									bind:value={targetArg}
-									class="input-bordered input h-8 w-full font-mono text-[11px] input-xs input-primary"
+									class="input-bordered input input-xs input-primary h-8 w-full font-mono text-[11px]"
 								/>
 							</div>
 						{/if}
@@ -394,7 +394,7 @@
 								$ {assembledCommand}
 							</code>
 							<div class="mt-2.5 flex justify-end">
-								<button onclick={copyCommand} class="btn h-7 min-h-0 font-mono btn-primary btn-xs">
+								<button onclick={copyCommand} class="btn btn-primary btn-xs h-7 min-h-0 font-mono">
 									{#if copied}
 										<Check class="mr-1 h-3 w-3" /> COPIED
 									{:else}
@@ -407,7 +407,7 @@
 				</div>
 
 				<div
-					class="alert flex items-start gap-2 rounded-lg border-info/15 bg-info/5 p-3 font-mono text-xs alert-info text-info"
+					class="alert alert-info flex items-start gap-2 rounded-lg border-info/15 bg-info/5 p-3 font-mono text-xs text-info"
 				>
 					<CircleQuestionMark class="mt-0.5 h-4 w-4 shrink-0" />
 					<div>

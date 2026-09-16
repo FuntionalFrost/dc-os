@@ -104,7 +104,7 @@ Usable Range: ${parsedSubnet.firstUsable} - ${parsedSubnet.lastUsable} (${parsed
 			<h2 class="card-title flex items-center gap-1.5 text-sm font-bold text-accent uppercase">
 				<Calculator class="h-4 w-4" /> CIDR Subnet & Mask Calculator
 			</h2>
-			<span class="badge badge-xs font-bold badge-primary">IPV4 SUBNETTING</span>
+			<span class="badge badge-xs badge-primary font-bold">IPV4 SUBNETTING</span>
 		</div>
 
 		<!-- Input Box & Presets -->
@@ -117,7 +117,7 @@ Usable Range: ${parsedSubnet.firstUsable} - ${parsedSubnet.lastUsable} (${parsed
 					type="text"
 					bind:value={cidrInput}
 					placeholder="10.240.84.195/27"
-					class="input-bordered input w-full font-mono text-xs font-bold input-sm input-primary"
+					class="input-bordered input input-sm input-primary w-full font-mono text-xs font-bold"
 				/>
 			</div>
 
@@ -126,7 +126,7 @@ Usable Range: ${parsedSubnet.firstUsable} - ${parsedSubnet.lastUsable} (${parsed
 				{#each quickPresets as preset (preset.val)}
 					<button
 						onclick={() => (cidrInput = preset.val)}
-						class="btn-[10px] btn h-8 min-h-0 border border-base-300 bg-base-200 btn-ghost font-mono hover:border-primary"
+						class="btn-[10px] btn btn-ghost h-8 min-h-0 border border-base-300 bg-base-200 font-mono hover:border-primary"
 					>
 						{preset.label}
 					</button>
@@ -193,7 +193,7 @@ Usable Range: ${parsedSubnet.firstUsable} - ${parsedSubnet.lastUsable} (${parsed
 
 						<button
 							onclick={copySubnetDetails}
-							class="btn font-mono tracking-wider btn-primary btn-xs"
+							class="btn btn-primary btn-xs font-mono tracking-wider"
 						>
 							{#if copied}
 								<Check class="mr-1 h-3 w-3" /> COPIED
@@ -207,7 +207,7 @@ Usable Range: ${parsedSubnet.firstUsable} - ${parsedSubnet.lastUsable} (${parsed
 		{:else}
 			<!-- Error State -->
 			<div
-				class="alert rounded-lg border-error/20 bg-error/10 p-2.5 font-mono text-xs alert-error text-error"
+				class="alert alert-error rounded-lg border-error/20 bg-error/10 p-2.5 font-mono text-xs text-error"
 			>
 				<Hash class="h-4 w-4 shrink-0" />
 				<span

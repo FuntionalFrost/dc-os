@@ -13,8 +13,9 @@
 		RefreshCw,
 		Timer
 	} from '@lucide/svelte';
-	import { onDestroy } from 'svelte';
 	import SEO from '$lib/components/SEO.svelte';
+	import { useShortcuts } from 'yaxa-svelte';
+	import { siteConfig } from '../../site.config';
 
 	// System States (Svelte 5 Runes)
 	let quizMode = $state<'STUDY' | 'EXAM'>('STUDY');
@@ -83,17 +84,16 @@
 		}
 	}
 
-	// Handle mode transitions
+	// Handle mode transitions and timer cleanup with Svelte 5 runes
 	$effect(() => {
 		if (quizMode === 'EXAM' && !quizCompleted) {
 			startTimer();
+			return () => {
+				stopTimer();
+			};
 		} else {
 			stopTimer();
 		}
-	});
-
-	onDestroy(() => {
-		stopTimer();
 	});
 
 	// Actions
@@ -140,6 +140,25 @@
 		}
 	}
 
+	useShortcuts({
+		'1': () => selectOption(0),
+		'2': () => selectOption(1),
+		'3': () => selectOption(2),
+		'4': () => selectOption(3),
+		f: () => toggleFlag(),
+		arrowright: () => nextQuestion(),
+		arrowleft: () => prevQuestion(),
+		enter: () => {
+			if (quizMode === 'STUDY') {
+				if (!isCurrentQuestionChecked && activeUserSelection !== null) {
+					checkAnswerInStudyMode();
+				} else if (isCurrentQuestionChecked) {
+					nextQuestion();
+				}
+			}
+		}
+	});
+
 	// Formatting helpers
 	let formattedTime = $derived.by(() => {
 		const mins = Math.floor(timeRemaining / 60);
@@ -150,7 +169,7 @@
 	const quizStructuredData = {
 		'@context': 'https://schema.org',
 		'@type': 'Quiz',
-		name: 'CompTIA Exam Simulator // DC-OS',
+		name: `CompTIA Exam Simulator // ${siteConfig.name}`,
 		description:
 			'CompTIA A+, Network+, Server+, and Linux+ practice exam simulator with study mode and 15-minute timed exam mode.',
 		about: {
@@ -160,8 +179,8 @@
 		educationalLevel: 'Beginner to Advanced',
 		provider: {
 			'@type': 'Organization',
-			name: 'RACK_COMMAND // DC-OS',
-			url: 'https://dc-os.pages.dev/'
+			name: siteConfig.name,
+			url: siteConfig.url
 		}
 	};
 </script>
@@ -195,7 +214,7 @@
 					resetQuiz();
 				}}
 				class="btn h-7 rounded-md px-3 text-[10px] font-bold transition-all {quizMode === 'STUDY'
-					? 'text-primary-content btn-primary'
+					? 'btn-primary text-primary-content'
 					: 'btn-ghost'}"
 			>
 				<BookOpen class="mr-1 h-3.5 w-3.5" /> STUDY
@@ -206,7 +225,7 @@
 					resetQuiz();
 				}}
 				class="btn h-7 rounded-md px-3 text-[10px] font-bold transition-all {quizMode === 'EXAM'
-					? 'text-primary-content btn-primary'
+					? 'btn-primary text-primary-content'
 					: 'btn-ghost'}"
 			>
 				<Timer class="mr-1 h-3.5 w-3.5" /> EXAM
@@ -221,9 +240,9 @@
 			<span class="px-1 text-[10px] font-bold text-neutral-content/60 uppercase">Scope:</span>
 			{#each ['All', 'Hardware', 'Linux', 'Networking', 'Fiber'] as category (category)}
 				<button
-					class="btn rounded-md transition-all btn-xs {selectedCategory === category
-						? 'text-accent-content btn-accent'
-						: 'border border-base-300 bg-base-200 btn-ghost'}"
+					class="btn btn-xs rounded-md transition-all {selectedCategory === category
+						? 'btn-accent text-accent-content'
+						: 'btn-ghost border border-base-300 bg-base-200'}"
 					onclick={() => {
 						selectedCategory = category;
 						resetQuiz();
@@ -288,11 +307,11 @@
 										</div>
 										<div>
 											{#if isCorrect}
-												<span class="badge badge-sm text-[10px] font-bold badge-success"
+												<span class="badge badge-sm badge-success text-[10px] font-bold"
 													>CORRECT</span
 												>
 											{:else}
-												<span class="badge badge-sm text-[10px] font-bold badge-error">MISS</span>
+												<span class="badge badge-sm badge-error text-[10px] font-bold">MISS</span>
 											{/if}
 										</div>
 									</div>
@@ -301,7 +320,7 @@
 						{/if}
 
 						<button
-							class="btn mt-6 font-mono tracking-widest btn-primary btn-sm"
+							class="btn btn-primary btn-sm mt-6 font-mono tracking-widest"
 							onclick={resetQuiz}
 						>
 							<RefreshCw class="mr-1 h-4 w-4" /> REBOOT EVALUATION ENGINE
@@ -313,12 +332,12 @@
 					<div class="card-body p-4">
 						<div class="mb-4 flex items-center justify-between border-b border-base-200 pb-2">
 							<div class="flex items-center gap-2">
-								<span class="badge badge-sm text-[10px] font-black uppercase badge-accent"
+								<span class="badge badge-sm badge-accent text-[10px] font-black uppercase"
 									>{activeQuestion.category}</span
 								>
 								{#if quizMode === 'EXAM'}
 									<span
-										class="badge flex items-center gap-1 badge-outline badge-sm text-[10px] font-bold"
+										class="badge badge-outline badge-sm flex items-center gap-1 text-[10px] font-bold"
 									>
 										<Timer class="h-3 w-3" />
 										{formattedTime}
@@ -328,7 +347,7 @@
 
 							<button
 								onclick={toggleFlag}
-								class="btn gap-1 btn-ghost font-mono text-[10px] btn-xs"
+								class="btn btn-ghost btn-xs gap-1 font-mono text-[10px]"
 								aria-label="Flag Question"
 							>
 								{#if isCurrentQuestionFlagged}
@@ -376,14 +395,14 @@
 						<div class="mt-6 flex items-center justify-between gap-2 border-t border-base-200 pt-3">
 							<div class="flex gap-1.5">
 								<button
-									class="btn border-base-300 btn-outline font-mono btn-xs"
+									class="btn btn-outline btn-xs border-base-300 font-mono"
 									onclick={prevQuestion}
 									disabled={currentQuestionIndex === 0}
 								>
 									&lt; BACK
 								</button>
 								<button
-									class="btn border-base-300 btn-outline font-mono btn-xs"
+									class="btn btn-outline btn-xs border-base-300 font-mono"
 									onclick={nextQuestion}
 									disabled={currentQuestionIndex + 1 === filteredQuestions.length}
 								>
@@ -395,7 +414,7 @@
 								{#if quizMode === 'STUDY'}
 									{#if !isCurrentQuestionChecked}
 										<button
-											class="btn tracking-wider btn-accent btn-xs"
+											class="btn btn-accent btn-xs tracking-wider"
 											onclick={checkAnswerInStudyMode}
 											disabled={activeUserSelection === null}
 										>
@@ -403,7 +422,7 @@
 										</button>
 									{:else}
 										<button
-											class="btn tracking-wider btn-neutral btn-xs"
+											class="btn btn-neutral btn-xs tracking-wider"
 											onclick={nextQuestion}
 											disabled={currentQuestionIndex + 1 === filteredQuestions.length}
 										>
@@ -411,7 +430,7 @@
 										</button>
 									{/if}
 								{:else if quizMode === 'EXAM' && currentQuestionIndex + 1 === filteredQuestions.length}
-									<button class="btn tracking-wider btn-success btn-xs" onclick={submitFinalExam}>
+									<button class="btn btn-success btn-xs tracking-wider" onclick={submitFinalExam}>
 										FINISH EXAM
 									</button>
 								{/if}
@@ -422,7 +441,7 @@
 
 				{#if quizMode === 'STUDY' && isCurrentQuestionChecked}
 					<div
-						class="alert flex items-start gap-2 rounded-xl border-info/15 bg-info/5 p-3 font-mono text-xs alert-info text-info"
+						class="alert alert-info flex items-start gap-2 rounded-xl border-info/15 bg-info/5 p-3 font-mono text-xs text-info"
 					>
 						<BrainCircuit class="mt-0.5 h-5 w-5 shrink-0" />
 						<div>
@@ -459,7 +478,7 @@
 								onclick={() => {
 									currentQuestionIndex = idx;
 								}}
-								class="btn h-8 rounded border p-0 font-mono text-[10px] font-bold transition-all btn-xs
+								class="btn btn-xs h-8 rounded border p-0 font-mono text-[10px] font-bold transition-all
                 {isActive ? 'ring-2 ring-primary ring-offset-1' : ''}
                 {quizMode === 'STUDY' && isChecked
 									? isCorrect
@@ -503,7 +522,7 @@
 					{#if quizMode === 'EXAM' && !quizCompleted}
 						<button
 							onclick={submitFinalExam}
-							class="btn mt-3 w-full btn-outline font-mono text-xs uppercase btn-error btn-sm"
+							class="btn btn-outline btn-error btn-sm mt-3 w-full font-mono text-xs uppercase"
 						>
 							SUBMIT COMPLETED EXAM
 						</button>

@@ -14,7 +14,7 @@
 	<div class="card w-full max-w-xl border border-error/30 bg-base-100 p-6 shadow-2xl md:p-8">
 		<!-- Status Header Badge -->
 		<div class="mb-6 flex justify-center">
-			<div class="badge gap-2 font-bold tracking-widest uppercase badge-error">
+			<div class="badge badge-error gap-2 font-bold tracking-widest uppercase">
 				<AlertTriangle class="h-3.5 w-3.5" />
 				SYSTEM FAULT // STATUS {page.status}
 			</div>
@@ -47,10 +47,10 @@
 
 		<!-- Action Buttons -->
 		<div class="flex flex-wrap justify-center gap-3">
-			<a href={resolve('/')} class="btn font-mono btn-primary btn-sm">
+			<a href={resolve('/')} class="btn btn-primary btn-sm font-mono">
 				<Home class="h-4 w-4" /> DASHBOARD
 			</a>
-			<a href={resolve('/terminal')} class="btn btn-outline font-mono btn-primary btn-sm">
+			<a href={resolve('/terminal')} class="btn btn-outline btn-primary btn-sm font-mono">
 				<Terminal class="h-4 w-4" /> KVM TERMINAL
 			</a>
 		</div>

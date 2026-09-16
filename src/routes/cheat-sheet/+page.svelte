@@ -23,7 +23,7 @@
 				Host administration, boot stages, hardware inventory tools, and interactive CLI generators.
 			</p>
 		</div>
-		<span class="badge badge-outline badge-sm font-bold badge-primary">SYSTEMS CONSOLE</span>
+		<span class="badge badge-outline badge-sm badge-primary font-bold">SYSTEMS CONSOLE</span>
 	</div>
 
 	<!-- Core Host OS & Systems Components -->

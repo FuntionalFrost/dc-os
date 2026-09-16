@@ -192,7 +192,7 @@
 			</div>
 
 			<div class="flex items-center gap-2">
-				<span class="badge font-mono badge-xs font-bold badge-success">EMULATED TTY</span>
+				<span class="badge badge-xs badge-success font-mono font-bold">EMULATED TTY</span>
 				<button
 					onclick={() => runExternalCommand('clear')}
 					class="btn btn-square btn-ghost btn-xs"
@@ -213,23 +213,23 @@
 			<span class="self-center font-bold text-neutral-content/60">Quick Macros:</span>
 			<button
 				onclick={() => runExternalCommand('dmidecode')}
-				class="btn-[9px] btn h-6 min-h-0 border border-base-300 btn-ghost">dmidecode</button
+				class="btn-[9px] btn btn-ghost h-6 min-h-0 border border-base-300">dmidecode</button
 			>
 			<button
 				onclick={() => runExternalCommand('lsblk')}
-				class="btn-[9px] btn h-6 min-h-0 border border-base-300 btn-ghost">lsblk</button
+				class="btn-[9px] btn btn-ghost h-6 min-h-0 border border-base-300">lsblk</button
 			>
 			<button
 				onclick={() => runExternalCommand('ethtool -m eth0')}
-				class="btn-[9px] btn h-6 min-h-0 border border-base-300 btn-ghost">ethtool SFP</button
+				class="btn-[9px] btn btn-ghost h-6 min-h-0 border border-base-300">ethtool SFP</button
 			>
 			<button
 				onclick={() => runExternalCommand('nvme list')}
-				class="btn-[9px] btn h-6 min-h-0 border border-base-300 btn-ghost">nvme list</button
+				class="btn-[9px] btn btn-ghost h-6 min-h-0 border border-base-300">nvme list</button
 			>
 			<button
 				onclick={() => runExternalCommand('ipmitool sensor list')}
-				class="btn-[9px] btn h-6 min-h-0 border border-base-300 btn-ghost">ipmitool</button
+				class="btn-[9px] btn btn-ghost h-6 min-h-0 border border-base-300">ipmitool</button
 			>
 		</div>
 	</div>

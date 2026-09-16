@@ -55,7 +55,7 @@
 			<h2 class="card-title flex items-center gap-1.5 text-sm font-bold text-accent uppercase">
 				<Radio class="h-4 w-4" /> Optical Transceiver & DOM Diagnostics
 			</h2>
-			<span class="badge badge-xs font-bold badge-primary">L1 / L2 HARDWARE</span>
+			<span class="badge badge-xs badge-primary font-bold">L1 / L2 HARDWARE</span>
 		</div>
 
 		<!-- Transceiver Form Factor Selector -->
@@ -68,9 +68,9 @@
 					{#each ['SFP+', 'QSFP28', 'QSFP-DD'] as form (form)}
 						<button
 							onclick={() => (formFactor = form as 'SFP+' | 'QSFP28' | 'QSFP-DD')}
-							class="btn join-item flex-1 font-mono btn-xs {formFactor === form
-								? 'text-primary-content btn-primary'
-								: 'border-base-300 btn-outline'}"
+							class="btn join-item btn-xs flex-1 font-mono {formFactor === form
+								? 'btn-primary text-primary-content'
+								: 'btn-outline border-base-300'}"
 						>
 							{form}
 						</button>
@@ -112,7 +112,7 @@
 						step="0.01"
 						min="0"
 						bind:value={inputMilliwatts}
-						class="input-bordered input w-full font-mono text-xs input-xs input-primary"
+						class="input-bordered input input-xs input-primary w-full font-mono text-xs"
 					/>
 				</div>
 

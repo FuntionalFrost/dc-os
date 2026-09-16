@@ -21,7 +21,7 @@
 			</p>
 		</div>
 		<div class="flex items-center gap-2">
-			<span class="badge badge-outline badge-sm font-bold badge-success">TTY1 ACTIVE</span>
+			<span class="badge badge-outline badge-sm badge-success font-bold">TTY1 ACTIVE</span>
 			<span class="badge badge-ghost badge-sm font-bold text-neutral-content/60">BAUD 115200</span>
 		</div>
 	</div>

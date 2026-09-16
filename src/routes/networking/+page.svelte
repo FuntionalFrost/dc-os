@@ -29,7 +29,7 @@
 				Subnet bounds, layer interactions, frame translations, transceivers, and DHCP mappings.
 			</p>
 		</div>
-		<span class="badge badge-outline badge-sm font-bold badge-accent">NOC CONTROL</span>
+		<span class="badge badge-outline badge-sm badge-accent font-bold">NOC CONTROL</span>
 	</div>
 
 	<!-- Subnet & CIDR Mask Engine -->
@@ -56,10 +56,10 @@
 					{#each osiLayers as layer (layer.num)}
 						<button
 							onclick={() => (activeOsiLayer = layer.num)}
-							class="btn h-9 justify-between text-left transition-all btn-xs {activeOsiLayer ===
+							class="btn btn-xs h-9 justify-between text-left transition-all {activeOsiLayer ===
 							layer.num
-								? 'font-bold text-primary-content shadow-lg btn-primary'
-								: 'border border-base-300 bg-base-200 btn-ghost'}"
+								? 'btn-primary font-bold text-primary-content shadow-lg'
+								: 'btn-ghost border border-base-300 bg-base-200'}"
 						>
 							<span>L{layer.num} - {layer.name}</span>
 							<span
@@ -80,7 +80,7 @@
 						<h3 class="text-md font-bold tracking-wider text-primary uppercase">
 							Layer {selectedLayerData.num}: {selectedLayerData.name}
 						</h3>
-						<span class="badge badge-outline badge-xs font-bold badge-primary"
+						<span class="badge badge-outline badge-xs badge-primary font-bold"
 							>L{selectedLayerData.num} SPEC</span
 						>
 					</div>
@@ -107,7 +107,7 @@
 				</div>
 
 				<div
-					class="mt-4 alert flex items-start gap-2 rounded-lg border-warning/20 bg-warning/10 p-3 text-xs alert-warning text-warning"
+					class="alert alert-warning mt-4 flex items-start gap-2 rounded-lg border-warning/20 bg-warning/10 p-3 text-xs text-warning"
 				>
 					<CircleQuestionMark class="mt-0.5 h-4 w-4 shrink-0" />
 					<div>
@@ -133,9 +133,9 @@
 				{#each ['DISCOVER', 'OFFER', 'REQUEST', 'ACK'] as step (step)}
 					<button
 						onclick={() => (doraStep = step)}
-						class="btn flex-1 btn-xs {doraStep === step
-							? 'font-bold text-accent-content btn-accent'
-							: 'border-base-300 btn-outline'}"
+						class="btn btn-xs flex-1 {doraStep === step
+							? 'btn-accent font-bold text-accent-content'
+							: 'btn-outline border-base-300'}"
 					>
 						{step}
 					</button>

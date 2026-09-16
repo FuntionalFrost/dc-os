@@ -15,7 +15,7 @@
 	<div class="hero rounded-3xl border border-base-200 bg-base-100 p-6 shadow-xl md:p-10">
 		<div class="hero-content max-w-4xl p-0 text-left">
 			<div>
-				<div class="mb-4 badge badge-outline font-bold tracking-widest uppercase badge-primary">
+				<div class="badge badge-outline badge-primary mb-4 font-bold tracking-widest uppercase">
 					SYSTEMS ONLINE // DC-OS V4
 				</div>
 				<h1 class="text-4xl font-black tracking-tight text-primary uppercase md:text-5xl">
@@ -27,15 +27,15 @@
 					server room aisles.
 				</p>
 				<div class="mt-2 flex flex-wrap gap-3">
-					<a href={resolve('/terminal')} class="btn font-mono tracking-wider btn-primary btn-sm">
+					<a href={resolve('/terminal')} class="btn btn-primary btn-sm font-mono tracking-wider">
 						<Terminal class="h-4 w-4" /> LAUNCH KVM TERMINAL
 					</a>
-					<a href={resolve('/cheat-sheet')} class="btn font-mono tracking-wider btn-accent btn-sm">
+					<a href={resolve('/cheat-sheet')} class="btn btn-accent btn-sm font-mono tracking-wider">
 						HOST OS SHEETS <ArrowRight class="h-4 w-4" />
 					</a>
 					<a
 						href={resolve('/quiz')}
-						class="btn border-base-300 btn-ghost font-mono tracking-wider btn-sm"
+						class="btn btn-ghost btn-sm border-base-300 font-mono tracking-wider"
 					>
 						EXAM SIMULATOR
 					</a>
@@ -63,8 +63,8 @@
 						and hardware diagnostic outputs.
 					</p>
 				</div>
-				<div class="mt-4 card-actions justify-end">
-					<a href={resolve('/terminal')} class="btn btn-outline font-mono btn-primary btn-xs"
+				<div class="card-actions mt-4 justify-end">
+					<a href={resolve('/terminal')} class="btn btn-outline btn-primary btn-xs font-mono"
 						>OPEN CONSOLE</a
 					>
 				</div>
@@ -88,8 +88,8 @@
 						command generators (`tar`, `ip route`).
 					</p>
 				</div>
-				<div class="mt-4 card-actions justify-end">
-					<a href={resolve('/cheat-sheet')} class="btn btn-outline font-mono btn-accent btn-xs"
+				<div class="card-actions mt-4 justify-end">
+					<a href={resolve('/cheat-sheet')} class="btn btn-outline btn-accent btn-xs font-mono"
 						>SYSADMIN SUITE</a
 					>
 				</div>
@@ -113,8 +113,8 @@
 						and DHCP DORA handshake simulator.
 					</p>
 				</div>
-				<div class="mt-4 card-actions justify-end">
-					<a href={resolve('/networking')} class="btn btn-outline font-mono btn-accent btn-xs"
+				<div class="card-actions mt-4 justify-end">
+					<a href={resolve('/networking')} class="btn btn-outline btn-accent btn-xs font-mono"
 						>NOC CONTROL</a
 					>
 				</div>
@@ -138,8 +138,8 @@
 						allowable optical link loss budgets.
 					</p>
 				</div>
-				<div class="mt-4 card-actions justify-end">
-					<a href={resolve('/hardware')} class="btn btn-outline font-mono btn-accent btn-xs"
+				<div class="card-actions mt-4 justify-end">
+					<a href={resolve('/hardware')} class="btn btn-outline btn-accent btn-xs font-mono"
 						>OPTICAL MATH</a
 					>
 				</div>
@@ -163,8 +163,8 @@
 						explanations and a 15-minute Timed Exam Mode.
 					</p>
 				</div>
-				<div class="mt-4 card-actions justify-end">
-					<a href={resolve('/quiz')} class="btn btn-outline font-mono btn-accent btn-xs"
+				<div class="card-actions mt-4 justify-end">
+					<a href={resolve('/quiz')} class="btn btn-outline btn-accent btn-xs font-mono"
 						>START EVALUATION</a
 					>
 				</div>

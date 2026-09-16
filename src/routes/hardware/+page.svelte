@@ -1,6 +1,6 @@
 <script lang="ts">
 	import SEO from '$lib/components/SEO.svelte';
-	import { fiberColours } from '$lib/data/fiberColours';
+	import { fiberColours, getFiberTextColor } from '$lib/data/fiberColours';
 	import { Cable, Calculator } from '@lucide/svelte';
 
 	let fiberNumberInput = $state<number | null>(1);
@@ -13,29 +13,6 @@
 
 	let tubeColor = $derived(fiberColours[calculatedTubeIndex % 12] || 'N/A');
 	let strandColor = $derived(fiberColours[calculatedFiberIndex] || 'N/A');
-
-	/**
-	 * Map TIA-598-C fiber color names to CSS-safe text colors that remain legible
-	 * on dark daisyUI themes (night, dracula, dim). Black and very dark colors
-	 * get a light-on-dark swatch; very light colors like White use a contrasting dark.
-	 */
-	function fiberTextColor(color: string): string {
-		const map: Record<string, string> = {
-			blue: '#60a5fa',
-			orange: '#fb923c',
-			green: '#4ade80',
-			brown: '#d97706',
-			slate: '#94a3b8',
-			white: '#e2e8f0',
-			red: '#f87171',
-			black: '#94a3b8', // legible neutral-slate instead of true black
-			yellow: '#facc15',
-			violet: '#a78bfa',
-			rose: '#fb7185',
-			aqua: '#22d3ee'
-		};
-		return map[color.toLowerCase()] ?? '#e2e8f0';
-	}
 
 	// Link Budget State
 	let fiberType: 'SMF' | 'MMF' = $state('SMF');
@@ -97,7 +74,7 @@
 						min="1"
 						max="144"
 						bind:value={fiberNumberInput}
-						class="input-bordered text-md input h-9 font-mono font-bold input-sm input-primary"
+						class="input-bordered text-md input input-sm input-primary h-9 font-mono font-bold"
 					/>
 				</div>
 
@@ -105,10 +82,10 @@
 					<div class="rounded border border-base-300 bg-base-200 p-2.5 text-center">
 						<p class="mb-1.5 text-[9px] text-neutral-content uppercase">Tube (Buffer)</p>
 						<div
-							class="badge w-full border-base-100 bg-base-300 py-3 badge-sm font-bold shadow-xs"
-							style="border-left: 3px solid {fiberTextColor(tubeColor)};"
+							class="badge badge-sm w-full border-base-100 bg-base-300 py-3 font-bold shadow-xs"
+							style="border-left: 3px solid {getFiberTextColor(tubeColor)};"
 						>
-							<span class="text-xs font-bold" style="color: {fiberTextColor(tubeColor)};">
+							<span class="text-xs font-bold" style="color: {getFiberTextColor(tubeColor)};">
 								📁 {tubeColor} ({calculatedTubeIndex + 1})
 							</span>
 						</div>
@@ -117,10 +94,10 @@
 					<div class="rounded border border-base-300 bg-base-200 p-2.5 text-center">
 						<p class="mb-1.5 text-[9px] text-neutral-content uppercase">Strand (Core)</p>
 						<div
-							class="badge w-full border-base-100 bg-base-300 py-3 badge-sm font-bold shadow-xs"
-							style="border-left: 3px solid {fiberTextColor(strandColor)};"
+							class="badge badge-sm w-full border-base-100 bg-base-300 py-3 font-bold shadow-xs"
+							style="border-left: 3px solid {getFiberTextColor(strandColor)};"
 						>
-							<span class="text-xs font-bold" style="color: {fiberTextColor(strandColor)};">
+							<span class="text-xs font-bold" style="color: {getFiberTextColor(strandColor)};">
 								🧵 {strandColor}
 							</span>
 						</div>
@@ -146,7 +123,7 @@
 								>Type:</span
 							>
 							<select
-								class="select-bordered select w-full font-mono text-[11px] select-xs"
+								class="select-bordered select select-xs w-full font-mono text-[11px]"
 								bind:value={fiberType}
 							>
 								<option value="SMF">Single-Mode</option>
@@ -161,7 +138,7 @@
 								type="number"
 								step="0.05"
 								min="0"
-								class="input-bordered input w-full font-mono text-xs input-xs"
+								class="input-bordered input input-xs w-full font-mono text-xs"
 								bind:value={lengthKm}
 							/>
 						</div>
@@ -172,7 +149,7 @@
 							<input
 								type="number"
 								min="0"
-								class="input-bordered input w-full font-mono text-xs input-xs"
+								class="input-bordered input input-xs w-full font-mono text-xs"
 								bind:value={connectorCount}
 							/>
 						</div>
@@ -183,7 +160,7 @@
 							<input
 								type="number"
 								min="0"
-								class="input-bordered input w-full font-mono text-xs input-xs"
+								class="input-bordered input input-xs w-full font-mono text-xs"
 								bind:value={spliceCount}
 							/>
 						</div>

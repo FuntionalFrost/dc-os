@@ -56,7 +56,7 @@
 			<h2 class="card-title flex items-center gap-1.5 text-sm font-bold text-accent uppercase">
 				<Wrench class="h-4 w-4" /> Hands-On Field Troubleshooting Simulator
 			</h2>
-			<span class="badge badge-xs font-bold badge-warning">PRACTICAL SCENARIO</span>
+			<span class="badge badge-xs badge-warning font-bold">PRACTICAL SCENARIO</span>
 		</div>
 
 		<div class="my-2 space-y-3 rounded-xl border border-base-300 bg-base-200/60 p-3">
@@ -90,13 +90,13 @@
 				<button
 					onclick={evaluateChoice}
 					disabled={userChoice === null}
-					class="btn mt-2 w-full font-mono tracking-wider btn-primary btn-xs"
+					class="btn btn-primary btn-xs mt-2 w-full font-mono tracking-wider"
 				>
 					SUBMIT DIAGNOSTIC FIX
 				</button>
 			{:else}
 				<div
-					class="mt-3 alert rounded-lg border-info/20 bg-info/10 p-3 text-xs alert-info text-info"
+					class="alert alert-info mt-3 rounded-lg border-info/20 bg-info/10 p-3 text-xs text-info"
 				>
 					<div>
 						<h4 class="text-[10px] font-bold tracking-wider uppercase">Field Fix Evaluation:</h4>
@@ -106,7 +106,7 @@
 
 				<button
 					onclick={nextScenario}
-					class="btn mt-2 w-full font-mono tracking-wider btn-accent btn-xs"
+					class="btn btn-accent btn-xs mt-2 w-full font-mono tracking-wider"
 				>
 					NEXT SCENARIO &gt;
 				</button>

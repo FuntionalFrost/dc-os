@@ -1,71 +1,29 @@
 <script lang="ts">
-	import { MetaTags } from 'svelte-meta-tags';
+	import { Seo } from 'yaxa-svelte';
+	import { siteConfig } from '../../site.config';
 
 	interface Props {
-		title: string;
-		description: string;
+		title?: string;
+		description?: string;
 		path?: string;
 		ogImage?: string;
 		keywords?: string[];
 		structuredData?: Record<string, unknown> | null;
 	}
 
-	let {
-		title,
-		description,
-		path = '',
-		ogImage = '/og-image.png',
-		keywords,
-		structuredData = null
-	}: Props = $props();
+	let { title, description, path, ogImage, keywords, structuredData = null }: Props = $props();
 
-	const siteUrl = 'https://dc-os.pages.dev';
-	const canonicalUrl = $derived(
-		`${siteUrl}${path ? (path.startsWith('/') ? path : '/' + path) : '/'}`
-	);
-	const fullOgImage = $derived(ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`);
-	const fullTitle = $derived(
-		path === '' || path === '/' ? title : `${title} — RACK_COMMAND // DC-OS`
-	);
-
-	const jsonLdScript = $derived(
-		structuredData
-			? '<script type="application/ld+json">' + JSON.stringify(structuredData) + '<' + '/script>'
-			: null
+	let canonical = $derived(
+		path !== undefined ? `${siteConfig.url}${path.startsWith('/') ? path : '/' + path}` : undefined
 	);
 </script>
 
-<MetaTags
+<Seo
+	config={siteConfig}
 	{title}
 	{description}
-	canonical={canonicalUrl}
+	{canonical}
+	{ogImage}
 	{keywords}
-	openGraph={{
-		url: canonicalUrl,
-		title: fullTitle,
-		description,
-		images: [
-			{
-				url: fullOgImage,
-				width: 1200,
-				height: 630,
-				alt: fullTitle,
-				type: 'image/png'
-			}
-		]
-	}}
-	twitter={{
-		cardType: 'summary_large_image',
-		title: fullTitle,
-		description,
-		image: fullOgImage,
-		imageAlt: fullTitle
-	}}
+	schema={structuredData ? structuredData : undefined}
 />
-
-<svelte:head>
-	{#if jsonLdScript}
-		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-		{@html jsonLdScript}
-	{/if}
-</svelte:head>

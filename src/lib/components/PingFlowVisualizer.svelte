@@ -12,7 +12,7 @@
 			<h2 class="card-title flex items-center gap-1.5 text-sm font-bold text-accent uppercase">
 				<Globe class="h-4 w-4" /> Protocol Anatomy: "ping google.com"
 			</h2>
-			<span class="badge badge-xs font-bold badge-primary">DEEP PACKET FLOW</span>
+			<span class="badge badge-xs badge-primary font-bold">DEEP PACKET FLOW</span>
 		</div>
 
 		<!-- Step Progress Bar -->
@@ -20,9 +20,9 @@
 			{#each pingSteps as s, idx (s.step)}
 				<button
 					onclick={() => (activeStep = idx)}
-					class="btn min-w-22.5 flex-1 font-mono transition-all btn-xs {activeStep === idx
-						? 'font-bold text-primary-content btn-primary'
-						: 'border border-base-300 bg-base-200 btn-ghost'}"
+					class="btn btn-xs min-w-22.5 flex-1 font-mono transition-all {activeStep === idx
+						? 'btn-primary font-bold text-primary-content'
+						: 'btn-ghost border border-base-300 bg-base-200'}"
 				>
 					Step {s.step}
 				</button>
@@ -36,7 +36,7 @@
 					<span class="text-[10px] font-bold text-accent uppercase">{currentStepData.layer}</span>
 					<h3 class="text-sm font-black text-primary uppercase">{currentStepData.title}</h3>
 				</div>
-				<span class="badge badge-outline text-xs badge-sm font-bold"
+				<span class="badge badge-outline badge-sm text-xs font-bold"
 					>{currentStepData.protocol}</span
 				>
 			</div>
@@ -57,7 +57,7 @@
 		<!-- Controls -->
 		<div class="mt-2 flex items-center justify-between">
 			<button
-				class="btn btn-outline font-mono btn-xs"
+				class="btn btn-outline btn-xs font-mono"
 				onclick={() => (activeStep = Math.max(0, activeStep - 1))}
 				disabled={activeStep === 0}
 			>
@@ -67,7 +67,7 @@
 				>Stage {activeStep + 1} of {pingSteps.length}</span
 			>
 			<button
-				class="btn font-mono btn-accent btn-xs"
+				class="btn btn-accent btn-xs font-mono"
 				onclick={() => (activeStep = Math.min(pingSteps.length - 1, activeStep + 1))}
 				disabled={activeStep === pingSteps.length - 1}
 			>

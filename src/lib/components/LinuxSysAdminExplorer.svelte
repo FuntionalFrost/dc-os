@@ -20,17 +20,17 @@
 			<div class="join">
 				<button
 					onclick={() => (activeTab = 'BOOT')}
-					class="btn join-item font-mono btn-xs {activeTab === 'BOOT'
-						? 'text-primary-content btn-primary'
-						: 'border-base-300 btn-outline'}"
+					class="btn join-item btn-xs font-mono {activeTab === 'BOOT'
+						? 'btn-primary text-primary-content'
+						: 'btn-outline border-base-300'}"
 				>
 					BOOT PROCESS
 				</button>
 				<button
 					onclick={() => (activeTab = 'FHS')}
-					class="btn join-item font-mono btn-xs {activeTab === 'FHS'
-						? 'text-primary-content btn-primary'
-						: 'border-base-300 btn-outline'}"
+					class="btn join-item btn-xs font-mono {activeTab === 'FHS'
+						? 'btn-primary text-primary-content'
+						: 'btn-outline border-base-300'}"
 				>
 					FHS DIRECTORY MAP
 				</button>
@@ -44,9 +44,9 @@
 					{#each bootStages as stage, idx (stage.phase)}
 						<button
 							onclick={() => (activeBootStage = idx)}
-							class="btn min-w-30 flex-1 font-mono transition-all btn-xs {activeBootStage === idx
-								? 'font-bold text-accent-content btn-accent'
-								: 'border border-base-300 bg-base-200 btn-ghost'}"
+							class="btn btn-xs min-w-30 flex-1 font-mono transition-all {activeBootStage === idx
+								? 'btn-accent font-bold text-accent-content'
+								: 'btn-ghost border border-base-300 bg-base-200'}"
 						>
 							Stage {idx + 1}
 						</button>
@@ -101,10 +101,10 @@
 					{#each fhsDirectories as dir (dir.path)}
 						<button
 							onclick={() => (selectedDirectory = dir.path)}
-							class="btn h-9 justify-start font-mono transition-all btn-xs {selectedDirectory ===
+							class="btn btn-xs h-9 justify-start font-mono transition-all {selectedDirectory ===
 							dir.path
-								? 'font-bold text-primary-content btn-primary'
-								: 'border border-base-300 bg-base-200 btn-ghost'}"
+								? 'btn-primary font-bold text-primary-content'
+								: 'btn-ghost border border-base-300 bg-base-200'}"
 						>
 							<span class="text-xs">{dir.path} - {dir.name.split(' ')[0]}</span>
 						</button>
@@ -134,7 +134,7 @@
 					</div>
 
 					<div
-						class="alert rounded-lg border-warning/15 bg-warning/5 p-2.5 font-mono text-xs alert-warning text-warning"
+						class="alert alert-warning rounded-lg border-warning/15 bg-warning/5 p-2.5 font-mono text-xs text-warning"
 					>
 						<span class="block text-[9px] font-bold text-accent uppercase"
 							>SysAdmin Interview Insight:</span

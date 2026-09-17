@@ -40,9 +40,19 @@
 </script>
 
 <SEO
-	title="Optical Fiber"
-	description="TIA-598-C fiber color-code lookup and optical link loss budget calculator for data center technicians."
+	title="TIA-598-C Optical Fiber Indexer & Loss Budget Calculator"
+	description="Instant TIA-598-C 144-strand fiber color code chart, buffer tube indexer, and optical link loss budget attenuation calculator (SMF/MMF)."
 	path="/hardware"
+	keywords={[
+		'tia-598-c fiber color code chart',
+		'fiber strand color lookup',
+		'optical link loss budget calculator',
+		'fiber attenuation formula db',
+		'smf os2 mmf om3 om4 fiber loss',
+		'mated connector loss 0.75db',
+		'fusion splice loss 0.3db',
+		'fiber optic technician tools'
+	]}
 />
 
 <div class="space-y-6 font-mono">

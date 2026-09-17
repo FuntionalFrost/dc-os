@@ -165,9 +165,18 @@
 </script>
 
 <SEO
-	title="CompTIA Exam Simulator"
-	description="CompTIA A+, Network+, Server+, and Linux+ practice exam simulator with study mode and 15-minute timed exam mode."
+	title="CompTIA Exam Simulator (A+, Network+, Server+, Linux+)"
+	description="Certification practice exam bank covering CompTIA A+, Network+ (N10-008), Server+ (SK0-005), and Linux+ (XK0-005) with study verification and timed test modes."
 	path="/quiz"
+	keywords={[
+		'comptia exam simulator online',
+		'comptia server+ sk0-005 practice test',
+		'comptia network+ n10-008 practice questions',
+		'comptia linux+ xk0-005 study mode',
+		'data center certification practice',
+		'hardware troubleshooting questions',
+		'free comptia quiz online'
+	]}
 	structuredData={quizStructuredData}
 />
 

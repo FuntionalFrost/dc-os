@@ -2,12 +2,30 @@
 	import SEO from '$lib/components/SEO.svelte';
 	import { resolve } from '$app/paths';
 	import { ArrowRight, Cable, Cpu, Network, Shield, Terminal } from '@lucide/svelte';
+	import { generateSoftwareApplicationSchema, generateWebSiteSchema } from 'yaxa-svelte';
+	import { siteConfig } from '../site.config';
+
+	const rootSchemas = [
+		generateWebSiteSchema(siteConfig),
+		generateSoftwareApplicationSchema(siteConfig)
+	];
 </script>
 
 <SEO
-	title="Dashboard"
-	description="All-in-one diagnostic suite and reference portal for Data Center Technicians, Systems Administrators, and NOC Engineers."
+	title="All-in-One Data Center Technician Guide & Diagnostic Portal"
+	description="Zero-latency diagnostic suite for Data Center Technicians, Systems Administrators, and NOC Engineers. IPv4 CIDR subnet calculator, KVM terminal emulator, TIA-598-C fiber optics indexer, and CompTIA exam simulator."
 	path="/"
+	keywords={[
+		'data center technician guide',
+		'data center diagnostics',
+		'sysadmin toolkit',
+		'optical fiber color code',
+		'subnet calculator',
+		'xterm.js linux terminal emulator',
+		'CompTIA Server+ practice exam',
+		'optical link loss calculator'
+	]}
+	structuredData={rootSchemas as unknown as Record<string, unknown>[]}
 />
 
 <div class="space-y-8 font-mono">

@@ -13,9 +13,19 @@
 </script>
 
 <SEO
-	title="Network Standards"
-	description="Bitwise CIDR subnet calculator, ping protocol flow visualizer, SFP/QSFP DOM diagnostics, OSI model explorer, and DHCP DORA handshake simulator."
+	title="Network Standards & Transceiver Matrix"
+	description="Bitwise IPv4 CIDR subnet calculator, 10G-400G optical transceiver specification matrix, DOM power converter, ICMP ping packet flow, and interactive OSI/DHCP visualizer."
 	path="/networking"
+	keywords={[
+		'ipv4 cidr subnet calculator',
+		'optical transceiver matrix 100g cwdm4 sr4',
+		'dom optical power converter mw dbm',
+		'data center service ports list',
+		'ping packet flow visualizer',
+		'osi 7 layer model interactive guide',
+		'dhcp dora simulator udp 67 68',
+		'noc network diagnostics'
+	]}
 />
 
 <div class="space-y-6 font-mono">

@@ -265,7 +265,7 @@
 						class="flex items-center justify-between text-[11px] text-neutral-content/60 transition-colors hover:text-primary"
 					>
 						<span>Fueled by Yaxa UI</span>
-						<span class="badge badge-xs badge-accent font-bold">v1.8.0</span>
+						<span class="badge badge-xs badge-accent font-bold">v1.10.0</span>
 					</a>
 				</li>
 			</ul>

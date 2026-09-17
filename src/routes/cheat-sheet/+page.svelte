@@ -7,9 +7,19 @@
 </script>
 
 <SEO
-	title="Host OS & Commands"
-	description="Linux boot stages, FHS directory maps, bare-metal diagnostic commands, hands-on troubleshooting scenarios, and interactive CLI generators for sysadmins."
+	title="Host OS & Bare Metal Diagnostics"
+	description="Linux boot stages (UEFI/GRUB/kernel/systemd), Filesystem Hierarchy Standard (FHS) map, bare-metal diagnostic commands, and hands-on sysadmin incident simulator."
 	path="/cheat-sheet"
+	keywords={[
+		'linux boot stages guide',
+		'fhs directory map sysadmin',
+		'systemd boot sequence',
+		'initramfs kernel mount troubleshooting',
+		'bare metal server diagnostics',
+		'linux sysadmin cheat sheet',
+		'tar command builder',
+		'ip route syntax generator'
+	]}
 />
 
 <div class="space-y-6 font-mono">

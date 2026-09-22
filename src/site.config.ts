@@ -26,7 +26,7 @@ export const siteConfig = defineSiteConfig({
 	},
 	seo: {
 		titleTemplate: '%s — RACK_COMMAND // DC-OS',
-		defaultOgImage: '/og-image.png',
+		defaultOgImage: 'https://dc-os.pages.dev/og-image.png',
 		twitterCard: 'summary_large_image',
 		keywords: [
 			'data center technician guide',

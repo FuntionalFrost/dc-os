@@ -145,6 +145,21 @@
 		return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 	});
 
+	function getCategoryStyle(cat: string) {
+		switch (cat.toLowerCase()) {
+			case 'fiber':
+				return 'border-cyan-400/50 bg-cyan-500/20 text-cyan-300';
+			case 'linux':
+				return 'border-amber-400/50 bg-amber-500/20 text-amber-300';
+			case 'networking':
+				return 'border-emerald-400/50 bg-emerald-500/20 text-emerald-300';
+			case 'hardware':
+				return 'border-purple-400/50 bg-purple-500/20 text-purple-300';
+			default:
+				return 'border-primary/50 bg-primary/20 text-primary';
+		}
+	}
+
 	const quizStructuredData = {
 		'@context': 'https://schema.org',
 		'@type': 'Quiz',
@@ -185,10 +200,10 @@
 		class="flex flex-col items-start justify-between gap-3 border-b border-base-200 pb-3 sm:flex-row sm:items-center"
 	>
 		<div>
-			<h1 class="text-xl font-black tracking-wider text-primary uppercase">
+			<h1 class="text-2xl font-black tracking-wider text-primary uppercase">
 				🧠 EXAM_SIM // COMPTIA_TRAINING
 			</h1>
-			<p class="text-[11px] text-neutral-content">
+			<p class="mt-1 text-xs text-neutral-content">
 				Cert prep for CompTIA A+, Network+, Server+, and Linux+.
 			</p>
 		</div>
@@ -225,12 +240,17 @@
 		<div
 			class="flex flex-wrap items-center gap-1.5 rounded-xl border border-base-200 bg-base-100 p-2.5 text-xs"
 		>
-			<span class="px-1 text-[10px] font-bold text-neutral-content/60 uppercase">Scope:</span>
+			<span class="px-1 text-[10px] font-bold text-neutral-content/70 uppercase">Scope:</span>
 			{#each ['All', 'Hardware', 'Linux', 'Networking', 'Fiber'] as category (category)}
+				{@const isActive = selectedCategory === category}
+				{@const catClass =
+					category === 'All'
+						? 'btn-primary text-primary-content shadow-xs'
+						: getCategoryStyle(category)}
 				<button
-					class="btn btn-xs rounded-md transition-all {selectedCategory === category
-						? 'btn-accent text-accent-content'
-						: 'btn-ghost border border-base-300 bg-base-200'}"
+					class="btn btn-xs rounded-md transition-all {isActive
+						? `${catClass} font-bold shadow-xs`
+						: 'btn-ghost border border-base-300 bg-base-200 hover:border-primary/50'}"
 					onclick={() => {
 						selectedCategory = category;
 						resetQuiz();
@@ -340,12 +360,16 @@
 
 						<div class="mb-4 flex items-center justify-between border-b border-base-200 pb-2">
 							<div class="flex items-center gap-2">
-								<span class="badge badge-sm badge-accent text-[10px] font-black uppercase"
-									>{activeQuestion.category}</span
+								<span
+									class="rounded-md border px-2.5 py-0.5 text-xs font-black uppercase shadow-xs {getCategoryStyle(
+										activeQuestion.category
+									)}"
 								>
+									{activeQuestion.category}
+								</span>
 								{#if quizMode === 'EXAM'}
 									<span
-										class="badge badge-outline badge-sm flex items-center gap-1 text-[10px] font-bold"
+										class="badge badge-outline badge-sm flex items-center gap-1 border-primary/40 text-[10px] font-bold text-primary"
 									>
 										<Timer class="h-3 w-3" />
 										{formattedTime}
@@ -369,11 +393,13 @@
 							</button>
 						</div>
 
-						<p class="mb-4 text-xs leading-relaxed font-bold text-base-content md:text-sm">
-							{activeQuestion.scenario}
-						</p>
+						<div class="mb-5 rounded-xl border border-base-300 bg-base-200/50 p-3.5">
+							<p class="text-xs leading-relaxed font-bold text-base-content md:text-sm">
+								{activeQuestion.scenario}
+							</p>
+						</div>
 
-						<div class="space-y-2">
+						<div class="space-y-2.5">
 							{#each activeQuestion.options as option, idx (idx)}
 								{@const isSelected = activeUserSelection === idx}
 								{@const isCorrectAns = idx === activeQuestion.correctAnswer}
@@ -382,23 +408,31 @@
 									isCurrentQuestionChecked && isSelected && !isCorrectAns}
 
 								<button
-									class="flex w-full items-center justify-between rounded-lg border p-3 text-left font-mono text-xs transition-all
-                  {isSelected
-										? 'border-primary bg-primary/10 font-bold text-primary'
-										: 'border-base-300 bg-base-200'} 
-                  {showCheckedCorrect ? 'border-success bg-success/10 text-success' : ''}
-                  {showCheckedIncorrect ? 'border-error bg-error/10 text-error' : ''}"
+									class="flex w-full items-center justify-between rounded-xl border p-3.5 text-left font-mono text-xs transition-all
+									{isSelected && !isCurrentQuestionChecked
+										? 'border-primary bg-primary/15 font-bold text-primary shadow-sm ring-1 ring-primary'
+										: !isCurrentQuestionChecked
+											? 'border-base-300 bg-base-200/60 hover:border-primary/50 hover:bg-base-200'
+											: 'border-base-300 bg-base-200/40'} 
+									{showCheckedCorrect
+										? 'border-success/80 bg-success/20 font-bold text-success ring-1 ring-success'
+										: ''}
+									{showCheckedIncorrect ? 'border-error/80 bg-error/20 font-bold text-error ring-1 ring-error' : ''}"
 									onclick={() => selectOption(idx)}
 									disabled={quizMode === 'STUDY' && isCurrentQuestionChecked}
 								>
-									<span class="flex items-center gap-2">
-										<Kbd size="xs">{idx + 1}</Kbd>
-										<span>{option}</span>
+									<span class="flex items-center gap-3">
+										<span
+											class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-base-300 bg-base-300/80 text-[11px] font-black text-accent shadow-xs"
+										>
+											{idx + 1}
+										</span>
+										<span class="leading-relaxed">{option}</span>
 									</span>
 									{#if showCheckedCorrect}
-										<CircleCheck class="ml-2 h-4 w-4 shrink-0 text-success" />
+										<CircleCheck class="ml-2 h-5 w-5 shrink-0 text-success" />
 									{:else if showCheckedIncorrect}
-										<CircleX class="ml-2 h-4 w-4 shrink-0 text-error" />
+										<CircleX class="ml-2 h-5 w-5 shrink-0 text-error" />
 									{/if}
 								</button>
 							{/each}

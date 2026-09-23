@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Calculator, Check, Copy, Hash } from '@lucide/svelte';
-	import { MetricCard, useClipboard, useDebounce, toast } from 'yaxa-svelte';
+	import { useClipboard, useDebounce, toast } from 'yaxa-svelte';
 
 	let cidrInput = $state('10.240.84.195/27');
 	const debouncedCidr = useDebounce(() => cidrInput, 80);
@@ -141,31 +141,49 @@ Usable Range: ${parsedSubnet.firstUsable} - ${parsedSubnet.lastUsable} (${parsed
 		{#if parsedSubnet}
 			<div class="mt-1 space-y-3">
 				<!-- Main Stats Grid -->
-				<div class="grid grid-cols-2 gap-2 text-xs md:grid-cols-4">
-					<MetricCard
-						title="Network Address"
-						value={`${parsedSubnet.networkIp} / ${parsedSubnet.prefix}`}
-						variant="flat"
-						class="border-base-300 bg-base-200 font-mono text-xs"
-					/>
-					<MetricCard
-						title="Subnet Mask"
-						value={parsedSubnet.netmask}
-						variant="flat"
-						class="border-base-300 bg-base-200 font-mono text-xs"
-					/>
-					<MetricCard
-						title="Broadcast Address"
-						value={parsedSubnet.broadcastIp}
-						variant="flat"
-						class="border-base-300 bg-base-200 font-mono text-xs"
-					/>
-					<MetricCard
-						title="Usable Host Pool"
-						value={`${parsedSubnet.usableHosts.toLocaleString()} Hosts`}
-						variant="flat"
-						class="border-base-300 bg-base-200 font-mono text-xs"
-					/>
+				<div class="grid grid-cols-2 gap-2.5 text-xs md:grid-cols-4">
+					<div class="rounded-xl border border-base-300 bg-base-200/80 p-3 shadow-xs">
+						<span
+							class="block text-[10px] font-bold tracking-wider text-neutral-content/70 uppercase"
+						>
+							Network Address
+						</span>
+						<p class="mt-1 font-mono text-base font-bold text-primary">
+							{parsedSubnet.networkIp}
+							<span class="text-xs text-neutral-content/60">/{parsedSubnet.prefix}</span>
+						</p>
+					</div>
+					<div class="rounded-xl border border-base-300 bg-base-200/80 p-3 shadow-xs">
+						<span
+							class="block text-[10px] font-bold tracking-wider text-neutral-content/70 uppercase"
+						>
+							Subnet Mask
+						</span>
+						<p class="mt-1 font-mono text-base font-bold text-base-content">
+							{parsedSubnet.netmask}
+						</p>
+					</div>
+					<div class="rounded-xl border border-base-300 bg-base-200/80 p-3 shadow-xs">
+						<span
+							class="block text-[10px] font-bold tracking-wider text-neutral-content/70 uppercase"
+						>
+							Broadcast Address
+						</span>
+						<p class="mt-1 font-mono text-base font-bold text-accent">
+							{parsedSubnet.broadcastIp}
+						</p>
+					</div>
+					<div class="rounded-xl border border-base-300 bg-base-200/80 p-3 shadow-xs">
+						<span
+							class="block text-[10px] font-bold tracking-wider text-neutral-content/70 uppercase"
+						>
+							Usable Host Pool
+						</span>
+						<p class="mt-1 font-mono text-base font-bold text-success">
+							{parsedSubnet.usableHosts.toLocaleString()}
+							<span class="text-xs text-neutral-content/60">Hosts</span>
+						</p>
+					</div>
 				</div>
 
 				<!-- Range Details & Binary Mask -->

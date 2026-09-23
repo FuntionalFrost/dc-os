@@ -33,9 +33,6 @@
 	<div class="hero rounded-3xl border border-base-200 bg-base-100 p-6 shadow-xl md:p-10">
 		<div class="hero-content max-w-4xl p-0 text-left">
 			<div>
-				<div class="badge badge-outline badge-primary mb-4 font-bold tracking-widest uppercase">
-					SYSTEMS ONLINE // DC-OS V4
-				</div>
 				<h1 class="text-4xl font-black tracking-tight text-primary uppercase md:text-5xl">
 					All-In-One DC Technician Guide
 				</h1>
@@ -53,7 +50,7 @@
 					</a>
 					<a
 						href={resolve('/quiz')}
-						class="btn btn-ghost btn-sm border-base-300 font-mono tracking-wider"
+						class="btn btn-ghost btn-sm border border-base-300 font-mono tracking-wider"
 					>
 						EXAM SIMULATOR
 					</a>
@@ -66,15 +63,15 @@
 	<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 		<!-- Module 1: KVM Terminal -->
 		<div
-			class="card border border-base-200 bg-base-100 shadow-lg transition-all hover:border-primary"
+			class="card border border-cyan-500/30 bg-base-100/90 shadow-lg transition-all hover:border-cyan-400 hover:shadow-cyan-500/10"
 		>
 			<div class="card-body justify-between p-5">
 				<div>
 					<div class="flex items-center gap-3">
-						<div class="rounded-lg bg-primary/10 p-2 text-primary">
+						<div class="rounded-lg bg-cyan-500/20 p-2.5 text-cyan-400 shadow-inner">
 							<Terminal class="h-5 w-5" />
 						</div>
-						<h2 class="card-title text-sm font-black">KVM CLI TERMINAL</h2>
+						<h2 class="card-title text-sm font-black text-cyan-400">KVM CLI TERMINAL</h2>
 					</div>
 					<p class="mt-2 text-xs leading-relaxed text-neutral-content">
 						Full-screen interactive `xterm.js` terminal simulator with ANSI colors, command history,
@@ -82,24 +79,27 @@
 					</p>
 				</div>
 				<div class="card-actions mt-4 justify-end">
-					<a href={resolve('/terminal')} class="btn btn-outline btn-primary btn-xs font-mono"
-						>OPEN CONSOLE</a
+					<a
+						href={resolve('/terminal')}
+						class="btn btn-outline btn-xs border-cyan-400/50 font-mono text-cyan-400 hover:bg-cyan-400 hover:text-black"
 					>
+						<Terminal class="h-3 w-3" /> OPEN CONSOLE
+					</a>
 				</div>
 			</div>
 		</div>
 
 		<!-- Module 2: Host OS & Systems -->
 		<div
-			class="card border border-base-200 bg-base-100 shadow-lg transition-all hover:border-primary"
+			class="card border border-amber-500/30 bg-base-100/90 shadow-lg transition-all hover:border-amber-400 hover:shadow-amber-500/10"
 		>
 			<div class="card-body justify-between p-5">
 				<div>
 					<div class="flex items-center gap-3">
-						<div class="rounded-lg bg-primary/10 p-2 text-primary">
+						<div class="rounded-lg bg-amber-500/20 p-2.5 text-amber-400 shadow-inner">
 							<Cpu class="h-5 w-5" />
 						</div>
-						<h2 class="card-title text-sm font-black">HOST OS & DIAGNOSTICS</h2>
+						<h2 class="card-title text-sm font-black text-amber-400">HOST OS & DIAGNOSTICS</h2>
 					</div>
 					<p class="mt-2 text-xs leading-relaxed text-neutral-content">
 						Linux boot stages, FHS directory maps, field troubleshooting scenarios, and interactive
@@ -107,24 +107,27 @@
 					</p>
 				</div>
 				<div class="card-actions mt-4 justify-end">
-					<a href={resolve('/cheat-sheet')} class="btn btn-outline btn-accent btn-xs font-mono"
-						>SYSADMIN SUITE</a
+					<a
+						href={resolve('/cheat-sheet')}
+						class="btn btn-outline btn-xs border-amber-400/50 font-mono text-amber-400 hover:bg-amber-400 hover:text-black"
 					>
+						<Cpu class="h-3 w-3" /> SYSADMIN SUITE
+					</a>
 				</div>
 			</div>
 		</div>
 
 		<!-- Module 3: Network Operations -->
 		<div
-			class="card border border-base-200 bg-base-100 shadow-lg transition-all hover:border-primary"
+			class="card border border-emerald-500/30 bg-base-100/90 shadow-lg transition-all hover:border-emerald-400 hover:shadow-emerald-500/10"
 		>
 			<div class="card-body justify-between p-5">
 				<div>
 					<div class="flex items-center gap-3">
-						<div class="rounded-lg bg-primary/10 p-2 text-primary">
+						<div class="rounded-lg bg-emerald-500/20 p-2.5 text-emerald-400 shadow-inner">
 							<Network class="h-5 w-5" />
 						</div>
-						<h2 class="card-title text-sm font-black">NETWORK OPERATIONS</h2>
+						<h2 class="card-title text-sm font-black text-emerald-400">NETWORK OPERATIONS</h2>
 					</div>
 					<p class="mt-2 text-xs leading-relaxed text-neutral-content">
 						Bitwise CIDR Subnet Calculator, step-by-step ICMP ping flow, SFP DOM power converters,
@@ -132,24 +135,27 @@
 					</p>
 				</div>
 				<div class="card-actions mt-4 justify-end">
-					<a href={resolve('/networking')} class="btn btn-outline btn-accent btn-xs font-mono"
-						>NOC CONTROL</a
+					<a
+						href={resolve('/networking')}
+						class="btn btn-outline btn-xs border-emerald-400/50 font-mono text-emerald-400 hover:bg-emerald-400 hover:text-black"
 					>
+						<Network class="h-3 w-3" /> NOC CONTROL
+					</a>
 				</div>
 			</div>
 		</div>
 
 		<!-- Module 4: Optical Fiber -->
 		<div
-			class="card border border-base-200 bg-base-100 shadow-lg transition-all hover:border-primary"
+			class="card border border-sky-500/30 bg-base-100/90 shadow-lg transition-all hover:border-sky-400 hover:shadow-sky-500/10"
 		>
 			<div class="card-body justify-between p-5">
 				<div>
 					<div class="flex items-center gap-3">
-						<div class="rounded-lg bg-primary/10 p-2 text-primary">
+						<div class="rounded-lg bg-sky-500/20 p-2.5 text-sky-400 shadow-inner">
 							<Cable class="h-5 w-5" />
 						</div>
-						<h2 class="card-title text-sm font-black">FIBER & L1 OPTICS</h2>
+						<h2 class="card-title text-sm font-black text-sky-400">FIBER & L1 OPTICS</h2>
 					</div>
 					<p class="mt-2 text-xs leading-relaxed text-neutral-content">
 						Decode 144-strand fiber core bundles using TIA-598-C color coding and calculate maximum
@@ -157,24 +163,27 @@
 					</p>
 				</div>
 				<div class="card-actions mt-4 justify-end">
-					<a href={resolve('/hardware')} class="btn btn-outline btn-accent btn-xs font-mono"
-						>OPTICAL MATH</a
+					<a
+						href={resolve('/hardware')}
+						class="btn btn-outline btn-xs border-sky-400/50 font-mono text-sky-400 hover:bg-sky-400 hover:text-black"
 					>
+						<Cable class="h-3 w-3" /> OPTICAL MATH
+					</a>
 				</div>
 			</div>
 		</div>
 
 		<!-- Module 5: Exam Prep -->
 		<div
-			class="card border border-base-200 bg-base-100 shadow-lg transition-all hover:border-primary md:col-span-2 lg:col-span-1"
+			class="card border border-rose-500/30 bg-base-100/90 shadow-lg transition-all hover:border-rose-400 hover:shadow-rose-500/10 md:col-span-2 lg:col-span-1"
 		>
 			<div class="card-body justify-between p-5">
 				<div>
 					<div class="flex items-center gap-3">
-						<div class="rounded-lg bg-primary/10 p-2 text-primary">
+						<div class="rounded-lg bg-rose-500/20 p-2.5 text-rose-400 shadow-inner">
 							<Shield class="h-5 w-5" />
 						</div>
-						<h2 class="card-title text-sm font-black">EXAM PREP SIMULATOR</h2>
+						<h2 class="card-title text-sm font-black text-rose-400">EXAM PREP SIMULATOR</h2>
 					</div>
 					<p class="mt-2 text-xs leading-relaxed text-neutral-content">
 						CompTIA A+, Network+, Server+, and Linux+ scenarios featuring Study Mode with
@@ -182,9 +191,12 @@
 					</p>
 				</div>
 				<div class="card-actions mt-4 justify-end">
-					<a href={resolve('/quiz')} class="btn btn-outline btn-accent btn-xs font-mono"
-						>START EVALUATION</a
+					<a
+						href={resolve('/quiz')}
+						class="btn btn-outline btn-xs border-rose-400/50 font-mono text-rose-400 hover:bg-rose-400 hover:text-black"
 					>
+						<Shield class="h-3 w-3" /> START EVALUATION
+					</a>
 				</div>
 			</div>
 		</div>
@@ -205,14 +217,8 @@
 		</div>
 		<div class="flex flex-wrap items-center gap-4 text-neutral-content/60">
 			<span>ENVIRONMENT: LOCALHOST / PWA</span>
-			<a
-				href="https://yaxa.vercel.app"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="transition-colors hover:text-primary"
-			>
-				FUELED BY YAXA UI
-			</a>
+			<span>UPTIME: 99.999%</span>
+			<span class="badge badge-outline badge-xs badge-success font-bold">READY</span>
 		</div>
 	</div>
 </div>

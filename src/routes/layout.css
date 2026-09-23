@@ -6,36 +6,147 @@
 	--color-terminal-green: #39ff14;
 	--breakpoint-xs: 480px;
 
-	--color-primary: #3b82f6;
-	--color-primary-content: #ffffff;
-	--color-accent: #38bdf8;
-	--color-accent-content: #0f172a;
-	--color-success: #22c55e;
-	--color-warning: #f59e0b;
-	--color-error: #ef4444;
-	--color-info: #0ea5e9;
+	--color-primary: var(--dc-primary);
+	--color-primary-content: var(--dc-primary-content);
+	--color-accent: var(--dc-accent);
+	--color-accent-content: var(--dc-accent-content);
+	--color-success: var(--dc-success);
+	--color-warning: var(--dc-warning);
+	--color-error: var(--dc-error);
+	--color-info: var(--dc-info);
 
-	--color-base-100: #0f172a;
-	--color-base-200: #1e293b;
-	--color-base-300: #0b0f19;
-	--color-base-content: #f8fafc;
+	--color-base-100: var(--dc-base-100);
+	--color-base-200: var(--dc-base-200);
+	--color-base-300: var(--dc-base-300);
+	--color-base-content: var(--dc-base-content);
 
-	--color-neutral: #1e293b;
-	--color-neutral-content: #94a3b8;
+	--color-neutral: var(--dc-neutral);
+	--color-neutral-content: var(--dc-neutral-content);
 }
 
-/* Custom scrollbars */
+/* -------------------------------------------------------------
+   THEME PALETTES (Night, Dracula, Dim, Nord, Cyberpunk)
+------------------------------------------------------------- */
+:root,
+[data-theme='night'] {
+	--dc-primary: #38bdf8;
+	--dc-primary-content: #04101e;
+	--dc-accent: #818cf8;
+	--dc-accent-content: #04101e;
+	--dc-success: #34d399;
+	--dc-warning: #fbbf24;
+	--dc-error: #f87171;
+	--dc-info: #38bdf8;
+
+	--dc-base-100: #0f172a;
+	--dc-base-200: #1e293b;
+	--dc-base-300: #0b0f19;
+	--dc-base-content: #f8fafc;
+
+	--dc-neutral: #1e293b;
+	--dc-neutral-content: #94a3b8;
+}
+
+[data-theme='dracula'] {
+	--dc-primary: #bd93f9;
+	--dc-primary-content: #1e1f29;
+	--dc-accent: #ff79c6;
+	--dc-accent-content: #1e1f29;
+	--dc-success: #50fa7b;
+	--dc-warning: #ffb86c;
+	--dc-error: #ff5555;
+	--dc-info: #8be9fd;
+
+	--dc-base-100: #282a36;
+	--dc-base-200: #343746;
+	--dc-base-300: #191a21;
+	--dc-base-content: #f8f8f2;
+
+	--dc-neutral: #383a4c;
+	--dc-neutral-content: #f1fa8c;
+}
+
+[data-theme='dim'] {
+	--dc-primary: #539bf5;
+	--dc-primary-content: #111418;
+	--dc-accent: #6cb6ff;
+	--dc-accent-content: #111418;
+	--dc-success: #57ab5a;
+	--dc-warning: #c69026;
+	--dc-error: #e5534b;
+	--dc-info: #539bf5;
+
+	--dc-base-100: #22272e;
+	--dc-base-200: #2d333b;
+	--dc-base-300: #181c21;
+	--dc-base-content: #adbac7;
+
+	--dc-neutral: #2d333b;
+	--dc-neutral-content: #768390;
+}
+
+[data-theme='nord'] {
+	--dc-primary: #88c0d0;
+	--dc-primary-content: #242933;
+	--dc-accent: #81a1c1;
+	--dc-accent-content: #242933;
+	--dc-success: #a3be8c;
+	--dc-warning: #ebcb8b;
+	--dc-error: #bf616a;
+	--dc-info: #8fbcbb;
+
+	--dc-base-100: #2e3440;
+	--dc-base-200: #3b4252;
+	--dc-base-300: #242933;
+	--dc-base-content: #eceff4;
+
+	--dc-neutral: #3b4252;
+	--dc-neutral-content: #d8dee9;
+}
+
+[data-theme='cyberpunk'] {
+	--dc-primary: #00ff66;
+	--dc-primary-content: #000000;
+	--dc-accent: #ffe600;
+	--dc-accent-content: #000000;
+	--dc-success: #00ff66;
+	--dc-warning: #ffe600;
+	--dc-error: #ff003c;
+	--dc-info: #00f0ff;
+
+	--dc-base-100: #0d1117;
+	--dc-base-200: #161b22;
+	--dc-base-300: #010409;
+	--dc-base-content: #39ff14;
+
+	--dc-neutral: #1a202c;
+	--dc-neutral-content: #00ff66;
+}
+
+/* Custom scrollbars dynamically adapting to active theme */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: color-mix(in srgb, var(--dc-primary) 60%, var(--dc-base-200)) var(--dc-base-300);
+}
+
 @layer utilities {
 	::-webkit-scrollbar {
-		width: 6px;
-		height: 6px;
+		width: 7px;
+		height: 7px;
 	}
 	::-webkit-scrollbar-track {
-		background: var(--color-base-300);
+		background: var(--dc-base-300);
 	}
 	::-webkit-scrollbar-thumb {
-		background: var(--color-primary);
-		border-radius: 3px;
+		background: color-mix(in srgb, var(--dc-primary) 40%, var(--dc-base-200));
+		border: 1px solid color-mix(in srgb, var(--dc-primary) 30%, transparent);
+		border-radius: 4px;
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: var(--dc-primary);
+	}
+	::-webkit-scrollbar-corner {
+		background: var(--dc-base-300);
 	}
 }
 
@@ -76,7 +187,19 @@
 		@apply bg-transparent text-base-content hover:bg-base-200;
 	}
 	.btn-outline {
-		@apply border border-current bg-transparent hover:bg-base-200;
+		@apply border border-base-300 bg-transparent text-base-content hover:bg-base-200;
+	}
+	.btn-outline.btn-primary {
+		@apply border-primary/60 bg-transparent text-primary hover:bg-primary hover:text-primary-content;
+	}
+	.btn-outline.btn-accent {
+		@apply border-accent/60 bg-transparent text-accent hover:bg-accent hover:text-accent-content;
+	}
+	.btn-outline.btn-error {
+		@apply border-error/60 bg-transparent text-error hover:bg-error hover:text-white;
+	}
+	.btn-outline.btn-success {
+		@apply border-success/60 bg-transparent text-success hover:bg-success hover:text-white;
 	}
 	.btn-error {
 		@apply bg-error text-white hover:brightness-110;
@@ -172,11 +295,19 @@
 	.input-bordered {
 		@apply border-base-300;
 	}
-	.select {
-		@apply rounded-lg border border-base-300 bg-base-200/50 px-2 py-1 text-xs transition-colors focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none;
+	.select,
+	select {
+		@apply rounded-lg border border-base-300 px-2 py-1 text-xs transition-colors focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none;
+		background-color: var(--dc-base-200);
+		color: var(--dc-base-content);
 	}
 	.select-bordered {
-		@apply border-base-300;
+		border-color: var(--dc-neutral);
+	}
+	.select option,
+	select option {
+		background-color: var(--dc-base-100);
+		color: var(--dc-base-content);
 	}
 	.form-control {
 		@apply flex flex-col gap-1;

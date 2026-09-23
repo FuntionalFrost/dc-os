@@ -180,18 +180,18 @@
 
 <div class="flex h-[calc(100vh-6.5rem)] flex-col space-y-2 font-mono">
 	<!-- KVM Header -->
-	<div class="flex shrink-0 items-center justify-between border-b border-base-200 pb-2">
+	<div class="flex shrink-0 items-center justify-between border-b border-base-200 pb-3">
 		<div>
-			<h1 class="text-lg font-black tracking-wider text-primary uppercase">
-				📟 KVM_CONSOLE // LIVE_SHELL
+			<h1 class="text-2xl font-black tracking-wider text-primary uppercase">
+				🖥️ KVM_CONSOLE // LIVE_SHELL
 			</h1>
-			<p class="text-[11px] text-neutral-content">
+			<p class="mt-1 text-xs text-neutral-content">
 				Interactive CLI sandbox & live diagnostic command injector.
 			</p>
 		</div>
 		<div class="flex items-center gap-2">
 			<div class="hidden items-center gap-1.5 text-xs text-neutral-content/70 lg:flex">
-				<span class="text-[10px]">SHORTCUTS:</span>
+				<span class="text-[10px] font-bold">SHORTCUTS:</span>
 				<Kbd size="xs">Ctrl+K</Kbd>
 				<Kbd size="xs">help</Kbd>
 				<Kbd size="xs">clear</Kbd>

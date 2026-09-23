@@ -54,7 +54,7 @@ export const pingSteps = [
 		title: 'Socket Delivery & RTT Calculation',
 		layer: 'Application / Terminal',
 		protocol: 'ICMP / System Clock',
-		desc: "The local server NIC receives the reply frame. The kernel pushes payload to the waiting raw socket. The 'ping' CLI process computes Round-Trip Time (RTT = $T_{\text{receive}} - T_{\text{send}}$) and displays output: '64 bytes from 142.250.190.46: icmp_seq=1 ttl=116 time=14.2 ms'.",
+		desc: "The local server NIC receives the reply frame. The kernel pushes payload to the waiting raw socket. The 'ping' CLI process computes Round-Trip Time (RTT = T_receive - T_send) and displays output: '64 bytes from 142.250.190.46: icmp_seq=1 ttl=116 time=14.2 ms'.",
 		dataPacket: 'Result: 64 Bytes | Sequence: 1 | TTL: 116 | RTT: 14.2ms | Status: 0% Packet Loss'
 	}
 ];

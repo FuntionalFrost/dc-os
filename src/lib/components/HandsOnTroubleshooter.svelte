@@ -92,9 +92,11 @@
 				<button
 					onclick={evaluateChoice}
 					disabled={userChoice === null}
-					class="btn btn-primary btn-xs mt-2 w-full font-mono tracking-wider"
+					class="btn btn-xs mt-2 w-full font-mono tracking-wider transition-all {userChoice !== null
+						? 'btn-primary shadow-sm'
+						: 'btn-ghost border border-base-300 opacity-60'}"
 				>
-					SUBMIT DIAGNOSTIC FIX
+					{userChoice !== null ? 'SUBMIT DIAGNOSTIC FIX' : 'SELECT AN OPTION ABOVE TO SUBMIT'}
 				</button>
 			{:else}
 				<div

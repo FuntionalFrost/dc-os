@@ -1,7 +1,7 @@
 <script lang="ts">
 	import SEO from '$lib/components/SEO.svelte';
 	import { fiberColours, getFiberTextColor } from '$lib/data/fiberColours';
-	import { Meter, useDebounce } from 'yaxa-svelte';
+	import { DonutChart, Meter, useDebounce } from 'yaxa-svelte';
 	import { Cable, Calculator } from '@lucide/svelte';
 
 	let fiberNumberInput = $state<number | null>(1);
@@ -37,6 +37,24 @@
 			(safeLength * attenuationRate + safeConnectors * 0.75 + safeSplices * 0.3).toFixed(3)
 		)
 	);
+
+	let lossBreakdown = $derived([
+		{
+			label: 'Fiber Cable',
+			value: parseFloat((safeLength * attenuationRate).toFixed(3)),
+			color: '#38bdf8'
+		},
+		{
+			label: 'Connectors',
+			value: parseFloat((safeConnectors * 0.75).toFixed(3)),
+			color: '#f59e0b'
+		},
+		{
+			label: 'Splices',
+			value: parseFloat((safeSplices * 0.3).toFixed(3)),
+			color: '#8b5cf6'
+		}
+	]);
 </script>
 
 <SEO
@@ -182,19 +200,44 @@
 				</div>
 
 				<div
-					class="mt-4 flex flex-col gap-2.5 rounded-lg border border-neutral-content/10 bg-neutral p-3 text-xs text-neutral-content"
+					class="mt-4 flex flex-col gap-3 rounded-lg border border-neutral-content/10 bg-neutral p-3 text-xs text-neutral-content"
 				>
-					<div class="flex items-center justify-between">
-						<div>
-							<p class="text-[10px] font-bold text-neutral-content/60 uppercase">Loss Limit:</p>
-							<p class="font-mono text-xl font-black text-primary">
+					<div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+						<div class="space-y-1">
+							<p class="text-[10px] font-bold text-neutral-content/60 uppercase">
+								Total Loss Limit:
+							</p>
+							<p class="font-mono text-2xl font-black text-primary">
 								{calculatedLoss} <span class="text-xs font-bold">dB</span>
 							</p>
+							<div class="space-y-0.5 text-[10px] text-neutral-content/50">
+								<p>Rate: {attenuationRate} dB/km ({fiberType})</p>
+								<p>Formula: (L × A) + (C × 0.75) + (S × 0.3)</p>
+							</div>
 						</div>
-						<div class="text-right text-[10px] text-neutral-content/50">
-							<p>Loss Rate: {attenuationRate} dB/km</p>
-							<p>Form: (L * A) + (C * 0.75) + (S * 0.3)</p>
-						</div>
+
+						{#if calculatedLoss > 0}
+							<div class="flex items-center gap-3">
+								<DonutChart
+									data={lossBreakdown}
+									size={110}
+									strokeWidth={14}
+									centerLabel="Total"
+									centerValue="{calculatedLoss}dB"
+									showLegend={false}
+								/>
+								<div class="space-y-1 text-[10px]">
+									{#each lossBreakdown as item (item.label)}
+										<div class="flex items-center gap-1.5">
+											<span class="h-2 w-2 rounded-full" style="background-color: {item.color};"
+											></span>
+											<span class="text-neutral-content/70">{item.label}:</span>
+											<span class="font-bold text-base-content">{item.value} dB</span>
+										</div>
+									{/each}
+								</div>
+							</div>
+						{/if}
 					</div>
 
 					<Meter

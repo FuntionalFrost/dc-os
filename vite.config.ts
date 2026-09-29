@@ -11,8 +11,7 @@ export default defineConfig({
 		sveltekit({
 			preprocess: vitePreprocess(),
 			compilerOptions: {
-				runes: ({ filename }) =>
-					filename.split(/[/\\]/).includes('node_modules') ? undefined : true
+				runes: true
 			},
 			adapter: adapter({
 				fallback: '404.html'

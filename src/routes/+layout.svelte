@@ -419,10 +419,10 @@
 						href="https://yaxa.vercel.app"
 						target="_blank"
 						rel="noopener noreferrer"
-						class="flex items-center justify-between text-[11px] text-neutral-content/60 transition-colors hover:text-primary"
+						class="flex items-center justify-between text-[11px] text-neutral-content/50 transition-colors hover:text-primary"
 					>
 						<span>Fueled by Yaxa UI</span>
-						<span class="badge badge-xs badge-accent font-bold">v1.10.0</span>
+						<span class="text-[10px] opacity-70">↗</span>
 					</a>
 				</li>
 			</ul>

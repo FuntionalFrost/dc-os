@@ -5,10 +5,19 @@
 	import TransceiverDiagnostics from '$lib/components/TransceiverDiagnostics.svelte';
 	import { osiLayers } from '$lib/data/osiLayers';
 	import { CircleQuestionMark, Cpu, Layers, Network, Server } from '@lucide/svelte';
+	import { Stepper, type StepItem } from 'yaxa-svelte';
 
 	let activeOsiLayer = $state(7);
-	let doraStep = $state('DISCOVER');
+	let doraStepIndex = $state(0);
 
+	const doraSteps: StepItem[] = [
+		{ id: 'DISCOVER', title: 'DISCOVER', description: 'Broadcast (Port 67)' },
+		{ id: 'OFFER', title: 'OFFER', description: 'Server Unicast' },
+		{ id: 'REQUEST', title: 'REQUEST', description: 'Client Request' },
+		{ id: 'ACK', title: 'ACK', description: 'Server ACK' }
+	];
+
+	let doraStep = $derived(doraSteps[doraStepIndex]?.id || 'DISCOVER');
 	let selectedLayerData = $derived(osiLayers.find((l) => l.num === activeOsiLayer) || osiLayers[0]);
 </script>
 
@@ -157,18 +166,8 @@
 				<Network class="h-4 w-4" /> DHCP State Machine: The DORA Process
 			</h2>
 
-			<div class="my-3 flex flex-col gap-2 md:flex-row">
-				{#each [{ name: 'DISCOVER', color: 'border-amber-500/50 bg-amber-500/20 text-amber-300' }, { name: 'OFFER', color: 'border-emerald-500/50 bg-emerald-500/20 text-emerald-300' }, { name: 'REQUEST', color: 'border-amber-500/50 bg-amber-500/20 text-amber-300' }, { name: 'ACK', color: 'border-emerald-500/50 bg-emerald-500/20 text-emerald-300' }] as item (item.name)}
-					{@const isSelected = doraStep === item.name}
-					<button
-						onclick={() => (doraStep = item.name)}
-						class="btn btn-xs flex-1 font-mono transition-all {isSelected
-							? `${item.color} font-black shadow-sm ring-1 ring-primary`
-							: 'btn-outline border-base-300 bg-base-200/50'}"
-					>
-						{item.name}
-					</button>
-				{/each}
+			<div class="my-4">
+				<Stepper steps={doraSteps} bind:currentStep={doraStepIndex} clickable={true} />
 			</div>
 
 			<div

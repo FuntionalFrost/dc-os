@@ -1,7 +1,7 @@
 ﻿<script lang="ts">
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
-	import SEO from '$lib/components/SEO.svelte';
+	import SEO from '#lib/components/SEO.svelte';
 	import { AlertTriangle, Home, Terminal } from '@lucide/svelte';
 </script>
 
@@ -35,11 +35,11 @@
 			</div>
 			<div class="mt-3 space-y-1.5 text-neutral-content">
 				<p>
-					<span class="font-bold text-error">&gt; FAULT:</span>
+					<span class="font-bold text-error">> FAULT:</span>
 					{page.error?.message || 'The requested telemetry path is inaccessible or does not exist.'}
 				</p>
 				<p class="text-neutral-content/60">
-					<span class="font-bold text-primary">&gt; TARGET:</span>
+					<span class="font-bold text-primary">> TARGET:</span>
 					{page.url.pathname}
 				</p>
 			</div>
@@ -47,12 +47,13 @@
 
 		<!-- Action Buttons -->
 		<div class="flex flex-wrap justify-center gap-3">
-			<a href={resolve('/')} class="btn btn-primary btn-sm font-mono">
-				<Home class="h-4 w-4" /> DASHBOARD
-			</a>
-			<a href={resolve('/terminal')} class="btn btn-outline btn-primary btn-sm font-mono">
-				<Terminal class="h-4 w-4" /> KVM TERMINAL
-			</a>
+			<a href={resolve('/')} class="btn btn-primary btn-sm font-mono"
+				><Home class="h-4 w-4" />DASHBOARD</a
+			>
+
+			<a href={resolve('terminal')} class="btn btn-outline btn-primary btn-sm font-mono"
+				><Terminal class="h-4 w-4" />KVM TERMINAL</a
+			>
 		</div>
 	</div>
 </div>

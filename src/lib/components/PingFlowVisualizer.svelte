@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { pingSteps } from '$lib/data/pingSteps';
+	import { pingSteps } from '#lib/data/pingSteps.js';
 	import { Activity, Globe } from '@lucide/svelte';
 	import { CodeBlock } from 'yaxa-svelte';
 

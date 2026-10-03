@@ -1,9 +1,9 @@
 <script lang="ts">
-	import SEO from '$lib/components/SEO.svelte';
-	import CommandBuilder from '$lib/components/CommandBuilder.svelte';
-	import HandsOnTroubleshooter from '$lib/components/HandsOnTroubleshooter.svelte';
-	import HardwareDiagnosticSuite from '$lib/components/HardwareDiagnosticSuite.svelte';
-	import LinuxSysAdminExplorer from '$lib/components/LinuxSysAdminExplorer.svelte';
+	import SEO from '#lib/components/SEO.svelte';
+	import CommandBuilder from '#lib/components/CommandBuilder.svelte';
+	import HandsOnTroubleshooter from '#lib/components/HandsOnTroubleshooter.svelte';
+	import HardwareDiagnosticSuite from '#lib/components/HardwareDiagnosticSuite.svelte';
+	import LinuxSysAdminExplorer from '#lib/components/LinuxSysAdminExplorer.svelte';
 </script>
 
 <SEO

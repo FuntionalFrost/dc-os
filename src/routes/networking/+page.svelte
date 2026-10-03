@@ -1,9 +1,9 @@
 <script lang="ts">
-	import SEO from '$lib/components/SEO.svelte';
-	import PingFlowVisualizer from '$lib/components/PingFlowVisualizer.svelte';
-	import SubnetCalculator from '$lib/components/SubnetCalculator.svelte';
-	import TransceiverDiagnostics from '$lib/components/TransceiverDiagnostics.svelte';
-	import { osiLayers } from '$lib/data/osiLayers';
+	import SEO from '#lib/components/SEO.svelte';
+	import PingFlowVisualizer from '#lib/components/PingFlowVisualizer.svelte';
+	import SubnetCalculator from '#lib/components/SubnetCalculator.svelte';
+	import TransceiverDiagnostics from '#lib/components/TransceiverDiagnostics.svelte';
+	import { osiLayers } from '#lib/data/osiLayers.js';
 	import { CircleQuestionMark, Cpu, Layers, Network, Server } from '@lucide/svelte';
 	import { Stepper, type StepItem } from 'yaxa-svelte';
 

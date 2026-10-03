@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { bootStages, fhsDirectories } from '$lib/data/linuxSystem';
+	import { bootStages, fhsDirectories } from '#lib/data/linuxSystem.js';
 	import { FolderTree, Terminal as TerminalIcon, HardDrive } from '@lucide/svelte';
 	import {
 		Tabs,

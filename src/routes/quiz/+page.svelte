@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { Question } from '$lib/data/comptia-questions';
-	import { compTiaQuestions } from '$lib/data/comptia-questions';
+	import type { Question } from '#lib/data/comptia-questions.js';
+	import { compTiaQuestions } from '#lib/data/comptia-questions.js';
 	import {
 		Award,
 		Bookmark,
@@ -13,7 +13,7 @@
 		RefreshCw,
 		Timer
 	} from '@lucide/svelte';
-	import SEO from '$lib/components/SEO.svelte';
+	import SEO from '#lib/components/SEO.svelte';
 	import { Kbd, Progress, useShortcuts } from 'yaxa-svelte';
 	import { siteConfig } from '../../site.config';
 

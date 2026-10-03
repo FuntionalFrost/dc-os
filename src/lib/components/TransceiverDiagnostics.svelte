@@ -6,7 +6,7 @@
 		servicePorts,
 		type TransceiverSpec,
 		type ServicePort
-	} from '$lib/data/transceivers';
+	} from '#lib/data/transceivers.js';
 
 	let formFactor = $state<'SFP+' | 'QSFP28' | 'QSFP-DD'>('SFP+');
 	let inputMilliwatts = $state(0.38); // 0.380 mW default

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import SEO from '$lib/components/SEO.svelte';
-	import { fiberColours, getFiberTextColor } from '$lib/data/fiberColours';
+	import SEO from '#lib/components/SEO.svelte';
+	import { fiberColours, getFiberTextColor } from '#lib/data/fiberColours.js';
 	import { DonutChart, Meter, useDebounce } from 'yaxa-svelte';
 	import { Cable, Calculator } from '@lucide/svelte';
 

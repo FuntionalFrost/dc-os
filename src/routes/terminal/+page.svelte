@@ -1,6 +1,6 @@
 <script lang="ts">
-	import SEO from '$lib/components/SEO.svelte';
-	import TerminalSimulator from '$lib/components/TerminalSimulator.svelte';
+	import SEO from '#lib/components/SEO.svelte';
+	import TerminalSimulator from '#lib/components/TerminalSimulator.svelte';
 	import { Play, Search, Terminal as TerminalIcon } from '@lucide/svelte';
 	import { ResizablePanels, Kbd, Badge } from 'yaxa-svelte';
 

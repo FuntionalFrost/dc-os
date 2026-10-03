@@ -6,6 +6,7 @@
 	import { Check, ChevronDown, Palette } from '@lucide/svelte';
 	import { CommandPalette, Kbd, useShortcuts, YaxaApp, type CommandItem } from 'yaxa-svelte';
 	import { siteConfig } from '../site.config';
+	import type { LayoutRouteId } from './$types';
 	import './layout.css';
 
 	// Svelte 5 dynamic props destructuring
@@ -93,7 +94,7 @@
 			href: n.href,
 			onSelect: () => {
 				isPaletteOpen = false;
-				goto(resolve(n.href as '/'));
+				goto(resolve(n.href as NonNullable<LayoutRouteId>));
 			}
 		}));
 
@@ -105,7 +106,7 @@
 				group: 'Diagnostics',
 				onSelect: () => {
 					isPaletteOpen = false;
-					goto(resolve('/networking'));
+					goto(resolve('networking'));
 				}
 			},
 			{
@@ -115,7 +116,7 @@
 				group: 'Diagnostics',
 				onSelect: () => {
 					isPaletteOpen = false;
-					goto(resolve('/networking'));
+					goto(resolve('networking'));
 				}
 			},
 			{
@@ -125,7 +126,7 @@
 				group: 'Diagnostics',
 				onSelect: () => {
 					isPaletteOpen = false;
-					goto(resolve('/hardware'));
+					goto(resolve('hardware'));
 				}
 			},
 			{
@@ -135,7 +136,7 @@
 				group: 'Diagnostics',
 				onSelect: () => {
 					isPaletteOpen = false;
-					goto(resolve('/hardware'));
+					goto(resolve('hardware'));
 				}
 			},
 			{
@@ -145,7 +146,7 @@
 				group: 'Diagnostics',
 				onSelect: () => {
 					isPaletteOpen = false;
-					goto(resolve('/terminal'));
+					goto(resolve('terminal'));
 				}
 			},
 			{
@@ -155,7 +156,7 @@
 				group: 'Certification',
 				onSelect: () => {
 					isPaletteOpen = false;
-					goto(resolve('/quiz'));
+					goto(resolve('quiz'));
 				}
 			},
 			{
@@ -271,7 +272,7 @@
 								stroke-linejoin="round"
 								stroke-width="2"
 								d="M4 6h16M4 12h8m-8 6h16"
-							/>
+							></path>
 						</svg>
 					</label>
 					<a href={resolve('/')} class="text-xl font-bold tracking-wider text-primary">
@@ -401,7 +402,7 @@
 						{@const isActive = page.url.pathname === link.href}
 						<li>
 							<a
-								href={resolve(link.href as '/')}
+								href={resolve(link.href as NonNullable<LayoutRouteId>)}
 								onclick={closeDrawer}
 								class="my-0.5 transition-all {isActive
 									? 'active bg-primary font-bold text-primary-content'

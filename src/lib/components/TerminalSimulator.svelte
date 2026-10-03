@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { mockResponses } from '$lib/data/mockTerminalResponses';
+	import { mockResponses } from '#lib/data/mockTerminalResponses.js';
 	import { RefreshCw, Terminal as TerminalIcon } from '@lucide/svelte';
 	import { FitAddon } from '@xterm/addon-fit';
 	import { Terminal } from '@xterm/xterm';

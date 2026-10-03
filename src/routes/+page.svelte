@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SEO from '$lib/components/SEO.svelte';
+	import SEO from '#lib/components/SEO.svelte';
 	import { resolve } from '$app/paths';
 	import { ArrowRight, Cable, Cpu, Network, Shield, Terminal } from '@lucide/svelte';
 	import { generateSoftwareApplicationSchema, generateWebSiteSchema } from 'yaxa-svelte';
@@ -42,14 +42,16 @@
 					server room aisles.
 				</p>
 				<div class="mt-2 flex flex-wrap gap-3">
-					<a href={resolve('/terminal')} class="btn btn-primary btn-sm font-mono tracking-wider">
-						<Terminal class="h-4 w-4" /> LAUNCH KVM TERMINAL
-					</a>
-					<a href={resolve('/cheat-sheet')} class="btn btn-accent btn-sm font-mono tracking-wider">
-						HOST OS SHEETS <ArrowRight class="h-4 w-4" />
-					</a>
+					<a href={resolve('terminal')} class="btn btn-primary btn-sm font-mono tracking-wider"
+						><Terminal class="h-4 w-4" />LAUNCH KVM TERMINAL</a
+					>
+
+					<a href={resolve('cheat-sheet')} class="btn btn-accent btn-sm font-mono tracking-wider"
+						>HOST OS SHEETS <ArrowRight class="h-4 w-4" /></a
+					>
+
 					<a
-						href={resolve('/quiz')}
+						href={resolve('quiz')}
 						class="btn btn-ghost btn-sm border border-base-300 font-mono tracking-wider"
 					>
 						EXAM SIMULATOR
@@ -80,7 +82,7 @@
 				</div>
 				<div class="card-actions mt-4 justify-end">
 					<a
-						href={resolve('/terminal')}
+						href={resolve('terminal')}
 						class="btn btn-outline btn-xs border-cyan-400/50 font-mono text-cyan-400 hover:bg-cyan-400 hover:text-black"
 					>
 						<Terminal class="h-3 w-3" /> OPEN CONSOLE
@@ -108,7 +110,7 @@
 				</div>
 				<div class="card-actions mt-4 justify-end">
 					<a
-						href={resolve('/cheat-sheet')}
+						href={resolve('cheat-sheet')}
 						class="btn btn-outline btn-xs border-amber-400/50 font-mono text-amber-400 hover:bg-amber-400 hover:text-black"
 					>
 						<Cpu class="h-3 w-3" /> SYSADMIN SUITE
@@ -136,7 +138,7 @@
 				</div>
 				<div class="card-actions mt-4 justify-end">
 					<a
-						href={resolve('/networking')}
+						href={resolve('networking')}
 						class="btn btn-outline btn-xs border-emerald-400/50 font-mono text-emerald-400 hover:bg-emerald-400 hover:text-black"
 					>
 						<Network class="h-3 w-3" /> NOC CONTROL
@@ -164,7 +166,7 @@
 				</div>
 				<div class="card-actions mt-4 justify-end">
 					<a
-						href={resolve('/hardware')}
+						href={resolve('hardware')}
 						class="btn btn-outline btn-xs border-sky-400/50 font-mono text-sky-400 hover:bg-sky-400 hover:text-black"
 					>
 						<Cable class="h-3 w-3" /> OPTICAL MATH
@@ -192,7 +194,7 @@
 				</div>
 				<div class="card-actions mt-4 justify-end">
 					<a
-						href={resolve('/quiz')}
+						href={resolve('quiz')}
 						class="btn btn-outline btn-xs border-rose-400/50 font-mono text-rose-400 hover:bg-rose-400 hover:text-black"
 					>
 						<Shield class="h-3 w-3" /> START EVALUATION

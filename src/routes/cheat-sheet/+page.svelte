@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageHeader from '#lib/components/PageHeader.svelte';
 	import SEO from '#lib/components/SEO.svelte';
 	import CommandBuilder from '#lib/components/CommandBuilder.svelte';
 	import HandsOnTroubleshooter from '#lib/components/HandsOnTroubleshooter.svelte';
@@ -24,17 +25,11 @@
 
 <div class="space-y-6 font-mono">
 	<!-- Clean Single Route Header -->
-	<div class="flex items-center justify-between border-b border-base-200 pb-3">
-		<div>
-			<h1 class="text-2xl font-black tracking-wider text-primary uppercase">
-				💻 HOST_OS // BARE_METAL_DIAGS
-			</h1>
-			<p class="mt-1 text-xs text-neutral-content">
-				Host administration, boot stages, hardware inventory tools, and interactive CLI generators.
-			</p>
-		</div>
-		<span class="badge badge-outline badge-sm badge-accent font-bold">SYSTEMS CONSOLE</span>
-	</div>
+	<PageHeader
+		title="💻 HOST_OS // BARE_METAL_DIAGS"
+		description="Host administration, boot stages, hardware inventory tools, and interactive CLI generators."
+		badge="SYSTEMS CONSOLE"
+	/>
 
 	<!-- Core Host OS & Systems Components -->
 	<LinuxSysAdminExplorer />

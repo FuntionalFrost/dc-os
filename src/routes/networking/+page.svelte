@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageHeader from '#lib/components/PageHeader.svelte';
 	import SEO from '#lib/components/SEO.svelte';
 	import PingFlowVisualizer from '#lib/components/PingFlowVisualizer.svelte';
 	import SubnetCalculator from '#lib/components/SubnetCalculator.svelte';
@@ -39,17 +40,11 @@
 
 <div class="space-y-6 font-mono">
 	<!-- Networking Route Header -->
-	<div class="flex items-center justify-between border-b border-base-200 pb-3">
-		<div>
-			<h1 class="text-2xl font-black tracking-wider text-primary uppercase">
-				📡 L2_L7_STANDARDS // NETWORKING
-			</h1>
-			<p class="mt-1 text-xs text-neutral-content">
-				Subnet bounds, layer interactions, frame translations, transceivers, and DHCP mappings.
-			</p>
-		</div>
-		<span class="badge badge-outline badge-sm badge-accent font-bold">NOC CONTROL</span>
-	</div>
+	<PageHeader
+		title="📡 L2_L7_STANDARDS // NETWORKING"
+		description="Subnet bounds, layer interactions, frame translations, transceivers, and DHCP mappings."
+		badge="NOC CONTROL"
+	/>
 
 	<!-- Subnet & CIDR Mask Engine -->
 	<SubnetCalculator />

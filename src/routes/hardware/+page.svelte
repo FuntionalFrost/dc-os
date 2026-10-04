@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageHeader from '#lib/components/PageHeader.svelte';
 	import SEO from '#lib/components/SEO.svelte';
 	import { fiberColours, getFiberTextColor } from '#lib/data/fiberColours.js';
 	import { DonutChart, Meter, useDebounce } from 'yaxa-svelte';
@@ -31,13 +32,6 @@
 
 	let attenuationRate = $derived(fiberType === 'SMF' ? 0.4 : 3.0);
 
-	// Clean optical loss budget equation: (Length * Attenuation) + (Connectors * 0.75) + (Splices * 0.3)
-	let calculatedLoss = $derived(
-		parseFloat(
-			(safeLength * attenuationRate + safeConnectors * 0.75 + safeSplices * 0.3).toFixed(3)
-		)
-	);
-
 	let lossBreakdown = $derived([
 		{
 			label: 'Fiber Cable',
@@ -55,6 +49,11 @@
 			color: '#8b5cf6'
 		}
 	]);
+
+	// Clean optical loss budget derived from single source of truth (lossBreakdown)
+	let calculatedLoss = $derived(
+		parseFloat(lossBreakdown.reduce((acc, c) => acc + c.value, 0).toFixed(3))
+	);
 </script>
 
 <SEO
@@ -74,17 +73,11 @@
 />
 
 <div class="space-y-6 font-mono">
-	<div class="flex items-center justify-between border-b border-base-200 pb-3">
-		<div>
-			<h1 class="text-2xl font-black tracking-wider text-primary uppercase">
-				🧵 L1_PHYSICAL // FIBER_OPTICS
-			</h1>
-			<p class="mt-1 text-xs text-neutral-content">
-				TIA-598-C color-code lookups and physical link budget engineering.
-			</p>
-		</div>
-		<span class="badge badge-outline badge-sm badge-accent font-bold">OPTICAL LAYER</span>
-	</div>
+	<PageHeader
+		title="🧵 L1_PHYSICAL // FIBER_OPTICS"
+		description="TIA-598-C color-code lookups and physical link budget engineering."
+		badge="OPTICAL LAYER"
+	/>
 
 	<div class="grid grid-cols-1 gap-4 lg:grid-cols-12">
 		<!-- TIA-598-C Fiber Core Finder -->

@@ -158,52 +158,20 @@
 					isPaletteOpen = false;
 					goto(resolve('quiz'));
 				}
-			},
-			{
-				id: 'theme-night',
-				label: 'Switch Theme: Night (Deep Navy)',
-				group: 'Theme',
-				onSelect: () => {
-					isPaletteOpen = false;
-					toggleTheme('night');
-				}
-			},
-			{
-				id: 'theme-dracula',
-				label: 'Switch Theme: Dracula (Vampire Synth)',
-				group: 'Theme',
-				onSelect: () => {
-					isPaletteOpen = false;
-					toggleTheme('dracula');
-				}
-			},
-			{
-				id: 'theme-dim',
-				label: 'Switch Theme: Dim (Slate Dimmed)',
-				group: 'Theme',
-				onSelect: () => {
-					isPaletteOpen = false;
-					toggleTheme('dim');
-				}
-			},
-			{
-				id: 'theme-nord',
-				label: 'Switch Theme: Nord (Arctic Frost)',
-				group: 'Theme',
-				onSelect: () => {
-					isPaletteOpen = false;
-					toggleTheme('nord');
-				}
-			},
-			{
-				id: 'theme-cyberpunk',
-				label: 'Switch Theme: Cyberpunk (Neon Matrix)',
-				group: 'Theme',
-				onSelect: () => {
-					isPaletteOpen = false;
-					toggleTheme('cyberpunk');
-				}
-			},
+			}
+		];
+
+		const themeItems: CommandItem[] = themeOptions.map((t) => ({
+			id: `theme-${t.id}`,
+			label: `Switch Theme: ${t.label} (${t.desc})`,
+			group: 'Theme',
+			onSelect: () => {
+				isPaletteOpen = false;
+				toggleTheme(t.id);
+			}
+		}));
+
+		const externalItems: CommandItem[] = [
 			{
 				id: 'yaxa-docs',
 				label: 'Yaxa UI Documentation',
@@ -228,7 +196,7 @@
 			}
 		];
 
-		return [...navItems, ...toolItems];
+		return [...navItems, ...toolItems, ...themeItems, ...externalItems];
 	});
 
 	onMount(() => {

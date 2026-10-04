@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageHeader from '#lib/components/PageHeader.svelte';
 	import SEO from '#lib/components/SEO.svelte';
 	import TerminalSimulator from '#lib/components/TerminalSimulator.svelte';
 	import { Play, Search, Terminal as TerminalIcon } from '@lucide/svelte';
@@ -180,26 +181,25 @@
 
 <div class="flex h-[calc(100vh-6.5rem)] flex-col space-y-2 font-mono">
 	<!-- KVM Header -->
-	<div class="flex shrink-0 items-center justify-between border-b border-base-200 pb-3">
-		<div>
-			<h1 class="text-2xl font-black tracking-wider text-primary uppercase">
-				🖥️ KVM_CONSOLE // LIVE_SHELL
-			</h1>
-			<p class="mt-1 text-xs text-neutral-content">
-				Interactive CLI sandbox & live diagnostic command injector.
-			</p>
-		</div>
-		<div class="flex items-center gap-2">
-			<div class="hidden items-center gap-1.5 text-xs text-neutral-content/70 lg:flex">
-				<span class="text-[10px] font-bold">SHORTCUTS:</span>
-				<Kbd size="xs">Ctrl+K</Kbd>
-				<Kbd size="xs">help</Kbd>
-				<Kbd size="xs">clear</Kbd>
+	<PageHeader
+		class="shrink-0"
+		title="🖥️ KVM_CONSOLE // LIVE_SHELL"
+		description="Interactive CLI sandbox & live diagnostic command injector."
+	>
+		{#snippet actions()}
+			<div class="flex items-center gap-2">
+				<div class="hidden items-center gap-1.5 text-xs text-neutral-content/70 lg:flex">
+					<span class="text-[10px] font-bold">SHORTCUTS:</span>
+					<Kbd size="xs">Ctrl+K</Kbd>
+					<Kbd size="xs">help</Kbd>
+					<Kbd size="xs">clear</Kbd>
+				</div>
+				<span class="badge badge-outline badge-sm badge-success font-bold">TTY1 ACTIVE</span>
+				<span class="badge badge-ghost badge-sm font-bold text-neutral-content/60">BAUD 115200</span
+				>
 			</div>
-			<span class="badge badge-outline badge-sm badge-success font-bold">TTY1 ACTIVE</span>
-			<span class="badge badge-ghost badge-sm font-bold text-neutral-content/60">BAUD 115200</span>
-		</div>
-	</div>
+		{/snippet}
+	</PageHeader>
 
 	<!-- Split Screen via ResizablePanels -->
 	<div class="min-h-0 flex-1">

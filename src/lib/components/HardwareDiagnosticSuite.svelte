@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { Check, CircleQuestionMark, Copy, Terminal } from '@lucide/svelte';
+	import { toast, useClipboard } from 'yaxa-svelte';
 
 	type CategoryType = 'System' | 'Storage' | 'Network' | 'OOB & Logs';
 	let selectedCategory = $state<CategoryType>('System');
 	let activeCommandIndex = $state(0);
 	let activePresetIndex = $state(0);
 	let targetArg = $state('');
-	let copied = $state(false);
+	const clipboard = useClipboard();
 
 	interface Preset {
 		label: string;
@@ -280,9 +281,10 @@
 	});
 
 	async function copyCommand() {
-		await navigator.clipboard.writeText(assembledCommand);
-		copied = true;
-		setTimeout(() => (copied = false), 1500);
+		await clipboard.copy(assembledCommand);
+		if (clipboard.copied) {
+			toast.success('Diagnostic command copied to clipboard');
+		}
 	}
 
 	function handleCategoryChange(cat: CategoryType) {
@@ -395,7 +397,7 @@
 							</code>
 							<div class="mt-2.5 flex justify-end">
 								<button onclick={copyCommand} class="btn btn-primary btn-xs h-7 min-h-0 font-mono">
-									{#if copied}
+									{#if clipboard.copied}
 										<Check class="mr-1 h-3 w-3" /> COPIED
 									{:else}
 										<Copy class="mr-1 h-3 w-3" /> COPY TO SHELL

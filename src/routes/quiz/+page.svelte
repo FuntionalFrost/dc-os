@@ -13,6 +13,7 @@
 		RefreshCw,
 		Timer
 	} from '@lucide/svelte';
+	import PageHeader from '#lib/components/PageHeader.svelte';
 	import SEO from '#lib/components/SEO.svelte';
 	import { Kbd, Progress, useShortcuts } from 'yaxa-svelte';
 	import { siteConfig } from '../../site.config';
@@ -196,45 +197,39 @@
 />
 
 <div class="space-y-6 font-mono">
-	<div
-		class="flex flex-col items-start justify-between gap-3 border-b border-base-200 pb-3 sm:flex-row sm:items-center"
+	<PageHeader
+		title="🧠 EXAM_SIM // COMPTIA_TRAINING"
+		description="Cert prep for CompTIA A+, Network+, Server+, and Linux+."
 	>
-		<div>
-			<h1 class="text-2xl font-black tracking-wider text-primary uppercase">
-				🧠 EXAM_SIM // COMPTIA_TRAINING
-			</h1>
-			<p class="mt-1 text-xs text-neutral-content">
-				Cert prep for CompTIA A+, Network+, Server+, and Linux+.
-			</p>
-		</div>
-
-		<div
-			class="flex justify-center gap-1.5 self-stretch rounded-lg border border-base-300 bg-base-200 p-0.5 sm:self-auto"
-		>
-			<button
-				onclick={() => {
-					quizMode = 'STUDY';
-					resetQuiz();
-				}}
-				class="btn h-7 rounded-md px-3 text-[10px] font-bold transition-all {quizMode === 'STUDY'
-					? 'btn-primary text-primary-content'
-					: 'btn-ghost'}"
+		{#snippet actions()}
+			<div
+				class="flex justify-center gap-1.5 self-stretch rounded-lg border border-base-300 bg-base-200 p-0.5 sm:self-auto"
 			>
-				<BookOpen class="mr-1 h-3.5 w-3.5" /> STUDY
-			</button>
-			<button
-				onclick={() => {
-					quizMode = 'EXAM';
-					resetQuiz();
-				}}
-				class="btn h-7 rounded-md px-3 text-[10px] font-bold transition-all {quizMode === 'EXAM'
-					? 'btn-primary text-primary-content'
-					: 'btn-ghost'}"
-			>
-				<Timer class="mr-1 h-3.5 w-3.5" /> EXAM
-			</button>
-		</div>
-	</div>
+				<button
+					onclick={() => {
+						quizMode = 'STUDY';
+						resetQuiz();
+					}}
+					class="btn h-7 rounded-md px-3 text-[10px] font-bold transition-all {quizMode === 'STUDY'
+						? 'btn-primary text-primary-content'
+						: 'btn-ghost'}"
+				>
+					<BookOpen class="mr-1 h-3.5 w-3.5" /> STUDY
+				</button>
+				<button
+					onclick={() => {
+						quizMode = 'EXAM';
+						resetQuiz();
+					}}
+					class="btn h-7 rounded-md px-3 text-[10px] font-bold transition-all {quizMode === 'EXAM'
+						? 'btn-primary text-primary-content'
+						: 'btn-ghost'}"
+				>
+					<Timer class="mr-1 h-3.5 w-3.5" /> EXAM
+				</button>
+			</div>
+		{/snippet}
+	</PageHeader>
 
 	{#if !quizCompleted && quizMode === 'STUDY'}
 		<div

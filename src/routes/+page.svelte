@@ -1,7 +1,8 @@
 <script lang="ts">
 	import SEO from '#lib/components/SEO.svelte';
+	import { portalModules } from '#lib/data/modules.js';
 	import { resolve } from '$app/paths';
-	import { ArrowRight, Cable, Cpu, Network, Shield, Terminal } from '@lucide/svelte';
+	import { ArrowRight, Terminal } from '@lucide/svelte';
 	import { generateSoftwareApplicationSchema, generateWebSiteSchema } from 'yaxa-svelte';
 	import { siteConfig } from '../site.config';
 
@@ -63,145 +64,33 @@
 
 	<!-- 5-Module Primary Portal Grid -->
 	<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-		<!-- Module 1: KVM Terminal -->
-		<div
-			class="card border border-cyan-500/30 bg-base-100/90 shadow-lg transition-all hover:border-cyan-400 hover:shadow-cyan-500/10"
-		>
-			<div class="card-body justify-between p-5">
-				<div>
-					<div class="flex items-center gap-3">
-						<div class="rounded-lg bg-cyan-500/20 p-2.5 text-cyan-400 shadow-inner">
-							<Terminal class="h-5 w-5" />
+		{#each portalModules as mod (mod.id)}
+			{@const Icon = mod.icon}
+			<div
+				class="card border bg-base-100/90 shadow-lg transition-all {mod.borderClass} {mod.colSpanClass ??
+					''}"
+			>
+				<div class="card-body justify-between p-5">
+					<div>
+						<div class="flex items-center gap-3">
+							<div class="rounded-lg p-2.5 shadow-inner {mod.iconBgClass}">
+								<Icon class="h-5 w-5" />
+							</div>
+							<h2 class="card-title text-sm font-black {mod.textClass}">{mod.title}</h2>
 						</div>
-						<h2 class="card-title text-sm font-black text-cyan-400">KVM CLI TERMINAL</h2>
+						<p class="mt-2 text-xs leading-relaxed text-neutral-content">
+							{mod.description}
+						</p>
 					</div>
-					<p class="mt-2 text-xs leading-relaxed text-neutral-content">
-						Full-screen interactive `xterm.js` terminal simulator with ANSI colors, command history,
-						and hardware diagnostic outputs.
-					</p>
-				</div>
-				<div class="card-actions mt-4 justify-end">
-					<a
-						href={resolve('terminal')}
-						class="btn btn-outline btn-xs border-cyan-400/50 font-mono text-cyan-400 hover:bg-cyan-400 hover:text-black"
-					>
-						<Terminal class="h-3 w-3" /> OPEN CONSOLE
-					</a>
+					<div class="card-actions mt-4 justify-end">
+						<a href={resolve(mod.href)} class={mod.btnClass}>
+							<Icon class="h-3 w-3" />
+							{mod.buttonText}
+						</a>
+					</div>
 				</div>
 			</div>
-		</div>
-
-		<!-- Module 2: Host OS & Systems -->
-		<div
-			class="card border border-amber-500/30 bg-base-100/90 shadow-lg transition-all hover:border-amber-400 hover:shadow-amber-500/10"
-		>
-			<div class="card-body justify-between p-5">
-				<div>
-					<div class="flex items-center gap-3">
-						<div class="rounded-lg bg-amber-500/20 p-2.5 text-amber-400 shadow-inner">
-							<Cpu class="h-5 w-5" />
-						</div>
-						<h2 class="card-title text-sm font-black text-amber-400">HOST OS & DIAGNOSTICS</h2>
-					</div>
-					<p class="mt-2 text-xs leading-relaxed text-neutral-content">
-						Linux boot stages, FHS directory maps, field troubleshooting scenarios, and interactive
-						command generators (`tar`, `ip route`).
-					</p>
-				</div>
-				<div class="card-actions mt-4 justify-end">
-					<a
-						href={resolve('cheat-sheet')}
-						class="btn btn-outline btn-xs border-amber-400/50 font-mono text-amber-400 hover:bg-amber-400 hover:text-black"
-					>
-						<Cpu class="h-3 w-3" /> SYSADMIN SUITE
-					</a>
-				</div>
-			</div>
-		</div>
-
-		<!-- Module 3: Network Operations -->
-		<div
-			class="card border border-emerald-500/30 bg-base-100/90 shadow-lg transition-all hover:border-emerald-400 hover:shadow-emerald-500/10"
-		>
-			<div class="card-body justify-between p-5">
-				<div>
-					<div class="flex items-center gap-3">
-						<div class="rounded-lg bg-emerald-500/20 p-2.5 text-emerald-400 shadow-inner">
-							<Network class="h-5 w-5" />
-						</div>
-						<h2 class="card-title text-sm font-black text-emerald-400">NETWORK OPERATIONS</h2>
-					</div>
-					<p class="mt-2 text-xs leading-relaxed text-neutral-content">
-						Bitwise CIDR Subnet Calculator, step-by-step ICMP ping flow, SFP DOM power converters,
-						and DHCP DORA handshake simulator.
-					</p>
-				</div>
-				<div class="card-actions mt-4 justify-end">
-					<a
-						href={resolve('networking')}
-						class="btn btn-outline btn-xs border-emerald-400/50 font-mono text-emerald-400 hover:bg-emerald-400 hover:text-black"
-					>
-						<Network class="h-3 w-3" /> NOC CONTROL
-					</a>
-				</div>
-			</div>
-		</div>
-
-		<!-- Module 4: Optical Fiber -->
-		<div
-			class="card border border-sky-500/30 bg-base-100/90 shadow-lg transition-all hover:border-sky-400 hover:shadow-sky-500/10"
-		>
-			<div class="card-body justify-between p-5">
-				<div>
-					<div class="flex items-center gap-3">
-						<div class="rounded-lg bg-sky-500/20 p-2.5 text-sky-400 shadow-inner">
-							<Cable class="h-5 w-5" />
-						</div>
-						<h2 class="card-title text-sm font-black text-sky-400">FIBER & L1 OPTICS</h2>
-					</div>
-					<p class="mt-2 text-xs leading-relaxed text-neutral-content">
-						Decode 144-strand fiber core bundles using TIA-598-C color coding and calculate maximum
-						allowable optical link loss budgets.
-					</p>
-				</div>
-				<div class="card-actions mt-4 justify-end">
-					<a
-						href={resolve('hardware')}
-						class="btn btn-outline btn-xs border-sky-400/50 font-mono text-sky-400 hover:bg-sky-400 hover:text-black"
-					>
-						<Cable class="h-3 w-3" /> OPTICAL MATH
-					</a>
-				</div>
-			</div>
-		</div>
-
-		<!-- Module 5: Exam Prep -->
-		<div
-			class="card border border-rose-500/30 bg-base-100/90 shadow-lg transition-all hover:border-rose-400 hover:shadow-rose-500/10 md:col-span-2 lg:col-span-1"
-		>
-			<div class="card-body justify-between p-5">
-				<div>
-					<div class="flex items-center gap-3">
-						<div class="rounded-lg bg-rose-500/20 p-2.5 text-rose-400 shadow-inner">
-							<Shield class="h-5 w-5" />
-						</div>
-						<h2 class="card-title text-sm font-black text-rose-400">EXAM PREP SIMULATOR</h2>
-					</div>
-					<p class="mt-2 text-xs leading-relaxed text-neutral-content">
-						CompTIA A+, Network+, Server+, and Linux+ scenarios featuring Study Mode with
-						explanations and a 15-minute Timed Exam Mode.
-					</p>
-				</div>
-				<div class="card-actions mt-4 justify-end">
-					<a
-						href={resolve('quiz')}
-						class="btn btn-outline btn-xs border-rose-400/50 font-mono text-rose-400 hover:bg-rose-400 hover:text-black"
-					>
-						<Shield class="h-3 w-3" /> START EVALUATION
-					</a>
-				</div>
-			</div>
-		</div>
+		{/each}
 	</div>
 
 	<!-- Operational Status Footer Bar -->

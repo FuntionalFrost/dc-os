@@ -31,7 +31,9 @@
 
 <div class="space-y-8 font-mono">
 	<!-- Hero Banner -->
-	<div class="hero rounded-3xl border border-base-200 bg-base-100 p-6 shadow-xl md:p-10">
+	<div
+		class="hero rounded-3xl border border-base-200 bg-base-100 yaxa-mesh-glow p-6 shadow-xl yaxa-surface-elevated md:p-10"
+	>
 		<div class="hero-content max-w-4xl p-0 text-left">
 			<div>
 				<h1 class="text-4xl font-black tracking-tight text-primary uppercase md:text-5xl">

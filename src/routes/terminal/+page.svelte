@@ -190,7 +190,7 @@
 			<div class="flex items-center gap-2">
 				<div class="hidden items-center gap-1.5 text-xs text-neutral-content/70 lg:flex">
 					<span class="text-[10px] font-bold">SHORTCUTS:</span>
-					<Kbd size="xs">Ctrl+K</Kbd>
+					<Kbd combo={['meta', 'k']} size="xs" />
 					<Kbd size="xs">help</Kbd>
 					<Kbd size="xs">clear</Kbd>
 				</div>

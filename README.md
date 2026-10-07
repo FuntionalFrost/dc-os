@@ -59,7 +59,7 @@ $$\text{Loss Limit (dB)} = (\text{Length} \times \text{Attenuation}) + (\text{Ma
 ## 🛠️ Tech Stack
 
 - **Framework:** [SvelteKit 2](https://kit.svelte.dev/) with [Svelte 5](https://svelte.dev/) (Runes `$state`, `$derived`, `$effect`)
-- **UI & Component System:** [Yaxa UI](https://yaxa.vercel.app/) ([`yaxa-svelte@1.10.0`](https://www.npmjs.com/package/yaxa-svelte)) — `<CommandPalette>`, `<Kbd>`, `<Progress>`, `<Meter>`, `useShortcuts`, `useClipboard`, `useDebounce`
+- **UI & Component System:** [Yaxa UI](https://yaxa.vercel.app/) ([`yaxa-svelte@1.15.0`](https://www.npmjs.com/package/yaxa-svelte)) — `<CommandPalette>`, `<Kbd>`, `<Progress>`, `<Meter>`, `useShortcuts`, `useClipboard`, `useDebounce`
 - **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) with native design tokens (`night`, `dracula`, `dim` themes)
 - **Terminal Engine:** [xterm.js](https://xtermjs.org/) & `@xterm/addon-fit`
 - **Iconography:** [Lucide Svelte](https://lucide.dev/guide/packages/lucide-svelte)

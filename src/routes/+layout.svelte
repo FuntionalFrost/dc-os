@@ -74,6 +74,7 @@
 	function toggleTheme(theme: string) {
 		currentTheme = theme;
 		document.documentElement.setAttribute('data-theme', theme);
+		document.documentElement.classList.add('dark');
 		localStorage.setItem('dc-theme', theme);
 	}
 
@@ -254,7 +255,7 @@
 						aria-label="Search modules"
 					>
 						<span>Quick Search</span>
-						<Kbd size="xs">⌘K</Kbd>
+						<Kbd combo={['meta', 'k']} size="xs" />
 					</button>
 				</div>
 
@@ -294,7 +295,7 @@
 						></button>
 
 						<div
-							class="absolute right-0 z-50 mt-2 w-60 origin-top-right rounded-xl border border-base-200 bg-base-100 p-1.5 font-mono shadow-2xl ring-1 ring-black/10"
+							class="absolute right-0 z-50 mt-2 w-60 origin-top-right rounded-xl border border-base-200 bg-base-100 p-1.5 font-mono shadow-2xl ring-1 yaxa-surface-elevated ring-black/10"
 							role="menu"
 						>
 							<div

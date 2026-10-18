@@ -97,11 +97,12 @@
 			Tweak switches, understand flags, and inspect your live production commands.
 		</p>
 
-		<div class="tabs-boxed tabs my-4 bg-base-200 p-1">
+		<div class="my-4 flex items-center gap-1 rounded-lg bg-base-200 p-1">
 			{#each commands as cmd, idx (cmd.name)}
 				<button
-					class="tab flex-1 transition-all {selectedCmdIndex === idx
-						? 'tab-active bg-primary text-primary-content'
+					class="flex-1 cursor-pointer rounded-md px-3 py-1.5 text-xs font-medium transition-all {selectedCmdIndex ===
+					idx
+						? 'bg-primary font-bold text-primary-content shadow-sm'
 						: 'text-base-content hover:bg-base-300'}"
 					onclick={() => (selectedCmdIndex = idx)}
 				>

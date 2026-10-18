@@ -3,8 +3,30 @@
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import { onMount } from 'svelte';
-	import { Check, ChevronDown, Palette } from '@lucide/svelte';
-	import { CommandPalette, Kbd, useShortcuts, YaxaApp, type CommandItem } from 'yaxa-svelte';
+	import {
+		Activity,
+		BookOpen,
+		Cable,
+		Calculator,
+		Check,
+		ChevronDown,
+		Cpu,
+		ExternalLink,
+		GitBranch,
+		Layers,
+		LayoutDashboard,
+		Network,
+		Palette,
+		Terminal
+	} from '@lucide/svelte';
+	import {
+		CommandPalette,
+		Kbd,
+		useShortcuts,
+		YaxaApp,
+		type CommandItem,
+		type IconSource
+	} from 'yaxa-svelte';
 	import { siteConfig } from '../site.config';
 	import type { LayoutRouteId } from './$types';
 	import './layout.css';
@@ -88,11 +110,31 @@
 	});
 
 	const commandPaletteItems = $derived.by<CommandItem[]>(() => {
+		const navIconMap: Record<string, IconSource> = {
+			'/': LayoutDashboard,
+			'/terminal': Terminal,
+			'/cheat-sheet': Cpu,
+			'/networking': Network,
+			'/hardware': Cable,
+			'/quiz': BookOpen
+		};
+
+		const navShortcutMap: Record<string, string> = {
+			'/': 'D',
+			'/terminal': 'T',
+			'/cheat-sheet': 'C',
+			'/networking': 'N',
+			'/hardware': 'H',
+			'/quiz': 'Q'
+		};
+
 		const navItems: CommandItem[] = (siteConfig.nav || []).map((n) => ({
 			id: n.href,
 			label: n.label,
 			group: 'Modules',
 			href: n.href,
+			icon: navIconMap[n.href],
+			shortcut: navShortcutMap[n.href],
 			onSelect: () => {
 				isPaletteOpen = false;
 				goto(resolve(n.href as NonNullable<LayoutRouteId>));
@@ -105,6 +147,8 @@
 				label: 'Subnet Calculator & CIDR Math',
 				description: 'Bitwise IP calculator, wildcard masks, host ranges',
 				group: 'Diagnostics',
+				icon: Calculator,
+				shortcut: 'S',
 				onSelect: () => {
 					isPaletteOpen = false;
 					goto(resolve('networking'));
@@ -115,6 +159,8 @@
 				label: 'ICMP Ping Flow Visualizer',
 				description: 'Step-by-step ARP, routing, and ICMP handshake',
 				group: 'Diagnostics',
+				icon: Activity,
+				shortcut: 'P',
 				onSelect: () => {
 					isPaletteOpen = false;
 					goto(resolve('networking'));
@@ -125,6 +171,8 @@
 				label: 'TIA-598-C Optical Fiber Finder',
 				description: 'Strand and tube color indexer up to 144 cores',
 				group: 'Diagnostics',
+				icon: Cable,
+				shortcut: 'F',
 				onSelect: () => {
 					isPaletteOpen = false;
 					goto(resolve('hardware'));
@@ -135,6 +183,8 @@
 				label: 'Optical Link Loss Budget Calculator',
 				description: 'Attenuation threshold engineering (SMF/MMF)',
 				group: 'Diagnostics',
+				icon: Layers,
+				shortcut: 'L',
 				onSelect: () => {
 					isPaletteOpen = false;
 					goto(resolve('hardware'));
@@ -145,6 +195,8 @@
 				label: 'KVM Serial CLI Terminal',
 				description: 'Interactive xterm.js diagnostic simulator',
 				group: 'Diagnostics',
+				icon: Terminal,
+				shortcut: 'K',
 				onSelect: () => {
 					isPaletteOpen = false;
 					goto(resolve('terminal'));
@@ -155,6 +207,8 @@
 				label: 'CompTIA Study Mode',
 				description: 'Review questions with instant explanations',
 				group: 'Certification',
+				icon: BookOpen,
+				shortcut: 'E',
 				onSelect: () => {
 					isPaletteOpen = false;
 					goto(resolve('quiz'));
@@ -166,6 +220,7 @@
 			id: `theme-${t.id}`,
 			label: `Switch Theme: ${t.label} (${t.desc})`,
 			group: 'Theme',
+			icon: Palette,
 			onSelect: () => {
 				isPaletteOpen = false;
 				toggleTheme(t.id);
@@ -178,6 +233,7 @@
 				label: 'Yaxa UI Documentation',
 				description: 'Explore Svelte 5 component suite & docs (yaxa.vercel.app)',
 				group: 'External Links',
+				icon: ExternalLink,
 				onSelect: () => {
 					isPaletteOpen = false;
 					window.open('https://yaxa.vercel.app', '_blank', 'noopener,noreferrer');
@@ -188,6 +244,7 @@
 				label: 'GitHub Repository',
 				description: 'Source code and open-source contributions',
 				group: 'External Links',
+				icon: GitBranch,
 				onSelect: () => {
 					isPaletteOpen = false;
 					if (siteConfig.project?.repositoryUrl) {
@@ -226,7 +283,7 @@
 		<!-- Main Page Content Area -->
 		<div class="drawer-content flex min-h-screen flex-col bg-base-300 font-mono text-base-content">
 			<!-- Top Navbar -->
-			<header class="navbar border-b border-base-200 bg-base-100 px-4">
+			<header class="flex items-center justify-between border-b border-base-200 bg-base-100 px-4">
 				<div class="flex-1 items-center gap-3">
 					<label for="main-drawer" class="btn btn-ghost lg:hidden" aria-label="Open Navigation">
 						<svg

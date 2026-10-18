@@ -63,10 +63,10 @@
 				<Globe class="h-4 w-4" /> Protocol Anatomy: "ping google.com"
 			</h2>
 			<div class="flex items-center gap-2">
-				<div class="join">
+				<div class="inline-flex gap-1">
 					<button
 						onclick={() => (viewMode = 'flow')}
-						class="btn join-item btn-xs font-mono transition-all {viewMode === 'flow'
+						class="btn btn-xs font-mono transition-all {viewMode === 'flow'
 							? 'btn-primary text-primary-content shadow-sm'
 							: 'btn-ghost border border-base-300'}"
 					>
@@ -74,7 +74,7 @@
 					</button>
 					<button
 						onclick={() => (viewMode = 'stepper')}
-						class="btn join-item btn-xs font-mono transition-all {viewMode === 'stepper'
+						class="btn btn-xs font-mono transition-all {viewMode === 'stepper'
 							? 'btn-primary text-primary-content shadow-sm'
 							: 'btn-ghost border border-base-300'}"
 					>

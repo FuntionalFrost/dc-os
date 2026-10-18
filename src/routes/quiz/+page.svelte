@@ -267,13 +267,17 @@
 							SESSION COMPLETED
 						</h2>
 
-						<div class="stats my-4 w-full max-w-xs border border-base-300 bg-base-200 shadow">
-							<div class="stat p-4">
-								<div class="stat-title text-[10px] tracking-wider uppercase">Accumulated Score</div>
-								<div class="stat-value text-2xl text-primary">
+						<div
+							class="my-4 flex w-full max-w-xs rounded-xl border border-base-300 bg-base-200 shadow"
+						>
+							<div class="flex-1 p-4">
+								<div class="text-[10px] tracking-wider text-neutral-content uppercase">
+									Accumulated Score
+								</div>
+								<div class="text-2xl font-bold text-primary">
 									{finalScore} / {filteredQuestions.length}
 								</div>
-								<div class="stat-desc mt-1 text-[9px] font-bold">
+								<div class="mt-1 text-[9px] font-bold text-neutral-content/70">
 									{#if scorePercentage >= 80}
 										<span class="text-success">🟩 PASS BOUND ACCREDITED ({scorePercentage}%)</span>
 									{:else}

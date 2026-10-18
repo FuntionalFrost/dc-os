@@ -13,13 +13,18 @@
 	let activeTab = $state<'specs' | 'ports' | 'dom'>('specs');
 
 	const tabs: TabItem[] = [
-		{ value: 'specs', label: 'TRANSCEIVER MATRIX', icon: Radio },
+		{
+			value: 'specs',
+			label: 'TRANSCEIVER MATRIX',
+			icon: Radio,
+			badge: `${transceiverSpecs.length}`
+		},
 		{ value: 'dom', label: 'DOM CALCULATOR', icon: Layers },
-		{ value: 'ports', label: 'PORT DIRECTORY', icon: Server }
+		{ value: 'ports', label: 'PORT DIRECTORY', icon: Server, badge: `${servicePorts.length}` }
 	];
 
 	const specColumns: Column<TransceiverSpec>[] = [
-		{ key: 'standard', label: 'Standard', sortable: true },
+		{ key: 'standard', label: 'Standard', sortable: true, pinned: 'left' },
 		{ key: 'formFactor', label: 'Form Factor', sortable: true },
 		{ key: 'speed', label: 'Speed', sortable: true },
 		{ key: 'media', label: 'Media Type', sortable: true },
@@ -30,7 +35,7 @@
 	];
 
 	const portColumns: Column<ServicePort>[] = [
-		{ key: 'port', label: 'Port', sortable: true },
+		{ key: 'port', label: 'Port', sortable: true, pinned: 'left' },
 		{ key: 'protocol', label: 'Protocol', sortable: true },
 		{ key: 'service', label: 'Service / Application', sortable: true },
 		{ key: 'category', label: 'Category', sortable: true },
@@ -219,11 +224,11 @@
 					<span class="block text-[10px] font-bold text-neutral-content/60 uppercase">
 						Select Transceiver Form Factor:
 					</span>
-					<div class="join w-full">
+					<div class="flex w-full gap-1">
 						{#each ['SFP+', 'QSFP28', 'QSFP-DD'] as form (form)}
 							<button
 								onclick={() => (formFactor = form as 'SFP+' | 'QSFP28' | 'QSFP-DD')}
-								class="btn join-item btn-xs flex-1 font-mono transition-all {formFactor === form
+								class="btn btn-xs flex-1 font-mono transition-all {formFactor === form
 									? 'btn-primary text-primary-content shadow-sm'
 									: 'btn-outline border-base-300'}"
 							>

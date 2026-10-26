@@ -15,9 +15,11 @@
 		GitBranch,
 		Layers,
 		LayoutDashboard,
+		Menu,
 		Network,
 		Palette,
-		Terminal
+		Terminal,
+		X
 	} from '@lucide/svelte';
 	import {
 		CommandPalette,
@@ -265,7 +267,10 @@
 
 <svelte:window
 	onkeydown={(e) => {
-		if (e.key === 'Escape') isThemeMenuOpen = false;
+		if (e.key === 'Escape') {
+			isThemeMenuOpen = false;
+			isDrawerOpen = false;
+		}
 	}}
 />
 
@@ -276,32 +281,135 @@
 		placeholder="Search modules, tools, diagnostics..."
 	/>
 
-	<div class="drawer lg:drawer-open">
-		<!-- Drawer Toggle Input -->
-		<input id="main-drawer" type="checkbox" bind:checked={isDrawerOpen} class="drawer-toggle" />
+	<div class="relative min-h-screen bg-base-300 font-mono text-base-content">
+		<!-- Desktop Permanent Sidebar -->
+		<aside
+			class="hidden border-r border-base-200 bg-base-100 p-4 font-mono text-base-content lg:fixed lg:inset-y-0 lg:left-0 lg:z-30 lg:flex lg:w-72 lg:flex-col"
+		>
+			<div
+				class="px-3 py-2 text-[10px] font-bold tracking-widest text-neutral-content/70 uppercase"
+			>
+				MODULES
+			</div>
+			<ul class="flex flex-col gap-0.5">
+				{#if siteConfig.nav}
+					{#each siteConfig.nav as link (link.href)}
+						{@const isActive = page.url.pathname === link.href}
+						<li>
+							<a
+								href={resolve(link.href as NonNullable<LayoutRouteId>)}
+								class="my-0.5 flex items-center rounded-lg px-3 py-2 text-xs transition-all {isActive
+									? 'bg-primary font-bold text-primary-content'
+									: 'text-base-content hover:bg-base-200'}"
+							>
+								{link.label}
+							</a>
+						</li>
+					{/each}
+				{/if}
+			</ul>
 
-		<!-- Main Page Content Area -->
-		<div class="drawer-content flex min-h-screen flex-col bg-base-300 font-mono text-base-content">
+			<!-- Sidebar Footer / Credits -->
+			<div class="mt-auto border-t border-base-200 pt-3">
+				<a
+					href="https://yaxa.vercel.app"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="flex items-center justify-between text-[11px] text-neutral-content/50 transition-colors hover:text-primary"
+				>
+					<span>Fueled by Yaxa UI</span>
+					<span class="text-[10px] opacity-70">↗</span>
+				</a>
+			</div>
+		</aside>
+
+		<!-- Mobile Drawer Slideover (Overlay) -->
+		{#if isDrawerOpen}
+			<!-- Backdrop dismiss button -->
+			<button
+				type="button"
+				class="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs transition-opacity lg:hidden"
+				onclick={closeDrawer}
+				aria-label="Close navigation"
+				tabindex="-1"
+			></button>
+
+			<!-- Mobile Drawer Panel -->
+			<aside
+				class="fixed inset-y-0 left-0 z-50 flex w-72 max-w-[85vw] flex-col border-r border-base-200 bg-base-100 p-4 font-mono text-base-content shadow-2xl transition-transform duration-300 lg:hidden"
+			>
+				<div class="flex items-center justify-between border-b border-base-200 pb-3">
+					<span class="truncate text-xs font-bold tracking-wider text-primary"
+						>⚡ {siteConfig.name}</span
+					>
+					<button
+						type="button"
+						class="btn btn-ghost btn-xs h-7 w-7 p-0"
+						onclick={closeDrawer}
+						aria-label="Close navigation"
+					>
+						<X class="h-4 w-4" />
+					</button>
+				</div>
+
+				<div
+					class="mt-3 px-3 py-1 text-[10px] font-bold tracking-widest text-neutral-content/70 uppercase"
+				>
+					MODULES
+				</div>
+				<ul class="flex flex-col gap-0.5">
+					{#if siteConfig.nav}
+						{#each siteConfig.nav as link (link.href)}
+							{@const isActive = page.url.pathname === link.href}
+							<li>
+								<a
+									href={resolve(link.href as NonNullable<LayoutRouteId>)}
+									onclick={closeDrawer}
+									class="my-0.5 flex items-center rounded-lg px-3 py-2 text-xs transition-all {isActive
+										? 'bg-primary font-bold text-primary-content'
+										: 'text-base-content hover:bg-base-200'}"
+								>
+									{link.label}
+								</a>
+							</li>
+						{/each}
+					{/if}
+				</ul>
+
+				<!-- Sidebar Footer / Credits -->
+				<div class="mt-auto border-t border-base-200 pt-3">
+					<a
+						href="https://yaxa.vercel.app"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="flex items-center justify-between text-[11px] text-neutral-content/50 transition-colors hover:text-primary"
+					>
+						<span>Fueled by Yaxa UI</span>
+						<span class="text-[10px] opacity-70">↗</span>
+					</a>
+				</div>
+			</aside>
+		{/if}
+
+		<!-- Main Page Content Area (offset on desktop by lg:pl-72) -->
+		<div class="flex min-h-screen flex-col lg:pl-72">
 			<!-- Top Navbar -->
-			<header class="flex items-center justify-between border-b border-base-200 bg-base-100 px-4">
-				<div class="flex-1 items-center gap-3">
-					<label for="main-drawer" class="btn btn-ghost lg:hidden" aria-label="Open Navigation">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="h-5 w-5"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M4 6h16M4 12h8m-8 6h16"
-							></path>
-						</svg>
-					</label>
-					<a href={resolve('/')} class="text-xl font-bold tracking-wider text-primary">
+			<header
+				class="flex h-14 items-center justify-between border-b border-base-200 bg-base-100 px-3 sm:px-4"
+			>
+				<div class="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
+					<button
+						type="button"
+						class="btn btn-ghost h-8 w-8 p-1.5 lg:hidden"
+						aria-label="Open Navigation"
+						onclick={() => (isDrawerOpen = true)}
+					>
+						<Menu class="h-5 w-5" />
+					</button>
+					<a
+						href={resolve('/')}
+						class="truncate text-xs font-bold tracking-wider text-primary sm:text-base md:text-xl"
+					>
 						⚡ {siteConfig.name}
 					</a>
 
@@ -408,51 +516,9 @@
 			</header>
 
 			<!-- Render Active Page -->
-			<main class="mx-auto w-full max-w-7xl flex-1 p-4 md:p-6">
+			<main class="mx-auto w-full max-w-7xl flex-1 p-3 sm:p-4 md:p-6">
 				{@render children()}
 			</main>
-		</div>
-
-		<!-- Sidebar Navigation -->
-		<div class="drawer-side z-50">
-			<label for="main-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-			<ul
-				class="menu min-h-full w-72 border-r border-base-200 bg-base-100 p-4 font-mono text-base-content"
-			>
-				<li class="menu-title text-[10px] tracking-widest text-neutral-content/70 uppercase">
-					MODULES
-				</li>
-
-				{#if siteConfig.nav}
-					{#each siteConfig.nav as link (link.href)}
-						{@const isActive = page.url.pathname === link.href}
-						<li>
-							<a
-								href={resolve(link.href as NonNullable<LayoutRouteId>)}
-								onclick={closeDrawer}
-								class="my-0.5 transition-all {isActive
-									? 'active bg-primary font-bold text-primary-content'
-									: 'hover:bg-base-200'}"
-							>
-								{link.label}
-							</a>
-						</li>
-					{/each}
-				{/if}
-
-				<!-- Sidebar Footer / Credits -->
-				<li class="mt-auto border-t border-base-200 pt-3">
-					<a
-						href="https://yaxa.vercel.app"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="flex items-center justify-between text-[11px] text-neutral-content/50 transition-colors hover:text-primary"
-					>
-						<span>Fueled by Yaxa UI</span>
-						<span class="text-[10px] opacity-70">↗</span>
-					</a>
-				</li>
-			</ul>
 		</div>
 	</div>
 </YaxaApp>

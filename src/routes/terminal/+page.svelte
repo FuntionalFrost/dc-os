@@ -5,7 +5,7 @@
 	import { Play, Search, Terminal as TerminalIcon } from '@lucide/svelte';
 	import { ResizablePanels, Kbd, Badge } from 'yaxa-svelte';
 
-	type CommandCategory = 'all' | 'hardware' | 'storage' | 'network' | 'logs' | 'system';
+	type CommandCategory = 'all' | 'hardware' | 'storage' | 'network' | 'access' | 'logs' | 'system';
 
 	let terminalComp: { runExternalCommand: (cmd: string) => void } | null = $state(null);
 	let filterQuery = $state('');
@@ -16,6 +16,7 @@
 		{ id: 'hardware', label: 'HW' },
 		{ id: 'storage', label: 'DISK' },
 		{ id: 'network', label: 'NET' },
+		{ id: 'access', label: 'ACCESS' },
 		{ id: 'logs', label: 'LOGS' },
 		{ id: 'system', label: 'SYS' }
 	];
@@ -24,7 +25,7 @@
 		command: string;
 		label: string;
 		description: string;
-		category: 'hardware' | 'storage' | 'network' | 'logs' | 'system';
+		category: 'hardware' | 'storage' | 'network' | 'access' | 'logs' | 'system';
 	}
 
 	const diagnosticCommands: DiagnosticCommand[] = [
@@ -84,7 +85,25 @@
 			description: 'Read temperature, percentage used, media wear & spare reserve',
 			category: 'storage'
 		},
-		// Network
+		{
+			command: 'df -h',
+			label: 'Disk Space Utilization',
+			description: 'Human-readable filesystem disk storage capacity',
+			category: 'storage'
+		},
+		{
+			command: 'df -i',
+			label: 'Inode Space Utilization',
+			description: 'Check free and allocated filesystem inodes to diagnose 100% inode exhaustion',
+			category: 'storage'
+		},
+		{
+			command: 'du -sh',
+			label: 'Directory Sizing Overview',
+			description: 'Disk usage breakdown of major system directory trees',
+			category: 'storage'
+		},
+		// Network & Ports
 		{
 			command: 'ethtool eth0',
 			label: 'NIC Link Status & Speed',
@@ -102,6 +121,91 @@
 			label: 'Routing Table',
 			description: 'Kernel IPv4 routing table and default gateway hops',
 			category: 'network'
+		},
+		{
+			command: 'ss -tulpn',
+			label: 'Listening Sockets & Daemons',
+			description: 'Display open listening TCP/UDP sockets with process PIDs and numeric ports',
+			category: 'network'
+		},
+		{
+			command: 'ss -tlpn',
+			label: 'Listening TCP Ports',
+			description: 'Filter for actively listening TCP server sockets only',
+			category: 'network'
+		},
+		{
+			command: 'lsof -i :22',
+			label: 'SSH Port 22 Socket Process',
+			description: 'Find active daemons and established client sessions holding port 22',
+			category: 'network'
+		},
+		{
+			command: 'lsof -i :80',
+			label: 'Web Server Port 80 Process',
+			description: 'Identify web server master and worker processes bound to port 80',
+			category: 'network'
+		},
+		{
+			command: 'nc -zv',
+			label: 'Remote Port Probe (Netcat)',
+			description: 'Simulate active TCP port scanning on remote targets without authenticating',
+			category: 'network'
+		},
+		// Privilege, Users & Remote
+		{
+			command: 'whoami',
+			label: 'Current User Identity',
+			description: 'Print current effective user identity (root)',
+			category: 'access'
+		},
+		{
+			command: 'id',
+			label: 'User & Group Credentials',
+			description: 'Print UID, primary GID, and supplementary security group memberships',
+			category: 'access'
+		},
+		{
+			command: 'w',
+			label: 'Active Logged-in Users',
+			description: 'Show active TTY sessions, remote IP sources, idle time, and current processes',
+			category: 'access'
+		},
+		{
+			command: 'sudo -l',
+			label: 'Audit Sudo Privileges',
+			description: 'Query /etc/sudoers for allowed administrative commands and NOPASSWD exemptions',
+			category: 'access'
+		},
+		{
+			command: 'sudo -i',
+			label: 'Interactive Root Login Shell',
+			description: "Initialize a root login shell with root's environment and /root home directory",
+			category: 'access'
+		},
+		{
+			command: 'sudo su',
+			label: 'Switch User to Root',
+			description: 'Escalate to superuser via su while inheriting caller environment variables',
+			category: 'access'
+		},
+		{
+			command: 'ssh -L',
+			label: 'SSH Local Port Forwarding',
+			description: 'Simulate local SSH tunnel forwarding localhost:8080 to internal server port 80',
+			category: 'access'
+		},
+		{
+			command: 'ssh -R',
+			label: 'SSH Reverse Port Forwarding',
+			description: 'Simulate reverse tunnel exposing local dev port to remote server',
+			category: 'access'
+		},
+		{
+			command: 'ssh -D',
+			label: 'SSH Dynamic SOCKS5 Proxy',
+			description: 'Simulate dynamic SOCKS5 proxy routing browser traffic through SSH server',
+			category: 'access'
 		},
 		// Logs & BMC
 		{
@@ -127,12 +231,6 @@
 			command: 'free -m',
 			label: 'Memory Allocation',
 			description: 'RAM and swap usage in Megabytes (buff/cache breakdown)',
-			category: 'system'
-		},
-		{
-			command: 'df -h',
-			label: 'Disk Space Utilization',
-			description: 'Human-readable filesystem disk storage capacity',
 			category: 'system'
 		},
 		{

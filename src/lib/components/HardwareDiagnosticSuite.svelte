@@ -2,7 +2,7 @@
 	import { Check, CircleQuestionMark, Copy, Terminal } from '@lucide/svelte';
 	import { toast, useClipboard } from 'yaxa-svelte';
 
-	type CategoryType = 'System' | 'Storage' | 'Network' | 'OOB & Logs';
+	type CategoryType = 'System' | 'Storage' | 'Network' | 'Access & Privilege' | 'OOB & Logs';
 	let selectedCategory = $state<CategoryType>('System');
 	let activeCommandIndex = $state(0);
 	let activePresetIndex = $state(0);
@@ -194,6 +194,34 @@
 				"Format NVMe disks to 4K block boundaries using '--lbaf=1' (on supporting drives) to maximize database read speeds."
 		},
 		{
+			name: 'df',
+			category: 'Storage',
+			shortDesc: 'Audit filesystem disk usage & inode limits',
+			techContext:
+				'Report mounted storage capacity, detect 100% full partitions, and identify inode exhaustion.',
+			defaultTarget: '/',
+			targetLabel: 'Target Mount / Directory',
+			presets: [
+				{
+					label: 'Human-Readable Capacity (-h)',
+					desc: 'Display available and used disk space in GB/TB units.',
+					cmdPattern: (target) => `df -h ${target || ''}`.trim()
+				},
+				{
+					label: 'Audit Inode Usage (-i)',
+					desc: 'Check free and used inodes to diagnose hidden disk capacity errors.',
+					cmdPattern: (target) => `df -i ${target || ''}`.trim()
+				},
+				{
+					label: 'Find Top 10 Largest Folders (du)',
+					desc: 'Drill down to find directory trees consuming excessive space.',
+					cmdPattern: () => 'sudo du -sh /* 2>/dev/null | sort -hr | head -n 10'
+				}
+			],
+			interviewTip:
+				"When disk writes fail with 'No space left on device' but df -h shows free gigabytes, run 'df -i' to identify 100% inode exhaustion."
+		},
+		{
 			name: 'ethtool',
 			category: 'Network',
 			shortDesc: 'Configure Physical NIC Properties',
@@ -215,6 +243,164 @@
 			],
 			interviewTip:
 				"Use 'ethtool -m <interface>' to debug fiber drops. If the laser Rx power drops below -15dBm, clean the connectors."
+		},
+		{
+			name: 'ss',
+			category: 'Network',
+			shortDesc: 'High-performance socket and listening port inspector',
+			techContext:
+				'Query kernel netlink tables directly to discover open TCP/UDP listeners, active daemons, and bound ports.',
+			defaultTarget: ':22',
+			targetLabel: 'Port / State Filter',
+			presets: [
+				{
+					label: 'List All Listening Ports & Daemons (-tulpn)',
+					desc: 'Show listening TCP/UDP sockets with process PIDs and numeric ports.',
+					cmdPattern: () => 'sudo ss -tulpn'
+				},
+				{
+					label: 'Listening TCP Ports Only (-tlpn)',
+					desc: 'Quick audit of listening TCP servers (web, database, SSH).',
+					cmdPattern: () => 'ss -tlpn'
+				},
+				{
+					label: 'Filter by Specific Port Number',
+					desc: 'Check whether a specific service port is open and listening.',
+					cmdPattern: (target) => `sudo ss -tulpn | grep '${target || ':22'}'`
+				}
+			],
+			interviewTip:
+				"'ss' replaces legacy 'netstat' by reading /proc/net/sockstat kernel structures directly, preventing high-load CLI freezes."
+		},
+		{
+			name: 'lsof',
+			category: 'Network',
+			shortDesc: 'List open network sockets and process file descriptors',
+			techContext:
+				'Correlate network ports directly to user accounts, daemons, and unlinked open file handles.',
+			defaultTarget: '80',
+			targetLabel: 'Target TCP/UDP Port',
+			presets: [
+				{
+					label: 'Identify Process on Specific Port',
+					desc: 'Find the exact daemon binary holding a port (e.g. 80, 443, 5432).',
+					cmdPattern: (target) => `sudo lsof -i :${target || '80'}`
+				},
+				{
+					label: 'All Active Network Connections (-P -n)',
+					desc: 'List all open internet sockets without DNS lookup latency.',
+					cmdPattern: () => 'sudo lsof -i -P -n'
+				},
+				{
+					label: 'Find Deleted Files Holding Disk Space (+L1)',
+					desc: 'Isolate unlinked files that still consume blocks because a process holds them open.',
+					cmdPattern: () => 'sudo lsof +L1'
+				}
+			],
+			interviewTip:
+				"When restarting a daemon fails with 'Address already in use', run 'sudo lsof -i :<port>' to identify and terminate the zombie PID."
+		},
+		{
+			name: 'sudo',
+			category: 'Access & Privilege',
+			shortDesc: 'Execute commands with elevated superuser privileges',
+			techContext:
+				'Enforce role-based access control, sanitize caller environments, and audit privileged executions.',
+			defaultTarget: '',
+			targetLabel: 'Target Command / Argument',
+			presets: [
+				{
+					label: 'Audit Allowed Sudo Privileges (-l)',
+					desc: 'Query /etc/sudoers to inspect granted administrative roles and NOPASSWD exemptions.',
+					cmdPattern: () => 'sudo -l'
+				},
+				{
+					label: 'Launch Fresh Root Login Shell (-i)',
+					desc: "Simulate a login shell as root with root's true environment and /root directory.",
+					cmdPattern: () => 'sudo -i'
+				},
+				{
+					label: 'Switch User to Root via su (-)',
+					desc: 'Escalate through sudo to execute su with a clean root environment.',
+					cmdPattern: () => 'sudo su -'
+				},
+				{
+					label: 'Safely Edit Sudoers (visudo)',
+					desc: 'Open /etc/sudoers in an editor with mandatory atomic syntax validation on save.',
+					cmdPattern: () => 'sudo visudo'
+				}
+			],
+			interviewTip:
+				"Prefer 'sudo -i' over 'sudo su' because it directly initializes root's environment without creating an unneeded intermediate child su process."
+		},
+		{
+			name: 'ssh',
+			category: 'Access & Privilege',
+			shortDesc: 'Secure remote shell connection & encrypted tunneling',
+			techContext:
+				'Authenticate via asymmetric keys, tunnel private services, or route through perimeter bastion jump hosts.',
+			defaultTarget: 'sysadmin@10.240.0.45',
+			targetLabel: 'Target [user@]host',
+			presets: [
+				{
+					label: 'Connect with Identity Key & Port',
+					desc: 'Authenticate securely using modern Ed25519 key pair on custom port.',
+					cmdPattern: (target) =>
+						`ssh -i ~/.ssh/id_ed25519 -p 22 ${target || 'sysadmin@10.240.0.45'}`
+				},
+				{
+					label: 'Local Port Forward (-L Tunnel)',
+					desc: 'Forward local port 8080 to an internal dashboard reachable only from the remote node.',
+					cmdPattern: (target) =>
+						`ssh -N -f -L 8080:localhost:80 ${target || 'sysadmin@10.240.0.45'}`
+				},
+				{
+					label: 'Dynamic SOCKS5 Proxy (-D)',
+					desc: 'Route web browser or curl traffic through the remote server.',
+					cmdPattern: (target) => `ssh -N -f -D 1080 ${target || 'sysadmin@10.240.0.45'}`
+				},
+				{
+					label: 'Connect via Bastion Jump Host (-J)',
+					desc: 'Transparently tunnel through an SSH gateway to access private VPC servers.',
+					cmdPattern: (target) => `ssh -J bastion.dc.net ${target || 'sysadmin@10.240.0.45'}`
+				}
+			],
+			interviewTip:
+				"Use 'ssh -L' to access remote web GUIs or databases securely over localhost without opening external firewall ports."
+		},
+		{
+			name: 'id & whoami',
+			category: 'Access & Privilege',
+			shortDesc: 'User identity, group memberships, and session inspection',
+			techContext:
+				'Audit current effective UID/GID credentials and inspect actively logged-in administrators.',
+			defaultTarget: '',
+			targetLabel: 'Target Username (Optional)',
+			presets: [
+				{
+					label: 'Print Effective User & Group IDs',
+					desc: 'Inspect UID, primary GID, and supplementary groups (e.g. sudo, docker).',
+					cmdPattern: (target) => (target ? `id ${target}` : 'id')
+				},
+				{
+					label: 'Display Logged-in Users & Uptime (w)',
+					desc: 'Show active TTY sessions, source IPs, idle times, and load averages.',
+					cmdPattern: () => 'w'
+				},
+				{
+					label: 'Audit Recent Login History (last)',
+					desc: 'Parse /var/log/wtmp for recent reboot events and user sessions.',
+					cmdPattern: () => 'last -n 10'
+				},
+				{
+					label: 'Create User & Assign to Sudo Group',
+					desc: 'Provision a standard user account with home directory and sudo privileges.',
+					cmdPattern: (target) =>
+						`sudo useradd -m -s /bin/bash ${target || 'sysadmin'} && sudo usermod -aG sudo ${target || 'sysadmin'}`
+				}
+			],
+			interviewTip:
+				"Run 'id' to confirm your user belongs to group 'sudo' (Debian/Ubuntu) or 'wheel' (RHEL/CentOS) before executing administrative tasks."
 		},
 		{
 			name: 'ipmitool',
@@ -307,7 +493,7 @@
 			</div>
 
 			<div class="flex flex-wrap gap-1 rounded-lg border border-base-300 bg-base-200 p-0.5">
-				{#each ['System', 'Storage', 'Network', 'OOB & Logs'] as Category (Category)}
+				{#each ['System', 'Storage', 'Network', 'Access & Privilege', 'OOB & Logs'] as Category (Category)}
 					<button
 						onclick={() => handleCategoryChange(Category as CategoryType)}
 						class="btn-[10px] btn h-7 rounded-md px-2.5 font-mono transition-all {selectedCategory ===

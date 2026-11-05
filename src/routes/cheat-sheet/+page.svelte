@@ -9,15 +9,20 @@
 
 <SEO
 	title="Host OS & Bare Metal Diagnostics"
-	description="Linux boot stages (UEFI/GRUB/kernel/systemd), Filesystem Hierarchy Standard (FHS) map, bare-metal diagnostic commands, and hands-on sysadmin incident simulator."
+	description="Linux boot stages (UEFI/GRUB/kernel/systemd), FHS map, remote workstation SSH workflow, port forwarding tunnels, open socket inspection (ss/lsof), sudo privileges, and df -h storage diagnostics."
 	path="/cheat-sheet"
 	keywords={[
 		'linux boot stages guide',
 		'fhs directory map sysadmin',
 		'systemd boot sequence',
-		'initramfs kernel mount troubleshooting',
+		'ssh port forwarding local remote dynamic',
+		'ss tulpn listening ports',
+		'lsof open sockets',
+		'sudo vs sudo su vs sudo -i',
+		'df -h inode exhaustion df -i',
 		'bare metal server diagnostics',
 		'linux sysadmin cheat sheet',
+		'workstation to server remoting guide',
 		'tar command builder',
 		'ip route syntax generator'
 	]}

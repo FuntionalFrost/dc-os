@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Seo, generateBreadcrumbSchema } from 'yaxa-svelte';
+	import { Seo, generateBreadcrumbSchema } from 'yaxa-svelte/seo';
 	import { siteConfig } from '../../site.config';
 
 	interface Props {

@@ -1,4 +1,4 @@
-import { createSitemapXslHandler } from 'yaxa-svelte';
+import { createSitemapXslHandler } from 'yaxa-svelte/seo';
 import { siteConfig } from '../../site.config';
 
 export const prerender = true;

@@ -1,12 +1,16 @@
 <script lang="ts">
 	import { mockResponses } from '#lib/data/mockTerminalResponses.js';
 	import { RefreshCw, Terminal as TerminalIcon } from '@lucide/svelte';
-	import { FitAddon } from '@xterm/addon-fit';
-	import { Terminal } from '@xterm/xterm';
+	import type { FitAddon } from '@xterm/addon-fit';
+	import type { Terminal } from '@xterm/xterm';
 	import '@xterm/xterm/css/xterm.css';
 	import { onDestroy, onMount } from 'svelte';
 
-	let { initialCommand = '' } = $props<{ initialCommand?: string }>();
+	interface Props {
+		initialCommand?: string;
+	}
+
+	let { initialCommand = '' }: Props = $props();
 
 	let terminalElement = $state<HTMLDivElement | null>(null);
 	let term: Terminal | null = null;
@@ -88,93 +92,111 @@
 	onMount(() => {
 		if (!terminalElement) return;
 
-		term = new Terminal({
-			cursorBlink: true,
-			fontFamily: 'Consolas, Monaco, "Courier New", monospace',
-			fontSize: 13,
-			theme: {
-				background: '#0d1117',
-				foreground: '#c9d1d9',
-				cursor: '#58a6ff',
-				selectionBackground: '#1f6beb'
-			}
-		});
+		let handleResize: (() => void) | null = null;
+		let disposed = false;
 
-		fitAddon = new FitAddon();
-		term.loadAddon(fitAddon);
-		term.open(terminalElement);
+		// Dynamically import xterm in browser environment to prevent SSR CommonJS errors
+		Promise.all([import('@xterm/xterm'), import('@xterm/addon-fit')]).then(([xtermPkg, fitPkg]) => {
+			if (disposed || !terminalElement) return;
 
-		setTimeout(() => fitAddon?.fit(), 100);
+			const TerminalClass = (xtermPkg.Terminal ||
+				xtermPkg.default?.Terminal ||
+				xtermPkg.default) as typeof Terminal;
+			const FitAddonClass = (fitPkg.FitAddon ||
+				fitPkg.default?.FitAddon ||
+				fitPkg.default) as typeof FitAddon;
 
-		term.writeln('\x1b[1;32m============================================================\x1b[0m');
-		term.writeln('\x1b[1;36m  DC-OS INTERACTIVE TERMINAL SIMULATOR v1.0                 \x1b[0m');
-		term.writeln(
-			'\x1b[0;37m  Type \x1b[1;33m"help"\x1b[0;37m to view available diagnostic commands.     \x1b[0m'
-		);
-		term.writeln('\x1b[1;32m============================================================\x1b[0m');
-		printPrompt();
-
-		term.onData((data) => {
-			if (!term) return;
-			const code = data.charCodeAt(0);
-
-			if (code === 13) {
-				// Enter
-				const cmdToRun = inputBuffer;
-				inputBuffer = '';
-				handleCommandExecution(cmdToRun);
-			} else if (code === 127) {
-				// Backspace
-				if (inputBuffer.length > 0) {
-					inputBuffer = inputBuffer.slice(0, -1);
-					term.write('\b \b');
+			term = new TerminalClass({
+				cursorBlink: true,
+				fontFamily: 'Consolas, Monaco, "Courier New", monospace',
+				fontSize: 13,
+				theme: {
+					background: '#0d1117',
+					foreground: '#c9d1d9',
+					cursor: '#58a6ff',
+					selectionBackground: '#1f6beb'
 				}
-			} else if (data === '\x1b[A') {
-				// Arrow Up — history prev
-				if (historyIndex > 0) {
-					historyIndex--;
-					term.write('\r\x1b[K\x1b[1;32mroot@dc-node-01\x1b[0m:\x1b[1;34m~\x1b[0m# ');
-					inputBuffer = commandHistory[historyIndex];
-					term.write(inputBuffer);
-				}
-			} else if (data === '\x1b[B') {
-				// Arrow Down — history next
-				if (historyIndex < commandHistory.length - 1) {
-					historyIndex++;
-					term.write('\r\x1b[K\x1b[1;32mroot@dc-node-01\x1b[0m:\x1b[1;34m~\x1b[0m# ');
-					inputBuffer = commandHistory[historyIndex];
-					term.write(inputBuffer);
-				} else {
-					historyIndex = commandHistory.length;
-					term.write('\r\x1b[K\x1b[1;32mroot@dc-node-01\x1b[0m:\x1b[1;34m~\x1b[0m# ');
+			});
+
+			fitAddon = new FitAddonClass();
+			term.loadAddon(fitAddon);
+			term.open(terminalElement);
+
+			setTimeout(() => fitAddon?.fit(), 100);
+
+			term.writeln('\x1b[1;32m============================================================\x1b[0m');
+			term.writeln('\x1b[1;36m  DC-OS INTERACTIVE TERMINAL SIMULATOR v1.0                 \x1b[0m');
+			term.writeln(
+				'\x1b[0;37m  Type \x1b[1;33m"help"\x1b[0;37m to view available diagnostic commands.     \x1b[0m'
+			);
+			term.writeln('\x1b[1;32m============================================================\x1b[0m');
+			printPrompt();
+
+			term.onData((data) => {
+				if (!term) return;
+				const code = data.charCodeAt(0);
+
+				if (code === 13) {
+					// Enter
+					const cmdToRun = inputBuffer;
 					inputBuffer = '';
+					handleCommandExecution(cmdToRun);
+				} else if (code === 127) {
+					// Backspace
+					if (inputBuffer.length > 0) {
+						inputBuffer = inputBuffer.slice(0, -1);
+						term.write('\b \b');
+					}
+				} else if (data === '\x1b[A') {
+					// Arrow Up — history prev
+					if (historyIndex > 0) {
+						historyIndex--;
+						term.write('\r\x1b[K\x1b[1;32mroot@dc-node-01\x1b[0m:\x1b[1;34m~\x1b[0m# ');
+						inputBuffer = commandHistory[historyIndex];
+						term.write(inputBuffer);
+					}
+				} else if (data === '\x1b[B') {
+					// Arrow Down — history next
+					if (historyIndex < commandHistory.length - 1) {
+						historyIndex++;
+						term.write('\r\x1b[K\x1b[1;32mroot@dc-node-01\x1b[0m:\x1b[1;34m~\x1b[0m# ');
+						inputBuffer = commandHistory[historyIndex];
+						term.write(inputBuffer);
+					} else {
+						historyIndex = commandHistory.length;
+						term.write('\r\x1b[K\x1b[1;32mroot@dc-node-01\x1b[0m:\x1b[1;34m~\x1b[0m# ');
+						inputBuffer = '';
+					}
+				} else if (data === '\x1b[C') {
+					// Arrow Right — no-op (cursor not tracked in buffer mode)
+				} else if (data === '\x1b[D') {
+					// Arrow Left — no-op (cursor not tracked in buffer mode)
+				} else if (data === '\x1b[3~') {
+					// Delete key — no-op in buffer mode
+				} else if (data === '\x1b[H' || data === '\x1b[F') {
+					// Home / End — no-op in buffer mode
+				} else if (data.startsWith('\x1b')) {
+					// Swallow any other unhandled escape sequences silently
+				} else if (code >= 32) {
+					// Printable characters
+					inputBuffer += data;
+					term.write(data);
 				}
-			} else if (data === '\x1b[C') {
-				// Arrow Right — no-op (cursor not tracked in buffer mode)
-			} else if (data === '\x1b[D') {
-				// Arrow Left — no-op (cursor not tracked in buffer mode)
-			} else if (data === '\x1b[3~') {
-				// Delete key — no-op in buffer mode
-			} else if (data === '\x1b[H' || data === '\x1b[F') {
-				// Home / End — no-op in buffer mode
-			} else if (data.startsWith('\x1b')) {
-				// Swallow any other unhandled escape sequences silently
-			} else if (code >= 32) {
-				// Printable characters
-				inputBuffer += data;
-				term.write(data);
+			});
+
+			handleResize = () => fitAddon?.fit();
+			window.addEventListener('resize', handleResize);
+
+			if (initialCommand) {
+				setTimeout(() => runExternalCommand(initialCommand), 200);
 			}
 		});
-
-		const handleResize = () => fitAddon?.fit();
-		window.addEventListener('resize', handleResize);
-
-		if (initialCommand) {
-			setTimeout(() => runExternalCommand(initialCommand), 200);
-		}
 
 		return () => {
-			window.removeEventListener('resize', handleResize);
+			disposed = true;
+			if (handleResize) {
+				window.removeEventListener('resize', handleResize);
+			}
 		};
 	});
 

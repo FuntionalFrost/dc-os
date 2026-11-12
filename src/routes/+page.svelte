@@ -3,7 +3,7 @@
 	import { portalModules } from '#lib/data/modules.js';
 	import { resolve } from '$app/paths';
 	import { ArrowRight, Terminal } from '@lucide/svelte';
-	import { generateSoftwareApplicationSchema, generateWebSiteSchema } from 'yaxa-svelte';
+	import { generateSoftwareApplicationSchema, generateWebSiteSchema } from 'yaxa-svelte/seo';
 	import { siteConfig } from '../site.config';
 
 	const rootSchemas = [

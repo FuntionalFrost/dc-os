@@ -1,4 +1,4 @@
-import { createRobotsHandler } from 'yaxa-svelte';
+import { createRobotsHandler } from 'yaxa-svelte/seo';
 import { siteConfig } from '../../site.config';
 
 export const prerender = true;

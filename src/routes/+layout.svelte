@@ -310,14 +310,32 @@
 			</ul>
 
 			<!-- Sidebar Footer / Credits -->
-			<div class="mt-auto border-t border-base-200 pt-3">
+			<div class="mt-auto flex flex-col gap-1.5 border-t border-base-200 pt-3">
 				<a
 					href="https://yaxa.vercel.app"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="flex items-center justify-between text-[11px] text-neutral-content/50 transition-colors hover:text-primary"
 				>
-					<span>Fueled by Yaxa UI</span>
+					<span>Fueled by Yaxa</span>
+					<span class="text-[10px] opacity-70">↗</span>
+				</a>
+				<a
+					href="https://github.com/FuntionalFrost/dc-os"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="flex items-center justify-between text-[11px] text-neutral-content/60 transition-colors hover:text-primary"
+				>
+					<span class="flex items-center gap-1.5">
+						<svg class="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+							<path
+								fill-rule="evenodd"
+								clip-rule="evenodd"
+								d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+							/>
+						</svg>
+						GitHub Repository
+					</span>
 					<span class="text-[10px] opacity-70">↗</span>
 				</a>
 			</div>
@@ -377,14 +395,32 @@
 				</ul>
 
 				<!-- Sidebar Footer / Credits -->
-				<div class="mt-auto border-t border-base-200 pt-3">
+				<div class="mt-auto flex flex-col gap-1.5 border-t border-base-200 pt-3">
 					<a
 						href="https://yaxa.vercel.app"
 						target="_blank"
 						rel="noopener noreferrer"
 						class="flex items-center justify-between text-[11px] text-neutral-content/50 transition-colors hover:text-primary"
 					>
-						<span>Fueled by Yaxa UI</span>
+						<span>Fueled by Yaxa</span>
+						<span class="text-[10px] opacity-70">↗</span>
+					</a>
+					<a
+						href="https://github.com/FuntionalFrost/dc-os"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="flex items-center justify-between text-[11px] text-neutral-content/60 transition-colors hover:text-primary"
+					>
+						<span class="flex items-center gap-1.5">
+							<svg class="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+								<path
+									fill-rule="evenodd"
+									clip-rule="evenodd"
+									d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+								/>
+							</svg>
+							GitHub Repository
+						</span>
 						<span class="text-[10px] opacity-70">↗</span>
 					</a>
 				</div>
@@ -424,94 +460,97 @@
 					</button>
 				</div>
 
-				<!-- Theme Selection Menu (Dynamically Adapting to Active Theme) -->
-				<div class="relative flex-none">
-					<button
-						type="button"
-						class="btn btn-sm flex h-8 items-center gap-2 rounded-lg border border-base-300 bg-base-200/80 px-2.5 font-mono text-xs font-bold transition-all hover:border-primary/50 hover:bg-base-200"
-						onclick={() => (isThemeMenuOpen = !isThemeMenuOpen)}
-						aria-haspopup="true"
-						aria-expanded={isThemeMenuOpen}
-						aria-label="Select color theme"
-					>
-						<Palette class="h-3.5 w-3.5 text-primary" />
-						<span
-							class="h-2.5 w-2.5 rounded-full border border-black/30 shadow-xs"
-							style="background-color: {activeThemeObj.primary};"
-						></span>
-						<span class="text-[11px] font-bold tracking-wider text-base-content uppercase">
-							{activeThemeObj.label}
-						</span>
-						<ChevronDown
-							class="h-3 w-3 text-neutral-content transition-transform duration-200 {isThemeMenuOpen
-								? 'rotate-180'
-								: ''}"
-						/>
-					</button>
-
-					{#if isThemeMenuOpen}
-						<!-- Click outside dismiss overlay -->
+				<!-- Right Header Actions (Theme Selector) -->
+				<div class="flex items-center gap-1.5 sm:gap-2">
+					<!-- Theme Selection Menu (Dynamically Adapting to Active Theme) -->
+					<div class="relative flex-none">
 						<button
 							type="button"
-							class="fixed inset-0 z-40 cursor-default bg-transparent"
-							onclick={() => (isThemeMenuOpen = false)}
-							aria-label="Close theme menu"
-							tabindex="-1"
-						></button>
-
-						<div
-							class="absolute right-0 z-50 mt-2 w-60 origin-top-right rounded-xl border border-base-200 bg-base-100 p-1.5 font-mono shadow-2xl ring-1 yaxa-surface-elevated ring-black/10"
-							role="menu"
+							class="btn btn-sm flex h-8 items-center gap-2 rounded-lg border border-base-300 bg-base-200/80 px-2.5 font-mono text-xs font-bold transition-all hover:border-primary/50 hover:bg-base-200"
+							onclick={() => (isThemeMenuOpen = !isThemeMenuOpen)}
+							aria-haspopup="true"
+							aria-expanded={isThemeMenuOpen}
+							aria-label="Select color theme"
 						>
+							<Palette class="h-3.5 w-3.5 text-primary" />
+							<span
+								class="h-2.5 w-2.5 rounded-full border border-black/30 shadow-xs"
+								style="background-color: {activeThemeObj.primary};"
+							></span>
+							<span class="text-[11px] font-bold tracking-wider text-base-content uppercase">
+								{activeThemeObj.label}
+							</span>
+							<ChevronDown
+								class="h-3 w-3 text-neutral-content transition-transform duration-200 {isThemeMenuOpen
+									? 'rotate-180'
+									: ''}"
+							/>
+						</button>
+
+						{#if isThemeMenuOpen}
+							<!-- Click outside dismiss overlay -->
+							<button
+								type="button"
+								class="fixed inset-0 z-40 cursor-default bg-transparent"
+								onclick={() => (isThemeMenuOpen = false)}
+								aria-label="Close theme menu"
+								tabindex="-1"
+							></button>
+
 							<div
-								class="border-b border-base-200 px-2.5 py-1.5 text-[10px] font-bold tracking-wider text-neutral-content/70 uppercase"
+								class="absolute right-0 z-50 mt-2 w-60 origin-top-right rounded-xl border border-base-200 bg-base-100 p-1.5 font-mono shadow-2xl ring-1 yaxa-surface-elevated ring-black/10"
+								role="menu"
 							>
-								Theme Palettes
-							</div>
-							<div class="mt-1 space-y-0.5">
-								{#each themeOptions as theme (theme.id)}
-									{@const isSelected = currentTheme === theme.id}
-									<button
-										type="button"
-										role="menuitem"
-										class="flex w-full items-center justify-between rounded-lg px-2.5 py-2 text-xs transition-colors {isSelected
-											? 'bg-primary/15 font-bold text-primary'
-											: 'text-base-content hover:bg-base-200'}"
-										onclick={() => {
-											toggleTheme(theme.id);
-											isThemeMenuOpen = false;
-										}}
-									>
-										<div class="flex items-center gap-2.5">
-											<!-- Color Preview Swatch Pill -->
-											<div
-												class="flex h-4.5 w-8 items-center justify-center gap-1 rounded border border-base-300 p-0.5 shadow-inner"
-												style="background-color: {theme.bg};"
-											>
-												<span
-													class="h-2 w-2 rounded-full shadow-xs"
-													style="background-color: {theme.primary};"
-												></span>
-												<span
-													class="h-2 w-2 rounded-full shadow-xs"
-													style="background-color: {theme.accent};"
-												></span>
-											</div>
-											<div class="text-left">
-												<div class="text-[11px] font-bold tracking-wider uppercase">
-													{theme.label}
+								<div
+									class="border-b border-base-200 px-2.5 py-1.5 text-[10px] font-bold tracking-wider text-neutral-content/70 uppercase"
+								>
+									Theme Palettes
+								</div>
+								<div class="mt-1 space-y-0.5">
+									{#each themeOptions as theme (theme.id)}
+										{@const isSelected = currentTheme === theme.id}
+										<button
+											type="button"
+											role="menuitem"
+											class="flex w-full items-center justify-between rounded-lg px-2.5 py-2 text-xs transition-colors {isSelected
+												? 'bg-primary/15 font-bold text-primary'
+												: 'text-base-content hover:bg-base-200'}"
+											onclick={() => {
+												toggleTheme(theme.id);
+												isThemeMenuOpen = false;
+											}}
+										>
+											<div class="flex items-center gap-2.5">
+												<!-- Color Preview Swatch Pill -->
+												<div
+													class="flex h-4.5 w-8 items-center justify-center gap-1 rounded border border-base-300 p-0.5 shadow-inner"
+													style="background-color: {theme.bg};"
+												>
+													<span
+														class="h-2 w-2 rounded-full shadow-xs"
+														style="background-color: {theme.primary};"
+													></span>
+													<span
+														class="h-2 w-2 rounded-full shadow-xs"
+														style="background-color: {theme.accent};"
+													></span>
 												</div>
-												<div class="text-[9px] text-neutral-content/70">{theme.desc}</div>
+												<div class="text-left">
+													<div class="text-[11px] font-bold tracking-wider uppercase">
+														{theme.label}
+													</div>
+													<div class="text-[9px] text-neutral-content/70">{theme.desc}</div>
+												</div>
 											</div>
-										</div>
-										{#if isSelected}
-											<Check class="h-3.5 w-3.5 text-primary" />
-										{/if}
-									</button>
-								{/each}
+											{#if isSelected}
+												<Check class="h-3.5 w-3.5 text-primary" />
+											{/if}
+										</button>
+									{/each}
+								</div>
 							</div>
-						</div>
-					{/if}
+						{/if}
+					</div>
 				</div>
 			</header>
 

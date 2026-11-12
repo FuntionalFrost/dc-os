@@ -1,47 +1,49 @@
 # ⚡ RACK_COMMAND // DC-OS
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-dc--os.pages.dev-00f0ff?style=flat&logo=cloudflarepages&logoColor=white)](https://dc-os.pages.dev/)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-dc--os-181717?style=flat&logo=github&logoColor=white)](https://github.com/FuntionalFrost/dc-os)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Built with SvelteKit](https://img.shields.io/badge/SvelteKit-5-orange?logo=svelte)](https://kit.svelte.dev/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind-v4-38bdf8?logo=tailwindcss)](https://tailwindcss.com/)
-[![Fueled by Yaxa UI](https://img.shields.io/badge/Fueled%20by-Yaxa%20UI%20v1.10.0-6366f1?logo=svelte)](https://yaxa.vercel.app/)
+[![yaxa-svelte](https://img.shields.io/badge/yaxa--svelte-v2.8.1-6366f1?logo=svelte)](https://yaxa.vercel.app/)
 
 An all-in-one, zero-latency diagnostic suite and reference portal engineered for Data Center Technicians, Systems Administrators, and NOC Engineers operating on the server room floor. Built for maximum usability on crash cart monitors, handheld diagnostics tablets, and low-connectivity environments.
 
-> **[🚀 Live Demo →](https://dc-os.pages.dev/)**
+**[🚀 Open Live App](https://dc-os.pages.dev/)** • **[⭐ GitHub Repository](https://github.com/FuntionalFrost/dc-os)** • **[🖥️ Terminal](https://dc-os.pages.dev/terminal)** • **[💻 Cheat Sheet](https://dc-os.pages.dev/cheat-sheet)** • **[📡 Networking](https://dc-os.pages.dev/networking)** • **[🧵 Optics](https://dc-os.pages.dev/hardware)** • **[🧠 Exam Prep](https://dc-os.pages.dev/quiz)**
 
 ---
 
 ## 🚀 Key Modules & Capabilities
 
-### 🖥️ 1. Full-Screen KVM Terminal (`/terminal`)
+### 🖥️ 1. [Full-Screen KVM Terminal](https://dc-os.pages.dev/terminal) (`/terminal`)
 
 - **Interactive TTY Sandbox:** Full-screen `xterm.js` CLI emulator with ANSI color rendering, command history buffer, and macro quick-actions.
 - **Hardware Diagnostic Mocking:** Emulates real sysadmin diagnostics including `dmidecode`, `lsblk`, `lspci`, `lshw`, `smartctl`, `nvme list`, `ethtool -m`, `ipmitool sensor list`, and `dmesg`.
 - **Intelligent Command Matching:** Resolves commands by exact match → longest prefix → base command, so typing `smartctl` without full flags still returns a helpful response.
 - **Zero Scroll-Wheel Hijacking:** Configured with `calc(100vh - 6.5rem)` viewport bounding so log scrolling never shifts the browser page.
 
-### 💻 2. Host OS & Systems Suite (`/cheat-sheet`)
+### 💻 2. [Host OS & Systems Suite](https://dc-os.pages.dev/cheat-sheet) (`/cheat-sheet`)
 
 - **Linux Boot Stages Inspector:** Complete step-by-step guide covering UEFI/BIOS POST $\rightarrow$ GRUB2 $\rightarrow$ Kernel/initramfs $\rightarrow$ systemd PID 1 with diagnostic commands.
 - **Filesystem Hierarchy Standard (FHS):** Deep-dive path analyzer for `/proc`, `/sys`, `/etc`, `/var`, and `/dev` with sysadmin interview tips.
 - **Hands-On Troubleshooting Engine:** Real-world incident scenarios (e.g., CRC link flapping, rootfs kernel panics) with interactive fix evaluations.
 - **Bare-Metal Diagnostics & Command Builder:** Interactive syntax generators for complex `tar`, `ip route`, and disk utility pipelines.
 
-### 📡 3. Network Operations Center (`/networking`)
+### 📡 3. [Network Operations Center](https://dc-os.pages.dev/networking) (`/networking`)
 
 - **Bitwise IPv4 CIDR Calculator:** Real-time subnet boundary math supporting standard masks, point-to-point `/31` links (RFC 3021), and `/32` host routes.
 - **"Ping google.com" Protocol Flow:** 7-stage deep packet breakdown covering Socket allocation, DNS UDP/53, ARP discovery, ICMP framing, L3 BGP transit, Echo Reply, and RTT calculation.
 - **Optical Transceiver Diagnostics:** SFP+, QSFP28, and QSFP-DD form factor breakdown with real-time Digital Optical Monitoring (DOM) milliwatt-to-dBm ($10 \log_{10}(P_{\text{mW}})$) attenuation converters.
 - **Interactive OSI Model & DHCP DORA Visualizer:** Layer-by-layer spec breakdown and step-by-step UDP framing simulator.
 
-### 🧵 4. Optical Physical Layer (`/hardware`)
+### 🧵 4. [Optical Physical Layer](https://dc-os.pages.dev/hardware) (`/hardware`)
 
 - **TIA-598-C Fiber Core Indexer:** Instantly converts any strand number (1–144+) into its exact buffer tube and core color pair (Blue, Orange, Green, Brown, Slate, White, Red, Black, Yellow, Violet, Rose, Aqua).
 - **Optical Link Loss Budget Calculator:** Computes acceptable attenuation limits in dB using the industry equation:
 
 $$\text{Loss Limit (dB)} = (\text{Length} \times \text{Attenuation}) + (\text{Mated Pairs} \times 0.75) + (\text{Splices} \times 0.3)$$
 
-### 🧠 5. CompTIA Exam Simulator (`/quiz`)
+### 🧠 5. [CompTIA Exam Simulator](https://dc-os.pages.dev/quiz) (`/quiz`)
 
 - **Certification Coverage:** Practice scenario bank covering CompTIA A+, Network+, Server+, and Linux+.
 - **Study Mode:** Immediate answer verification with deep technical context explanations.
@@ -59,7 +61,7 @@ $$\text{Loss Limit (dB)} = (\text{Length} \times \text{Attenuation}) + (\text{Ma
 ## 🛠️ Tech Stack
 
 - **Framework:** [SvelteKit 2](https://kit.svelte.dev/) with [Svelte 5](https://svelte.dev/) (Runes `$state`, `$derived`, `$effect`)
-- **UI & Component System:** [Yaxa UI](https://yaxa.vercel.app/) ([`yaxa-svelte@^2.0.0`](https://www.npmjs.com/package/yaxa-svelte)) — `<CommandPalette>`, `<Kbd>`, `<Progress>`, `<Meter>`, `useShortcuts`, `useClipboard`, `useDebounce`
+- **UI & Component System:** [Yaxa](https://yaxa.vercel.app/) ([`yaxa-svelte@^2.8.1`](https://www.npmjs.com/package/yaxa-svelte)) — `<CommandPalette>`, `<Kbd>`, `<Progress>`, `<Meter>`, `useShortcuts`, `useClipboard`, `useDebounce`
 - **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) with native design tokens (`night`, `dracula`, `dim` themes)
 - **Terminal Engine:** [xterm.js](https://xtermjs.org/) & `@xterm/addon-fit`
 - **Iconography:** [Lucide Svelte](https://lucide.dev/guide/packages/lucide-svelte)
@@ -130,7 +132,7 @@ Areas where help is especially appreciated:
 
 ## 💖 Acknowledgments
 
-- Made possible and fueled by [Yaxa UI](https://yaxa.vercel.app/) for Svelte 5 and SvelteKit 2.
+- Made possible and fueled by [Yaxa](https://yaxa.vercel.app/) ([`yaxa-svelte`](https://www.npmjs.com/package/yaxa-svelte)) for Svelte 5 and SvelteKit 2.
 
 ---
 

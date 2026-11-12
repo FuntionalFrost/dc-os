@@ -1,4 +1,4 @@
-import { generateOgSvg, computeProjectBadge } from 'yaxa-svelte';
+import { generateOgSvg, computeProjectBadge } from 'yaxa-svelte/seo';
 import { siteConfig } from '../../../site.config';
 import type { RequestHandler } from '@sveltejs/kit';
 

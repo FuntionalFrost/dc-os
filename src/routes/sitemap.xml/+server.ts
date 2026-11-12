@@ -1,4 +1,4 @@
-import { createSitemapHandler, type SitemapRoute } from 'yaxa-svelte';
+import { createSitemapHandler, type SitemapRoute } from 'yaxa-svelte/seo';
 import { siteConfig } from '../../site.config';
 
 export const prerender = true;

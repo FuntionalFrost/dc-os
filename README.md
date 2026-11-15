@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Built with SvelteKit](https://img.shields.io/badge/SvelteKit-5-orange?logo=svelte)](https://kit.svelte.dev/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind-v4-38bdf8?logo=tailwindcss)](https://tailwindcss.com/)
-[![yaxa-svelte](https://img.shields.io/badge/yaxa--svelte-v2.8.1-6366f1?logo=svelte)](https://yaxa.vercel.app/)
+[![yaxa-svelte](https://img.shields.io/badge/yaxa--svelte-v2.10.0-6366f1?logo=svelte)](https://yaxa.vercel.app/)
 
 An all-in-one, zero-latency diagnostic suite and reference portal engineered for Data Center Technicians, Systems Administrators, and NOC Engineers operating on the server room floor. Built for maximum usability on crash cart monitors, handheld diagnostics tablets, and low-connectivity environments.
 
@@ -61,7 +61,7 @@ $$\text{Loss Limit (dB)} = (\text{Length} \times \text{Attenuation}) + (\text{Ma
 ## 🛠️ Tech Stack
 
 - **Framework:** [SvelteKit 2](https://kit.svelte.dev/) with [Svelte 5](https://svelte.dev/) (Runes `$state`, `$derived`, `$effect`)
-- **UI & Component System:** [Yaxa](https://yaxa.vercel.app/) ([`yaxa-svelte@^2.8.1`](https://www.npmjs.com/package/yaxa-svelte)) — `<CommandPalette>`, `<Kbd>`, `<Progress>`, `<Meter>`, `useShortcuts`, `useClipboard`, `useDebounce`
+- **UI & Component System:** [Yaxa](https://yaxa.vercel.app/) ([`yaxa-svelte@^2.10.0`](https://www.npmjs.com/package/yaxa-svelte)) — `<CommandPalette>`, `<Kbd>`, `<Progress>`, `<Meter>`, `useShortcuts`, `useClipboard`, `useDebounce`
 - **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) with native design tokens (`night`, `dracula`, `dim` themes)
 - **Terminal Engine:** [xterm.js](https://xtermjs.org/) & `@xterm/addon-fit`
 - **Iconography:** [Lucide Svelte](https://lucide.dev/guide/packages/lucide-svelte)

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Wrench } from '@lucide/svelte';
-	import { Kbd, Badge } from 'yaxa-svelte';
+	import { Badge, CodeDiff, Kbd } from 'yaxa-svelte';
 
 	let activeScenarioIndex = $state(0);
 	let userChoice = $state<number | null>(null);
@@ -19,7 +19,21 @@
 			],
 			correct: 1,
 			resolution:
-				"CRC errors indicate physical bit corruption occurring on the wire or optical core. Dirty fiber end-faces diffuse laser light, causing bit flips. Cleaning the bulkhead and checking 'ethtool -m' DOM optical power fixes 90% of flapping links."
+				"CRC errors indicate physical bit corruption occurring on the wire or optical core. Dirty fiber end-faces diffuse laser light, causing bit flips. Cleaning the bulkhead and checking 'ethtool -m' DOM optical power fixes 90% of flapping links.",
+			diff: {
+				filename: 'ethtool -m eth1 (DOM Optical Diagnostics)',
+				language: 'yaml',
+				original: `# Dirty LC Bulkhead with dust contamination
+Receiver signal average optical power: -19.42 dBm (Alarm Low)
+Laser bias current: 7.21 mA
+Link status: DOWN (flapping 30s cycle)
+rx_crc_errors: 48921`,
+				modified: `# Bulkhead cleaned with one-click pen & re-seated
+Receiver signal average optical power: -3.85 dBm (Nominal)
+Laser bias current: 7.25 mA
+Link status: UP (10000baseT/Full)
+rx_crc_errors: 0`
+			}
 		},
 		{
 			title: 'Scenario B: Server Boot Loop on Kernel Panic',
@@ -33,7 +47,43 @@
 			],
 			correct: 1,
 			resolution:
-				"The 'Unable to mount root fs' panic occurs when the kernel executes before storage drivers are available in memory, pointing to a corrupted or missing initramfs image. Regenerating initramfs fixes the driver tree."
+				"The 'Unable to mount root fs' panic occurs when the kernel executes before storage drivers are available in memory, pointing to a corrupted or missing initramfs image. Regenerating initramfs fixes the driver tree.",
+			diff: {
+				filename: '/boot/grub/grub.cfg (Kernel Boot Entry)',
+				language: 'bash',
+				original: `# Failing Entry: missing initrd driver image
+menuentry 'Ubuntu, Linux 6.8.0-generic' {
+    linux /vmlinuz-6.8.0-generic root=/dev/sda1 ro
+    # VFS Error: unable to mount root fs
+}`,
+				modified: `# Fixed Entry: initramfs restored via recovery
+menuentry 'Ubuntu, Linux 6.8.0-generic' {
+    linux /vmlinuz-6.8.0-generic root=UUID=8b34c11b-9f62-421b ro quiet
+    initrd /initrd.img-6.8.0-generic
+}`
+			}
+		},
+		{
+			title: 'Scenario C: Emergency Mode on Persistent Storage Mount',
+			setup:
+				"Following a reboot after replacing an SSD drive bay, a production node fails to boot and drops into: 'Welcome to emergency mode! Run journalctl -xb to view system logs'. Storage logs show a timeout waiting for /dev/sdb1.",
+			options: [
+				'Delete the /etc directory and reboot',
+				'Edit /etc/fstab to use persistent device UUID rather than volatile /dev/sdX names and append the nofail option',
+				'Execute mkfs.ext4 on /dev/sda1 to wipe the boot partition',
+				'Run chmod -R 777 / to restore filesystem access'
+			],
+			correct: 1,
+			resolution:
+				"Kernel device enumeration for /dev/sdX drives is non-deterministic and can reorder during hardware swaps. Always mount filesystems in /etc/fstab by persistent UUID (via 'blkid') and use 'nofail' on non-root drives to prevent emergency boot halt.",
+			diff: {
+				filename: '/etc/fstab (Filesystem Mount Table)',
+				language: 'bash',
+				original: `# Faulty: Volatile kernel path failed enumeration
+/dev/sdb1  /mnt/data  ext4  defaults  0  2`,
+				modified: `# Fixed: Stable persistent UUID with nofail safety
+UUID=8f7e2a1b-3c4d-5e6f-7a8b-9c0d1e2f3a4b  /mnt/data  ext4  defaults,nofail  0  2`
+			}
 		}
 	];
 
@@ -107,6 +157,24 @@
 						<p class="mt-1 leading-relaxed text-base-content">{currentScenario.resolution}</p>
 					</div>
 				</div>
+
+				{#if currentScenario.diff}
+					<div class="mt-3 space-y-1">
+						<div class="text-[10px] font-bold tracking-wider text-neutral-content/70 uppercase">
+							Remediation Configuration Diff:
+						</div>
+						<div class="overflow-hidden rounded-xl border border-base-300">
+							<CodeDiff
+								original={currentScenario.diff.original}
+								modified={currentScenario.diff.modified}
+								language={currentScenario.diff.language}
+								filename={currentScenario.diff.filename}
+								viewMode="unified"
+								showLineNumbers={true}
+							/>
+						</div>
+					</div>
+				{/if}
 
 				<button
 					onclick={nextScenario}

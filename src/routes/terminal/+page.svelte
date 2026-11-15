@@ -2,8 +2,8 @@
 	import PageHeader from '#lib/components/PageHeader.svelte';
 	import SEO from '#lib/components/SEO.svelte';
 	import TerminalSimulator from '#lib/components/TerminalSimulator.svelte';
-	import { Play, Search, Terminal as TerminalIcon } from '@lucide/svelte';
-	import { ResizablePanels, Kbd, Badge } from 'yaxa-svelte';
+	import { Play, RotateCcw, Search, Terminal as TerminalIcon } from '@lucide/svelte';
+	import { ResizablePanels, Kbd, Badge, EmptyState } from 'yaxa-svelte';
 
 	type CommandCategory = 'all' | 'hardware' | 'storage' | 'network' | 'access' | 'logs' | 'system';
 
@@ -379,8 +379,26 @@
 						{/each}
 
 						{#if filteredCommands.length === 0}
-							<div class="py-8 text-center text-xs text-neutral-content/60">
-								No diagnostic commands match "{filterQuery}".
+							<div class="py-4">
+								<EmptyState
+									icon={Search}
+									title="No Commands Found"
+									description="No diagnostic commands match '{filterQuery}'."
+									size="sm"
+								>
+									{#snippet actions()}
+										<button
+											type="button"
+											onclick={() => {
+												filterQuery = '';
+												activeCategory = 'all';
+											}}
+											class="btn btn-outline btn-xs gap-1 font-mono text-[11px]"
+										>
+											<RotateCcw class="h-3 w-3" /> Reset Filters
+										</button>
+									{/snippet}
+								</EmptyState>
 							</div>
 						{/if}
 					</div>

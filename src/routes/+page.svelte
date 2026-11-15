@@ -2,7 +2,8 @@
 	import SEO from '#lib/components/SEO.svelte';
 	import { portalModules } from '#lib/data/modules.js';
 	import { resolve } from '$app/paths';
-	import { ArrowRight, Terminal } from '@lucide/svelte';
+	import { ArrowRight, Network, Radio, ShieldCheck, Terminal } from '@lucide/svelte';
+	import { MetricCard } from 'yaxa-svelte';
 	import { generateSoftwareApplicationSchema, generateWebSiteSchema } from 'yaxa-svelte/seo';
 	import { siteConfig } from '../site.config';
 
@@ -62,6 +63,50 @@
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<!-- Live Diagnostic & System Telemetry Metrics -->
+	<div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+		<MetricCard
+			title="Optics DOM Rx Power"
+			value="-4.2 dBm"
+			change={-0.3}
+			changeType="absolute"
+			changePeriod="vs nominal 0 dBm"
+			icon={Radio}
+			sparkline={[-3.8, -3.9, -4.1, -4.0, -4.2]}
+			sparklineColor="success"
+		/>
+		<MetricCard
+			title="IPv4 Subnet Hosts"
+			value="254 /24"
+			change={254}
+			changeType="absolute"
+			changePeriod="usable RFC 1918"
+			icon={Network}
+			sparkline={[30, 62, 126, 254, 510]}
+			sparklineColor="primary"
+		/>
+		<MetricCard
+			title="CLI Mock Coverage"
+			value="50+ Cmds"
+			change={100}
+			changeType="percent"
+			changePeriod="interactive TTY"
+			icon={Terminal}
+			sparkline={[20, 32, 44, 48, 52]}
+			sparklineColor="warning"
+		/>
+		<MetricCard
+			title="Exam Scenario Bank"
+			value="100+ Qs"
+			change={15}
+			changeType="percent"
+			changePeriod="CompTIA Server+"
+			icon={ShieldCheck}
+			sparkline={[60, 75, 82, 90, 100]}
+			sparklineColor="auto"
+		/>
 	</div>
 
 	<!-- 5-Module Primary Portal Grid -->

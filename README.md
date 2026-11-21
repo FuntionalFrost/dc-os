@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Built with SvelteKit](https://img.shields.io/badge/SvelteKit-5-orange?logo=svelte)](https://kit.svelte.dev/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind-v4-38bdf8?logo=tailwindcss)](https://tailwindcss.com/)
-[![yaxa-svelte](https://img.shields.io/badge/yaxa--svelte-v2.10.0-6366f1?logo=svelte)](https://yaxa.vercel.app/)
+[![yaxa-svelte](https://img.shields.io/badge/yaxa--svelte-v2.10.1-6366f1?logo=svelte)](https://yaxa.vercel.app/)
 
 An all-in-one, zero-latency diagnostic suite and reference portal engineered for Data Center Technicians, Systems Administrators, and NOC Engineers operating on the server room floor. Built for maximum usability on crash cart monitors, handheld diagnostics tablets, and low-connectivity environments.
 

@@ -99,7 +99,9 @@
 		currentTheme = theme;
 		document.documentElement.setAttribute('data-theme', theme);
 		document.documentElement.classList.add('dark');
+		document.documentElement.style.colorScheme = 'dark';
 		localStorage.setItem('dc-theme', theme);
+		localStorage.setItem('yaxa-theme', 'dark');
 	}
 
 	function closeDrawer() {

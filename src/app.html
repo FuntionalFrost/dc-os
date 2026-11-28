@@ -25,6 +25,8 @@
 				const theme = localStorage.getItem('dc-theme') || 'night';
 				document.documentElement.setAttribute('data-theme', theme);
 				document.documentElement.classList.add('dark');
+				document.documentElement.style.colorScheme = 'dark';
+				localStorage.setItem('yaxa-theme', 'dark');
 			} catch (_) {}
 		</script>
 
